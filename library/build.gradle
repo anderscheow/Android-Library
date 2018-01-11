@@ -1,0 +1,72 @@
+apply plugin: 'com.android.library'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+apply from: 'maven-push.gradle'
+
+apply plugin: 'com.jakewharton.butterknife'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion '27.0.0'
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+    defaultConfig {
+        multiDexEnabled true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestApi('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    /** Core */
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api 'com.android.support:appcompat-v7:27.0.2'
+    api 'com.android.support:design:27.0.2'
+    api 'com.android.support:support-annotations:27.0.2'
+    kapt 'com.android.databinding:compiler:3.0.1'
+
+    /** Android Architecture */
+    api 'android.arch.lifecycle:extensions:1.0.0'
+    kapt "android.arch.lifecycle:compiler:1.0.0"
+    api 'android.arch.paging:runtime:1.0.0-alpha4-1'
+
+    /** Others */
+    api 'com.jakewharton:butterknife:8.8.1'
+    kapt 'com.jakewharton:butterknife-compiler:8.8.1'
+    api 'com.orhanobut:logger:2.1.1'
+    api 'org.greenrobot:eventbus:3.0.0'
+
+    testApi 'junit:junit:4.12'
+}
+repositories {
+    mavenCentral()
+}

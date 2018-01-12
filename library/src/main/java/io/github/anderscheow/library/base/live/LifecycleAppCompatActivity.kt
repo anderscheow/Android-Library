@@ -38,7 +38,7 @@ import io.github.anderscheow.library.services.ApplicationService
 @SuppressLint("Registered")
 abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>, S : ApplicationService> : BaseAppCompatActivity<S>() {
 
-    lateinit var viewModel: VM
+    var viewModel: VM? = null
 
     abstract fun setupViewModel(): VM
 
@@ -66,7 +66,7 @@ abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>, S : Appl
     }
 
     private fun setupProgressDialog() {
-        viewModel.progressDialogMessage.observe(this, object : ProgressDialogMessage.ProgressDialogObserver {
+        viewModel?.progressDialogMessage?.observe(this, object : ProgressDialogMessage.ProgressDialogObserver {
             override fun onNewMessage(message: Int) {
                 showProgressDialog(message)
             }
@@ -78,6 +78,6 @@ abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>, S : Appl
     }
 
     private fun setupToast() {
-        viewModel.toastMessage.observe(this, Observer { s -> toast(s) })
+        viewModel?.toastMessage?.observe(this, Observer { s -> toast(s) })
     }
 }

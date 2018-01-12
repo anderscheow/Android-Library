@@ -20,7 +20,7 @@ import io.github.anderscheow.library.R
 
 abstract class LifecycleFragment<VM : BaseAndroidViewModel<*>> : BaseFragment() {
 
-    lateinit var viewModel: VM
+    var viewModel: VM? = null
 
     private var progressDialog: ProgressDialog? = null
 
@@ -56,7 +56,7 @@ abstract class LifecycleFragment<VM : BaseAndroidViewModel<*>> : BaseFragment() 
     }
 
     private fun setupProgressDialog() {
-        viewModel.progressDialogMessage.observe(this, object : ProgressDialogMessage.ProgressDialogObserver {
+        viewModel?.progressDialogMessage?.observe(this, object : ProgressDialogMessage.ProgressDialogObserver {
             override fun onNewMessage(message: Int) {
                 showProgressDialog(message)
             }
@@ -68,7 +68,7 @@ abstract class LifecycleFragment<VM : BaseAndroidViewModel<*>> : BaseFragment() 
     }
 
     private fun setupToast() {
-        viewModel.toastMessage.observe(this, Observer { s -> toast(s) })
+        viewModel?.toastMessage?.observe(this, Observer { s -> toast(s) })
     }
 
     private fun showProgressDialog(message: Int) {

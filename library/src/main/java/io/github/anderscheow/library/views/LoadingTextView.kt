@@ -17,11 +17,19 @@ class LoadingTextView : android.support.v7.widget.AppCompatTextView {
     private val textViewText: String
         get() = text.toString()
 
-    constructor(context: Context) : super(context)
+    private var mContext: Context? = null
 
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
+    constructor(context: Context) : super(context) {
+        this.mContext = context
+    }
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
+        this.mContext = context
+    }
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+        this.mContext = context
+    }
 
     fun start() {
         defaultText = textViewText
@@ -49,16 +57,18 @@ class LoadingTextView : android.support.v7.widget.AppCompatTextView {
     }
 
     private fun animateText() {
-        if (context is Activity) {
-            (context as Activity).runOnUiThread {
-                if (defaultText.isEmpty()) {
-                    return@runOnUiThread
-                }
+        mContext?.let {
+            if (it is Activity) {
+                it.runOnUiThread {
+                    if (defaultText.isEmpty()) {
+                        return@runOnUiThread
+                    }
 
-                animateLoading(defaultText)
+                    animateLoading(defaultText)
+                }
+            } else {
+                timer.cancel()
             }
-        } else {
-            timer.cancel()
         }
     }
 

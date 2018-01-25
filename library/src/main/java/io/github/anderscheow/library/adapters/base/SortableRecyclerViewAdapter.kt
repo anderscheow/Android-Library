@@ -15,7 +15,7 @@ abstract class SortableRecyclerViewAdapter<T>(context: Context) : BaseRecyclerVi
     }
 
     private fun sort(comparator: Comparator<T>) {
-        getItems().let {
+        items.let {
             Collections.sort(it, comparator)
 
             notifyDataSetChanged()

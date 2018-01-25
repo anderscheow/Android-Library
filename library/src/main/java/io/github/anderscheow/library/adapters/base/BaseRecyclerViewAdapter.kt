@@ -10,20 +10,14 @@ abstract class BaseRecyclerViewAdapter<T>(val context: Context) : RecyclerView.A
 
     val layoutInflater: LayoutInflater = LayoutInflater.from(context)
 
-    private var items: MutableList<T> = ArrayList()
+    var items: MutableList<T> = ArrayList()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun getItemCount(): Int {
         return items.size
-    }
-
-    fun getItems(): MutableList<T> {
-        return items
-    }
-
-    fun setItems(items: MutableList<T>) {
-        this.items = items
-
-        notifyDataSetChanged()
     }
 
     fun setItemsWithoutNotify(items: MutableList<T>?) {

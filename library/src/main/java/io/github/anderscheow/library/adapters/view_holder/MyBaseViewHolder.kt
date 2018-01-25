@@ -11,7 +11,7 @@ abstract class MyBaseViewHolder<in T>(private val binding: ViewDataBinding) : Re
 
     private var item: T? = null
 
-    protected abstract fun extraBinding(t: T)
+    protected abstract fun extraBinding(item: T)
 
     protected abstract fun onClick(view: View, item: T?)
 

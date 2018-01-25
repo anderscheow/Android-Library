@@ -17,6 +17,7 @@ import butterknife.Unbinder
 import io.github.anderscheow.library.base.BaseFragment
 import io.github.anderscheow.library.BR
 import io.github.anderscheow.library.R
+import io.github.anderscheow.library.base.live.view_model.BaseAndroidViewModel
 
 abstract class LifecycleFragment<VM : BaseAndroidViewModel<*>> : BaseFragment() {
 

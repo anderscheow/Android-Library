@@ -24,11 +24,12 @@ import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 
-import com.anders.util.applicationservice.base.BaseAppCompatActivity
+import io.github.anderscheow.library.base.BaseAppCompatActivity
 import io.github.anderscheow.library.base.live.util.ProgressDialogMessage
 
 import butterknife.ButterKnife
 import io.github.anderscheow.library.BR
+import io.github.anderscheow.library.base.live.view_model.BaseAndroidViewModel
 import io.github.anderscheow.library.services.ApplicationService
 
 /**

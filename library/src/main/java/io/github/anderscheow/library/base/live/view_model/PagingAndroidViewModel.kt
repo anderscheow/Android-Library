@@ -1,4 +1,4 @@
-package io.github.anderscheow.library.base.live
+package io.github.anderscheow.library.base.live.view_model
 
 import android.app.Application
 import android.arch.lifecycle.LiveData

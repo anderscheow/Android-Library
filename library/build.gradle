@@ -49,19 +49,28 @@ dependencies {
 
     /** Core */
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    api 'com.android.support:appcompat-v7:27.0.2'
-    api 'com.android.support:design:27.0.2'
-    api 'com.android.support:support-annotations:27.0.2'
-    kapt 'com.android.databinding:compiler:3.0.1'
 
-    /** Android Architecture */
-    api 'android.arch.lifecycle:extensions:1.0.0'
-    kapt "android.arch.lifecycle:compiler:1.0.0"
-    api 'android.arch.paging:runtime:1.0.0-alpha4-1'
+    /** Android Support */
+    api "com.android.support:appcompat-v7:$android_support_version"
+    api "com.android.support:design:$android_support_version"
+    api "com.android.support:support-annotations:$android_support_version"
+
+    /** Android Architecture Lifecycle */
+    api "android.arch.lifecycle:extensions:$android_arch_lifecycle_version"
+    kapt "android.arch.lifecycle:compiler:$android_arch_lifecycle_version"
+
+    /** Android Architecture Paging */
+    api "android.arch.paging:runtime:$android_arch_paging_version"
+
+    /** Butterknife */
+    api "com.jakewharton:butterknife:$butterknife_version"
+    kapt "com.jakewharton:butterknife-compiler:$butterknife_version"
+
+    /** Kotlin */
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    kapt "com.android.databinding:compiler:$android_gradle_version"
 
     /** Others */
-    api 'com.jakewharton:butterknife:8.8.1'
-    kapt 'com.jakewharton:butterknife-compiler:8.8.1'
     api 'com.orhanobut:logger:2.1.1'
     api 'org.greenrobot:eventbus:3.0.0'
 

@@ -1,4 +1,4 @@
-package com.anders.util.applicationservice.base
+package io.github.anderscheow.library.base
 
 import android.os.Bundle
 import android.support.annotation.LayoutRes

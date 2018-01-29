@@ -79,6 +79,10 @@ abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>, S : Appl
     }
 
     private fun setupToast() {
-        viewModel?.toastMessage?.observe(this, Observer { s -> toast(s) })
+        viewModel?.toastMessage?.observe(this, Observer { s ->
+            s?.let {
+                toast(it)
+            }
+        })
     }
 }

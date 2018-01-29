@@ -1,5 +1,8 @@
 package io.github.anderscheow.library.kotlin
 
+import android.content.Context
+import android.net.ConnectivityManager
+
 /** Check not null */
 fun <T1: Any, T2: Any, R: Any> safeLet(p1: T1?, p2: T2?, block: (T1, T2) -> R?): R? {
     return if (p1 != null && p2 != null) block(p1, p2) else null
@@ -66,7 +69,15 @@ fun <T: Any, R: Any> isNotNullAndNotEmpty(p1: T?, p2: T?, p3: T?, p4: T?, p5: T?
     return null
 }
 
-/** Extension for String to check is not null and not empty */
+/** Extension for String */
+// Check string is not null and not empty
 fun String?.isNotNullAndNotEmpty(): Boolean {
     return this != null && this.isNotEmpty()
+}
+
+/** Extension for Context */
+// Check is network available
+fun Context.isConnectedToInternet(): Boolean {
+    val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
+    return connectivityManager?.activeNetworkInfo?.isConnected ?: false
 }

@@ -46,8 +46,6 @@ abstract class LifecycleFragment<VM : BaseAndroidViewModel<*>> : BaseFragment() 
 
         binding.setVariable(BR.obj, viewModel)
 
-        init()
-
         return view
     }
 

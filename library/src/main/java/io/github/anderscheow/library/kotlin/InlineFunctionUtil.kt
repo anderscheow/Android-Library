@@ -69,6 +69,17 @@ fun <T: Any, R: Any> isNotNullAndNotEmpty(p1: T?, p2: T?, p3: T?, p4: T?, p5: T?
     return null
 }
 
+/** Util */
+// Generate empty String
+fun empty(): String {
+    return ""
+}
+
+// Generate empty List
+fun <T> emptyList(): List<T> {
+    return ArrayList()
+}
+
 /** Extension for String */
 // Check string is not null and not empty
 fun String?.isNotNullAndNotEmpty(): Boolean {

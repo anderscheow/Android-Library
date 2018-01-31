@@ -49,6 +49,7 @@ abstract class BaseAppCompatActivity<T : ApplicationService> : ServiceBoundAppCo
         }
 
         startService()
+        init()
     }
 
     override fun onStart() {

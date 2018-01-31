@@ -14,7 +14,7 @@ buildscript {
         android_arch_lifecycle_version = '1.1.0'
 
         /** Android Architecture Paging */
-        android_arch_paging_version = '1.0.0-alpha4-1'
+        android_arch_paging_version = '1.0.0-alpha5'
 
         /** Butterknife */
         butterknife_version = '8.8.1'

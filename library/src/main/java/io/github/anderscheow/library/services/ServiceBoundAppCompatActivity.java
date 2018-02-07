@@ -1,33 +1,24 @@
 package io.github.anderscheow.library.services;
 
-import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.ServiceConnection;
-import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-import io.github.anderscheow.library.R;
+import io.github.anderscheow.library.base.BaseAppCompatActivity;
 
-public abstract class ServiceBoundAppCompatActivity<T extends ApplicationService> extends AppCompatActivity
+public abstract class ServiceBoundAppCompatActivity<T extends ApplicationService> extends BaseAppCompatActivity
         implements ServiceConnection {
 
     private ApplicationServiceScheduler scheduler;
     private boolean bound;
     private Queue<ApplicationServiceReadyCallback<T>> callbackQueue;
-
-    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,58 +68,6 @@ public abstract class ServiceBoundAppCompatActivity<T extends ApplicationService
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm != null ? cm.getActiveNetworkInfo() : null;
         return netInfo != null && netInfo.isConnectedOrConnecting() && !netInfo.isRoaming();
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    protected boolean canAccessCamera() {
-        return PackageManager.PERMISSION_GRANTED == checkSelfPermission(Manifest.permission.CAMERA);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    protected boolean canAccessStorage() {
-        return PackageManager.PERMISSION_GRANTED == checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    protected boolean canAccessLocation() {
-        return PackageManager.PERMISSION_GRANTED == checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) &&
-                PackageManager.PERMISSION_GRANTED == checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    protected boolean shouldShowLocationPermissionRationalDialog() {
-        return shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION) &&
-                shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION);
-    }
-
-    public void showProgressDialog(int message) {
-        if (progressDialog == null) {
-            progressDialog = new ProgressDialog(this);
-        }
-
-        progressDialog.setMessage(message == 0 ? getString(R.string.prompt_please_wait) : getString(message));
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.setCancelable(false);
-        progressDialog.setIndeterminate(true);
-        progressDialog.show();
-    }
-
-    public void dismissProgressDialog() {
-        if (progressDialog != null) {
-            progressDialog.dismiss();
-        }
-    }
-
-    public void toast(int resourceID) {
-        Toast.makeText(this, resourceID, Toast.LENGTH_SHORT).show();
-    }
-
-    public void toast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-    }
-
-    public void toastInternetRequired() {
-        Toast.makeText(this, getString(R.string.prompt_internet_required), Toast.LENGTH_LONG).show();
     }
 
     public abstract void startService();

@@ -29,10 +29,12 @@ abstract class BaseAndroidViewModel<in T>(context: Application) : AndroidViewMod
     }
 
     /**
-     * Called to show or dismiss progress dialog
-     *
-     * @param message if >=0 show, if -1 dismiss
+     * Called to dismiss progress dialog
      */
+    protected fun dismissProgressDialog() {
+        progressDialogMessage.value = -1
+    }
+
     protected fun showToast(message: String) {
         toastMessage.value = message
     }

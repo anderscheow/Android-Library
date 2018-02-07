@@ -37,7 +37,7 @@ import io.github.anderscheow.library.services.ApplicationService
  * [LifecycleOwner].
  */
 @SuppressLint("Registered")
-abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>, S : ApplicationService> : BaseAppCompatActivity<S>() {
+abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : BaseAppCompatActivity() {
 
     var viewModel: VM? = null
 

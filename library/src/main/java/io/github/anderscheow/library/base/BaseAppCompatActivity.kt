@@ -161,7 +161,7 @@ abstract class BaseAppCompatActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
-    fun toastInternetRequired() {
+    open fun toastInternetRequired() {
         Toast.makeText(this, getString(R.string.prompt_internet_required), Toast.LENGTH_LONG).show()
     }
 }

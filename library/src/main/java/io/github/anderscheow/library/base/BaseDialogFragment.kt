@@ -9,14 +9,11 @@ import android.support.v4.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-import io.github.anderscheow.library.constant.EventBusType
-import com.orhanobut.logger.Logger
-
-import org.greenrobot.eventbus.EventBus
-
 import butterknife.ButterKnife
 import butterknife.Unbinder
+import com.orhanobut.logger.Logger
+import io.github.anderscheow.library.constant.EventBusType
+import org.greenrobot.eventbus.EventBus
 
 abstract class BaseDialogFragment : DialogFragment() {
 

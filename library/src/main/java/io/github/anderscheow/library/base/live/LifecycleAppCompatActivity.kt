@@ -23,14 +23,11 @@ import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-
-import io.github.anderscheow.library.base.BaseAppCompatActivity
-import io.github.anderscheow.library.base.live.util.ProgressDialogMessage
-
 import butterknife.ButterKnife
 import io.github.anderscheow.library.BR
+import io.github.anderscheow.library.base.BaseAppCompatActivity
+import io.github.anderscheow.library.base.live.util.ProgressDialogMessage
 import io.github.anderscheow.library.base.live.view_model.BaseAndroidViewModel
-import io.github.anderscheow.library.services.ApplicationService
 
 /**
  * Temporary class until Architecture Components is final. Makes [AppCompatActivity] a
@@ -55,12 +52,6 @@ abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : BaseAp
         binding.setVariable(BR.obj, viewModel)
 
         ButterKnife.bind(this)
-
-        toolbar?.let {
-            setSupportActionBar(it)
-
-            supportActionBar?.setDisplayHomeAsUpEnabled(requiredDisplayHomeAsUp())
-        }
 
         setupProgressDialog()
         setupToast()

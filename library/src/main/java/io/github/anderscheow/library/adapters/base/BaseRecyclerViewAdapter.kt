@@ -3,8 +3,7 @@ package io.github.anderscheow.library.adapters.base
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-
-import java.util.ArrayList
+import java.util.*
 
 abstract class BaseRecyclerViewAdapter<T>(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

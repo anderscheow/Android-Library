@@ -3,8 +3,6 @@ package io.github.anderscheow.library.base.live.view_model;
 import android.app.Application;
 import android.databinding.ObservableField;
 
-import io.github.anderscheow.library.base.live.view_model.BaseAndroidViewModel;
-
 @Deprecated
 public abstract class PaginatedAndroidViewModel<T> extends BaseAndroidViewModel<T> {
 

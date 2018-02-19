@@ -43,7 +43,7 @@ abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : BaseAp
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = setupViewModel()
-        
+
         val binding = DataBindingUtil.setContentView<ViewDataBinding>(this, resLayout)
         binding.setVariable(BR.obj, viewModel)
 

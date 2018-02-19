@@ -51,8 +51,6 @@ abstract class BaseAppCompatActivity : AppCompatActivity() {
 
             supportActionBar?.setDisplayHomeAsUpEnabled(requiredDisplayHomeAsUp())
         }
-
-        init()
     }
 
     override fun onStart() {

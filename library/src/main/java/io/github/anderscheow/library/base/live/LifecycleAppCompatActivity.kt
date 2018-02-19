@@ -36,11 +36,14 @@ import io.github.anderscheow.library.base.live.view_model.BaseAndroidViewModel
 @SuppressLint("Registered")
 abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : BaseAppCompatActivity() {
 
-    abstract var viewModel: VM
+    lateinit var viewModel: VM
+
+    abstract fun setupViewModel(): VM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        viewModel = setupViewModel()
+        
         val binding = DataBindingUtil.setContentView<ViewDataBinding>(this, resLayout)
         binding.setVariable(BR.obj, viewModel)
 

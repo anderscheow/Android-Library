@@ -21,7 +21,7 @@ abstract class BaseAppCompatActivity : AppCompatActivity() {
     @get:LayoutRes
     abstract val resLayout: Int
 
-    abstract val toolbar: Toolbar
+    abstract val toolbar: Toolbar?
 
     abstract val eventBusType: EventBusType?
 
@@ -45,7 +45,7 @@ abstract class BaseAppCompatActivity : AppCompatActivity() {
             }
         }
 
-        toolbar.let {
+        toolbar?.let {
             setSupportActionBar(toolbar)
 
             supportActionBar?.setDisplayHomeAsUpEnabled(requiredDisplayHomeAsUp())

@@ -3,9 +3,7 @@ package io.github.anderscheow.library.views
 import android.app.Activity
 import android.content.Context
 import android.util.AttributeSet
-
-import java.util.Timer
-import java.util.TimerTask
+import java.util.*
 
 class LoadingTextView : android.support.v7.widget.AppCompatTextView {
 

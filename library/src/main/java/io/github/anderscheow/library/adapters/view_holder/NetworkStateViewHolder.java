@@ -6,11 +6,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-
-import io.github.anderscheow.library.constant.NetworkState;
-
 import butterknife.BindView;
 import io.github.anderscheow.library.R2;
+import io.github.anderscheow.library.constant.NetworkState;
 import io.github.anderscheow.library.databinding.ViewNetworkStateBinding;
 
 public class NetworkStateViewHolder extends MyBaseViewHolder<NetworkState> {
@@ -20,26 +18,9 @@ public class NetworkStateViewHolder extends MyBaseViewHolder<NetworkState> {
 
     @BindView(R2.id.text_view_error_msg)
     TextView textViewErrorMsg;
-
-    public interface RetryCallback {
-        void retry();
-    }
-
     private RetryCallback callback;
-
     @StringRes
     private Integer errorMessage;
-
-    public static NetworkStateViewHolder create(@NonNull ViewNetworkStateBinding binding,
-                                                RetryCallback callback) {
-        return new NetworkStateViewHolder(binding, callback);
-    }
-
-    public static NetworkStateViewHolder create(@NonNull ViewNetworkStateBinding binding,
-                                                RetryCallback callback,
-                                                @StringRes Integer errorMessage) {
-        return new NetworkStateViewHolder(binding, callback);
-    }
 
     private NetworkStateViewHolder(ViewNetworkStateBinding binding, RetryCallback callback) {
         super(binding);
@@ -53,6 +34,17 @@ public class NetworkStateViewHolder extends MyBaseViewHolder<NetworkState> {
 
         this.callback = callback;
         this.errorMessage = errorMessage;
+    }
+
+    public static NetworkStateViewHolder create(@NonNull ViewNetworkStateBinding binding,
+                                                RetryCallback callback) {
+        return new NetworkStateViewHolder(binding, callback);
+    }
+
+    public static NetworkStateViewHolder create(@NonNull ViewNetworkStateBinding binding,
+                                                RetryCallback callback,
+                                                @StringRes Integer errorMessage) {
+        return new NetworkStateViewHolder(binding, callback);
     }
 
     @Override
@@ -71,5 +63,9 @@ public class NetworkStateViewHolder extends MyBaseViewHolder<NetworkState> {
     @Override
     protected void onClick(@NonNull View view, NetworkState item) {
 
+    }
+
+    public interface RetryCallback {
+        void retry();
     }
 }

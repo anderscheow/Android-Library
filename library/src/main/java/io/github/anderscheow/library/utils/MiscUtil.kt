@@ -3,7 +3,7 @@ package io.github.anderscheow.library.utils
 import android.app.Activity
 import android.content.Context
 import android.util.DisplayMetrics
-import java.util.ArrayList
+import java.util.*
 
 object MiscUtil {
 

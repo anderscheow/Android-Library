@@ -3,7 +3,6 @@ package io.github.anderscheow.library.base
 import android.Manifest
 import android.app.ProgressDialog
 import android.content.pm.PackageManager
-import android.databinding.DataBindingUtil.setContentView
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.LayoutRes
@@ -11,23 +10,18 @@ import android.support.annotation.RequiresApi
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.widget.Toast
-
-import io.github.anderscheow.library.constant.EventBusType
-import com.orhanobut.logger.Logger
-
-import org.greenrobot.eventbus.EventBus
-
 import butterknife.ButterKnife
+import com.orhanobut.logger.Logger
 import io.github.anderscheow.library.R
-import io.github.anderscheow.library.services.ApplicationService
-import io.github.anderscheow.library.services.ServiceBoundAppCompatActivity
+import io.github.anderscheow.library.constant.EventBusType
+import org.greenrobot.eventbus.EventBus
 
 abstract class BaseAppCompatActivity : AppCompatActivity() {
 
     @get:LayoutRes
     abstract val resLayout: Int
 
-    abstract val toolbar: Toolbar?
+    abstract val toolbar: Toolbar
 
     abstract val eventBusType: EventBusType?
 
@@ -37,10 +31,13 @@ abstract class BaseAppCompatActivity : AppCompatActivity() {
 
     abstract fun init()
 
+    abstract var initializer: () -> Unit
+
     var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Logger.v("Activity CREATED")
+        initializer.invoke()
         super.onCreate(savedInstanceState)
         if (EventBusType.isOnCreate(eventBusType)) {
             if (!EventBus.getDefault().isRegistered(this)) {
@@ -48,15 +45,15 @@ abstract class BaseAppCompatActivity : AppCompatActivity() {
             }
         }
 
+        toolbar.let {
+            setSupportActionBar(toolbar)
+
+            supportActionBar?.setDisplayHomeAsUpEnabled(requiredDisplayHomeAsUp())
+        }
+
         if (!requiredDataBinding()) {
             setContentView(resLayout)
             ButterKnife.bind(this)
-
-            toolbar?.let {
-                setSupportActionBar(toolbar)
-
-                supportActionBar?.setDisplayHomeAsUpEnabled(requiredDisplayHomeAsUp())
-            }
         }
 
         init()

@@ -1,9 +1,7 @@
 package io.github.anderscheow.library.adapters.base
 
 import android.content.Context
-
-import java.util.Collections
-import java.util.Comparator
+import java.util.*
 
 abstract class SortableRecyclerViewAdapter<T>(context: Context) : BaseRecyclerViewAdapter<T>(context) {
 

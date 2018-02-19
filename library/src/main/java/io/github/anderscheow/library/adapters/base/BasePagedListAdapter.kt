@@ -9,11 +9,10 @@ import android.support.v7.recyclerview.extensions.DiffCallback
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import io.github.anderscheow.library.adapters.view_holder.MyBaseViewHolder
-import io.github.anderscheow.library.constant.NetworkState
 import io.github.anderscheow.library.R
-
+import io.github.anderscheow.library.adapters.view_holder.MyBaseViewHolder
 import io.github.anderscheow.library.adapters.view_holder.NetworkStateViewHolder
+import io.github.anderscheow.library.constant.NetworkState
 import io.github.anderscheow.library.databinding.ViewNetworkStateBinding
 
 abstract class BasePagedListAdapter<T>(

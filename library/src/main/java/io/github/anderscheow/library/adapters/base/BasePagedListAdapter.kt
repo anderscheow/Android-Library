@@ -23,9 +23,9 @@ abstract class BasePagedListAdapter<T>(
     @get:LayoutRes
     protected abstract val bodyLayout: Int
 
-    private var networkState: NetworkState? = null
-
     protected abstract fun getBodyViewHolder(binding: ViewDataBinding): RecyclerView.ViewHolder
+
+    private var networkState: NetworkState? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

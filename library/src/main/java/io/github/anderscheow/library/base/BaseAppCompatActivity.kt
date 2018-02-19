@@ -27,8 +27,6 @@ abstract class BaseAppCompatActivity : AppCompatActivity() {
 
     abstract fun requiredDisplayHomeAsUp(): Boolean
 
-    abstract fun requiredDataBinding(): Boolean
-
     abstract fun init()
 
     abstract var initializer: () -> Unit
@@ -45,15 +43,13 @@ abstract class BaseAppCompatActivity : AppCompatActivity() {
             }
         }
 
+        setContentView(resLayout)
+        ButterKnife.bind(this)
+
         toolbar?.let {
             setSupportActionBar(toolbar)
 
             supportActionBar?.setDisplayHomeAsUpEnabled(requiredDisplayHomeAsUp())
-        }
-
-        if (!requiredDataBinding()) {
-            setContentView(resLayout)
-            ButterKnife.bind(this)
         }
 
         init()

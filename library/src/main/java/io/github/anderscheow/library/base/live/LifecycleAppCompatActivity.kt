@@ -36,20 +36,19 @@ import io.github.anderscheow.library.base.live.view_model.BaseAndroidViewModel
 @SuppressLint("Registered")
 abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : BaseAppCompatActivity() {
 
-    var viewModel: VM? = null
-
-    abstract fun setupViewModel(): VM
-
-    override fun requiredDataBinding(): Boolean {
-        return true
-    }
+    abstract var viewModel: VM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = setupViewModel()
 
         val binding = DataBindingUtil.setContentView<ViewDataBinding>(this, resLayout)
         binding.setVariable(BR.obj, viewModel)
+
+        toolbar?.let {
+            setSupportActionBar(toolbar)
+
+            supportActionBar?.setDisplayHomeAsUpEnabled(requiredDisplayHomeAsUp())
+        }
 
         ButterKnife.bind(this)
 
@@ -58,7 +57,7 @@ abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : BaseAp
     }
 
     private fun setupProgressDialog() {
-        viewModel?.progressDialogMessage?.observe(this, object : ProgressDialogMessage.ProgressDialogObserver {
+        viewModel.progressDialogMessage.observe(this, object : ProgressDialogMessage.ProgressDialogObserver {
             override fun onNewMessage(message: Int) {
                 showProgressDialog(message)
             }
@@ -70,7 +69,7 @@ abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : BaseAp
     }
 
     private fun setupToast() {
-        viewModel?.toastMessage?.observe(this, Observer { s ->
+        viewModel.toastMessage.observe(this, Observer { s ->
             s?.let {
                 toast(it)
             }

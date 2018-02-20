@@ -25,7 +25,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import butterknife.ButterKnife
 import io.github.anderscheow.library.BR
-import io.github.anderscheow.library.base.BaseAppCompatActivity
+import io.github.anderscheow.library.base.FoundationAppCompatActivity
 import io.github.anderscheow.library.base.live.util.ProgressDialogMessage
 import io.github.anderscheow.library.base.live.view_model.BaseAndroidViewModel
 
@@ -34,18 +34,21 @@ import io.github.anderscheow.library.base.live.view_model.BaseAndroidViewModel
  * [LifecycleOwner].
  */
 @SuppressLint("Registered")
-abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : BaseAppCompatActivity() {
+abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : FoundationAppCompatActivity() {
 
     var viewModel: VM? = null
 
     abstract fun setupViewModel(): VM
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        initializer.invoke()
+
         viewModel = setupViewModel()
 
         val binding = DataBindingUtil.setContentView<ViewDataBinding>(this, resLayout)
         binding.setVariable(BR.obj, viewModel)
+
+        super.onCreate(savedInstanceState)
 
         toolbar?.let {
             setSupportActionBar(toolbar)
@@ -57,6 +60,8 @@ abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : BaseAp
 
         setupProgressDialog()
         setupToast()
+
+        init()
     }
 
     private fun setupProgressDialog() {

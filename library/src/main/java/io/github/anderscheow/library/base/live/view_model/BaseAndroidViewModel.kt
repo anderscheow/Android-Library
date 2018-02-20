@@ -25,18 +25,18 @@ abstract class BaseAndroidViewModel<in T>(context: Application) : AndroidViewMod
      * @param message if >=0 show, if -1 dismiss
      */
     protected fun showProgressDialog(@StringRes message: Int) {
-        progressDialogMessage.value = message
+        progressDialogMessage.postValue(message)
     }
 
     /**
      * Called to dismiss progress dialog
      */
     protected fun dismissProgressDialog() {
-        progressDialogMessage.value = -1
+        progressDialogMessage.postValue(-1)
     }
 
     protected fun showToast(message: String) {
-        toastMessage.value = message
+        toastMessage.postValue(message)
     }
 
     protected fun setIsLoading(value: Boolean) {

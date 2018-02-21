@@ -28,6 +28,7 @@ import io.github.anderscheow.library.BR
 import io.github.anderscheow.library.base.FoundationAppCompatActivity
 import io.github.anderscheow.library.base.live.util.ProgressDialogMessage
 import io.github.anderscheow.library.base.live.view_model.BaseAndroidViewModel
+import org.jetbrains.anko.toast
 
 /**
  * Temporary class until Architecture Components is final. Makes [AppCompatActivity] a

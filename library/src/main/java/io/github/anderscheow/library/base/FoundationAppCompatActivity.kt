@@ -9,11 +9,12 @@ import android.support.annotation.LayoutRes
 import android.support.annotation.RequiresApi
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.widget.Toast
 import com.orhanobut.logger.Logger
 import io.github.anderscheow.library.R
 import io.github.anderscheow.library.constant.EventBusType
+import io.github.anderscheow.library.kotlin.isConnectedToInternet
 import org.greenrobot.eventbus.EventBus
+import org.jetbrains.anko.*
 
 abstract class FoundationAppCompatActivity : AppCompatActivity() {
 
@@ -30,7 +31,7 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
 
     abstract var initializer: () -> Unit
 
-    var progressDialog: ProgressDialog? = null
+    private var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Logger.v("Activity CREATED")
@@ -117,15 +118,16 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
         return shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION) && shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)
     }
 
+    //region Progress Dialog
     fun showProgressDialog(message: Int) {
         if (progressDialog == null) {
-            progressDialog = ProgressDialog(this)
+            progressDialog = progressDialog(if (message == 0) R.string.prompt_please_wait else message) {
+                setCanceledOnTouchOutside(false)
+                setCancelable(false)
+                isIndeterminate = true
+            }
         }
 
-        progressDialog?.setMessage(if (message == 0) getString(R.string.prompt_please_wait) else getString(message))
-        progressDialog?.setCanceledOnTouchOutside(false)
-        progressDialog?.setCancelable(false)
-        progressDialog?.isIndeterminate = true
         progressDialog?.show()
     }
 
@@ -133,15 +135,92 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
         progressDialog?.dismiss()
     }
 
-    fun toast(resourceID: Int) {
-        Toast.makeText(this, resourceID, Toast.LENGTH_SHORT).show()
-    }
-
-    fun toast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-    }
-
     open fun toastInternetRequired() {
-        Toast.makeText(this, getString(R.string.prompt_internet_required), Toast.LENGTH_LONG).show()
+        toast(R.string.prompt_internet_required)
     }
+
+    fun isConnectedToInternet(action: () -> Unit) {
+        if (isConnectedToInternet()) {
+            action.invoke()
+        } else {
+            toastInternetRequired()
+        }
+    }
+
+    fun checkLoadingIndicator(active: Boolean, message: Int) {
+        if (active) {
+            showProgressDialog(message)
+        } else {
+            dismissProgressDialog()
+        }
+    }
+    //endregion
+
+    //region Alert Dialog
+    fun showYesAlertDialog(message: String, buttonText: Int = 0, action: () -> Unit) {
+        alert(message) {
+            isCancelable = false
+
+            if (buttonText == 0) {
+                yesButton {
+                    action.invoke()
+                    it.dismiss()
+                }
+            } else {
+                positiveButton(buttonText, {
+                    action.invoke()
+                    it.dismiss()
+                })
+            }
+        }.show()
+    }
+
+    fun showNoAlertDialog(message: String, buttonText: Int = 0, action: () -> Unit) {
+        alert(message) {
+            isCancelable = false
+
+            if (buttonText == 0) {
+                noButton {
+                    action.invoke()
+                    it.dismiss()
+                }
+            } else {
+                negativeButton(buttonText, {
+                    action.invoke()
+                    it.dismiss()
+                })
+            }
+        }.show()
+    }
+
+    fun showYesNoAlertDialog(message: String, yesButtonText: Int = 0, noButtonText: Int = 0, yesAction: () -> Unit, noAction: () -> Unit) {
+        alert(message) {
+            isCancelable = false
+
+            if (yesButtonText == 0) {
+                yesButton {
+                    yesAction.invoke()
+                    it.dismiss()
+                }
+            } else {
+                positiveButton(yesButtonText, {
+                    yesAction.invoke()
+                    it.dismiss()
+                })
+            }
+
+            if (noButtonText == 0) {
+                noButton {
+                    noAction.invoke()
+                    it.dismiss()
+                }
+            } else {
+                negativeButton(noButtonText, {
+                    noAction.invoke()
+                    it.dismiss()
+                })
+            }
+        }.show()
+    }
+    //endregion
 }

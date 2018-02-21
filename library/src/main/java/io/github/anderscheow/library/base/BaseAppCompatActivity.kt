@@ -10,11 +10,11 @@ abstract class BaseAppCompatActivity : FoundationAppCompatActivity() {
 
         super.onCreate(savedInstanceState)
 
-        setContentView(resLayout)
+        setContentView(getResLayout())
         ButterKnife.bind(this)
 
-        toolbar?.let {
-            setSupportActionBar(toolbar)
+        getToolbar()?.let {
+            setSupportActionBar(getToolbar())
 
             supportActionBar?.setDisplayHomeAsUpEnabled(requiredDisplayHomeAsUp())
         }

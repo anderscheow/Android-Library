@@ -18,12 +18,12 @@ import org.jetbrains.anko.*
 
 abstract class FoundationAppCompatActivity : AppCompatActivity() {
 
-    @get:LayoutRes
-    abstract val resLayout: Int
+    @LayoutRes
+    abstract fun getResLayout(): Int
 
-    abstract val toolbar: Toolbar?
+    abstract fun getToolbar(): Toolbar?
 
-    abstract val eventBusType: EventBusType?
+    abstract fun getEventBusType(): EventBusType?
 
     abstract fun requiredDisplayHomeAsUp(): Boolean
 
@@ -31,12 +31,13 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
 
     abstract var initializer: () -> Unit
 
-    private var progressDialog: ProgressDialog? = null
+    var progressDialog: ProgressDialog? = null
+        private set
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Logger.v("Activity CREATED")
         super.onCreate(savedInstanceState)
-        if (EventBusType.isOnCreate(eventBusType)) {
+        if (EventBusType.isOnCreate(getEventBusType())) {
             if (!EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().register(this)
             }
@@ -46,7 +47,7 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
     override fun onStart() {
         Logger.v("Activity STARTED")
         super.onStart()
-        if (EventBusType.isOnStart(eventBusType)) {
+        if (EventBusType.isOnStart(getEventBusType())) {
             if (!EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().register(this)
             }
@@ -56,7 +57,7 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
     override fun onResume() {
         Logger.v("Activity RESUMED")
         super.onResume()
-        if (EventBusType.isOnResume(eventBusType)) {
+        if (EventBusType.isOnResume(getEventBusType())) {
             if (!EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().register(this)
             }
@@ -65,7 +66,7 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
 
     override fun onPause() {
         Logger.v("Activity PAUSED")
-        if (EventBusType.isOnResume(eventBusType)) {
+        if (EventBusType.isOnResume(getEventBusType())) {
             if (EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().unregister(this)
             }
@@ -75,7 +76,7 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
 
     override fun onStop() {
         Logger.v("Activity STOPPED")
-        if (EventBusType.isOnStart(eventBusType)) {
+        if (EventBusType.isOnStart(getEventBusType())) {
             if (EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().unregister(this)
             }
@@ -83,14 +84,9 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
         super.onStop()
     }
 
-    override fun onRestart() {
-        Logger.v("Activity RESTARTED")
-        super.onRestart()
-    }
-
     override fun onDestroy() {
         Logger.v("Activity DESTROYED")
-        if (EventBusType.isOnCreate(eventBusType)) {
+        if (EventBusType.isOnCreate(getEventBusType())) {
             if (EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().unregister(this)
             }

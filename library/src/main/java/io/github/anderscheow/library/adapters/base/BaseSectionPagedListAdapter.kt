@@ -15,7 +15,7 @@ import io.github.anderscheow.library.constant.NetworkState
 import io.github.anderscheow.library.databinding.ViewNetworkStateBinding
 import io.github.anderscheow.library.utils.SectionGroup
 
-abstract class BaseSectionPagedListAdapter(
+abstract class BaseSectionPagedListAdapter<Key, Value>(
         val context: Context,
         private val callback: NetworkStateViewHolder.RetryCallback)
     : PagedListAdapter<SectionGroup, RecyclerView.ViewHolder>(SectionGroup.DIFF_CALLBACK) {
@@ -58,10 +58,12 @@ abstract class BaseSectionPagedListAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val itemViewType = getItemViewType(position)
 
-        if (itemViewType == headerLayout || itemViewType == bodyLayout) {
-            (holder as MyBaseViewHolder<SectionGroup>).bind(getItem(position))
-        } else if (itemViewType == NETWORK_STATE_LAYOUT) {
-            (holder as NetworkStateViewHolder).bind(networkState)
+        when (itemViewType) {
+            headerLayout -> (holder as MyBaseViewHolder<Key>).bind(getItem(position)?.section as Key)
+
+            bodyLayout -> (holder as MyBaseViewHolder<Value>).bind(getItem(position)?.row as Value)
+
+            NETWORK_STATE_LAYOUT -> (holder as NetworkStateViewHolder).bind(networkState)
         }
     }
 

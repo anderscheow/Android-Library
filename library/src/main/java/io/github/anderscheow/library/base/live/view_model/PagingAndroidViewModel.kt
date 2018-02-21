@@ -27,11 +27,7 @@ abstract class PagingAndroidViewModel<in T, Key, Value>(context: Application) : 
 
     protected abstract fun getDataSourceFactory(executor: Executor): BaseDataSourceFactory<Key, Value>
 
-    init {
-        init()
-    }
-
-    private fun init() {
+    fun init() {
         val executor = Executors.newFixedThreadPool(numberOfThreads)
         val factory = getDataSourceFactory(executor)
         tDataSource = factory.mutableLiveData

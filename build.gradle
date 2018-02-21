@@ -16,6 +16,9 @@ buildscript {
         /** Android Architecture Paging */
         android_arch_paging_version = '1.0.0-alpha5'
 
+        /** Anko */
+        anko_version='0.10.4'
+
         /** Butterknife */
         butterknife_version = '8.8.1'
     }

@@ -62,6 +62,10 @@ dependencies {
     /** Android Architecture Paging */
     api "android.arch.paging:runtime:$android_arch_paging_version"
 
+    /** Anko */
+    api "org.jetbrains.anko:anko-commons:$anko_version"
+    api "org.jetbrains.anko:anko-design:$anko_version"
+
     /** Butterknife */
     api "com.jakewharton:butterknife:$butterknife_version"
     kapt "com.jakewharton:butterknife-compiler:$butterknife_version"

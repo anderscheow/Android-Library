@@ -46,7 +46,7 @@ class SectionGroup {
             }
         }
 
-        fun createFooter(row: Any): SectionGroup {
+        fun createFooter(): SectionGroup {
             return SectionGroup().apply {
                 this.isRow = true
                 this.requiredFooter = true

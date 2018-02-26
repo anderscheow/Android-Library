@@ -117,12 +117,15 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
     //region Progress Dialog
     fun showProgressDialog(message: Int) {
         if (progressDialog == null) {
-            progressDialog = indeterminateProgressDialog(if (message == 0) R.string.prompt_please_wait else message) {
+            progressDialog = indeterminateProgressDialog(R.string.prompt_please_wait) {
                 setCanceledOnTouchOutside(false)
                 setCancelable(false)
             }
         }
 
+        if (message != 0) {
+            progressDialog?.setMessage(getString(message))
+        }
         progressDialog?.show()
     }
 

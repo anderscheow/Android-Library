@@ -7,6 +7,7 @@ import android.support.annotation.StringRes
 
 import io.github.anderscheow.library.base.live.util.ProgressDialogMessage
 import io.github.anderscheow.library.base.live.util.ToastMessage
+import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseAndroidViewModel<in T>(context: Application) : AndroidViewModel(context) {
 
@@ -15,9 +16,16 @@ abstract class BaseAndroidViewModel<in T>(context: Application) : AndroidViewMod
     val toastMessage = ToastMessage()
     val progressDialogMessage = ProgressDialogMessage()
 
+    protected val disposable = CompositeDisposable()
+
     abstract fun start(args: T?)
 
     abstract fun onRefresh()
+
+    override fun onCleared() {
+        super.onCleared()
+        disposable.clear()
+    }
 
     /**
      * Called to show or dismiss progress dialog

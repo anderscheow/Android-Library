@@ -74,6 +74,10 @@ dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     kapt "com.android.databinding:compiler:$android_gradle_version"
 
+    /** Reactive */
+    implementation "io.reactivex.rxjava2:rxandroid:$reactive_rxandroid_version"
+    implementation "io.reactivex.rxjava2:rxjava:$reactive_rxjava_version"
+
     /** Others */
     api 'com.orhanobut:logger:2.1.1'
     api 'org.greenrobot:eventbus:3.0.0'

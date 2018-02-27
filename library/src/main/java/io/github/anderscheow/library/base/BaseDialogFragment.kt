@@ -17,14 +17,14 @@ import org.greenrobot.eventbus.EventBus
 
 abstract class BaseDialogFragment : DialogFragment() {
 
-    @get:LayoutRes
-    abstract val resLayout: Int
+    @LayoutRes
+    abstract fun getResLayout(): Int
 
-    abstract val eventBusType: EventBusType?
+    abstract fun getEventBusType(): EventBusType?
 
     // Header and content
-    @get:StringRes
-    abstract val title: Int
+    @StringRes
+    abstract fun getTitle(): Int
 
     var isDestroy = false
         private set
@@ -34,7 +34,7 @@ abstract class BaseDialogFragment : DialogFragment() {
     override fun onAttach(context: Context?) {
         Logger.v("Fragment ATTACHED")
         super.onAttach(context)
-        if (EventBusType.isOnAttach(eventBusType)) {
+        if (EventBusType.isOnAttach(getEventBusType())) {
             if (!EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().register(this)
             }
@@ -44,7 +44,7 @@ abstract class BaseDialogFragment : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         Logger.v("Fragment CREATED")
         super.onCreate(savedInstanceState)
-        if (EventBusType.isOnCreate(eventBusType)) {
+        if (EventBusType.isOnCreate(getEventBusType())) {
             if (!EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().register(this)
             }
@@ -56,8 +56,8 @@ abstract class BaseDialogFragment : DialogFragment() {
         dialog.setCancelable(true)
         dialog.setCanceledOnTouchOutside(true)
 
-        if (title > 0) {
-            dialog.setTitle(title)
+        if (getTitle() > 0) {
+            dialog.setTitle(getTitle())
         }
 
         return dialog
@@ -66,7 +66,7 @@ abstract class BaseDialogFragment : DialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         Logger.v("Fragment CREATED VIEW")
-        val view = inflater.inflate(resLayout, container, false)
+        val view = inflater.inflate(getResLayout(), container, false)
         unbinder = ButterKnife.bind(this, view)
 
         return view
@@ -88,7 +88,7 @@ abstract class BaseDialogFragment : DialogFragment() {
     override fun onStart() {
         Logger.v("Fragment STARTED")
         super.onStart()
-        if (EventBusType.isOnStart(eventBusType)) {
+        if (EventBusType.isOnStart(getEventBusType())) {
             if (!EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().register(this)
             }
@@ -98,7 +98,7 @@ abstract class BaseDialogFragment : DialogFragment() {
     override fun onResume() {
         Logger.v("Fragment RESUMED")
         super.onResume()
-        if (EventBusType.isOnResume(eventBusType)) {
+        if (EventBusType.isOnResume(getEventBusType())) {
             if (!EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().register(this)
             }
@@ -107,7 +107,7 @@ abstract class BaseDialogFragment : DialogFragment() {
 
     override fun onPause() {
         Logger.v("Fragment PAUSED")
-        if (EventBusType.isOnResume(eventBusType)) {
+        if (EventBusType.isOnResume(getEventBusType())) {
             if (EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().unregister(this)
             }
@@ -117,7 +117,7 @@ abstract class BaseDialogFragment : DialogFragment() {
 
     override fun onStop() {
         Logger.v("Fragment STOPPED")
-        if (EventBusType.isOnStart(eventBusType)) {
+        if (EventBusType.isOnStart(getEventBusType())) {
             if (EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().unregister(this)
             }
@@ -134,7 +134,7 @@ abstract class BaseDialogFragment : DialogFragment() {
     override fun onDestroy() {
         Logger.v("Fragment DESTROYED")
         isDestroy = true
-        if (EventBusType.isOnCreate(eventBusType)) {
+        if (EventBusType.isOnCreate(getEventBusType())) {
             if (EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().unregister(this)
             }
@@ -144,7 +144,7 @@ abstract class BaseDialogFragment : DialogFragment() {
 
     override fun onDetach() {
         Logger.v("Fragment DETACHED")
-        if (EventBusType.isOnAttach(eventBusType)) {
+        if (EventBusType.isOnAttach(getEventBusType())) {
             if (EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().unregister(this)
             }

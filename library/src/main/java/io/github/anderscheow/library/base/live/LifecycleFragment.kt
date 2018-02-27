@@ -14,8 +14,10 @@ import butterknife.Unbinder
 import io.github.anderscheow.library.BR
 import io.github.anderscheow.library.R
 import io.github.anderscheow.library.base.BaseFragment
+import io.github.anderscheow.library.base.FoundationAppCompatActivity
 import io.github.anderscheow.library.base.live.util.ProgressDialogMessage
 import io.github.anderscheow.library.base.live.view_model.BaseAndroidViewModel
+import org.jetbrains.anko.toast
 
 abstract class LifecycleFragment<VM : BaseAndroidViewModel<*>> : BaseFragment() {
 
@@ -38,7 +40,7 @@ abstract class LifecycleFragment<VM : BaseAndroidViewModel<*>> : BaseFragment() 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val binding = DataBindingUtil.inflate<ViewDataBinding>(inflater, resLayout, container, false)
+        val binding = DataBindingUtil.inflate<ViewDataBinding>(inflater, getResLayout(), container, false)
         val view = binding.root
         unbinder = ButterKnife.bind(this, view)
 
@@ -68,23 +70,5 @@ abstract class LifecycleFragment<VM : BaseAndroidViewModel<*>> : BaseFragment() 
         viewModel?.toastMessage?.observe(this, Observer { s -> toast(s) })
     }
 
-    private fun showProgressDialog(message: Int) {
-        if (progressDialog == null) {
-            progressDialog = ProgressDialog(activity)
-        }
 
-        progressDialog?.setMessage(if (message == 0) getString(R.string.prompt_please_wait) else getString(message))
-        progressDialog?.setCanceledOnTouchOutside(false)
-        progressDialog?.setCancelable(false)
-        progressDialog?.isIndeterminate = true
-        progressDialog?.show()
-    }
-
-    private fun dismissProgressDialog() {
-        progressDialog?.dismiss()
-    }
-
-    private fun toast(message: String?) {
-        Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
-    }
 }

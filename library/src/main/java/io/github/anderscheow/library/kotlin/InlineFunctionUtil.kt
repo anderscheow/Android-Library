@@ -2,6 +2,13 @@ package io.github.anderscheow.library.kotlin
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.os.Build
+import android.text.Html
+import android.text.Spanned
+import java.math.RoundingMode
+import java.text.DecimalFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 /** Check not null */
 fun <T1 : Any, T2 : Any, R : Any> safeLet(p1: T1?, p2: T2?, block: (T1, T2) -> R?): R? {
@@ -86,9 +93,94 @@ fun String?.isNotNullAndNotEmpty(): Boolean {
     return this != null && this.isNotEmpty()
 }
 
+fun String.formatToSpanned(text: String): Spanned {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT)
+    } else {
+        Html.fromHtml(text)
+    }
+}
+
 /** Extension for Context */
 // Check is network available
 fun Context.isConnectedToInternet(): Boolean {
     val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
     return connectivityManager?.activeNetworkInfo?.isConnected ?: false
+}
+
+/** Extension for Long */
+fun Long?.formatAmount(format: String? = null): String {
+    val d = this ?: 0 / 100.0
+    val formatter = DecimalFormat(format ?: "###,###,##0.00")
+
+    return formatter.format(d)
+}
+
+fun Long?.formatDateWithYear(format: String? = null): String {
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = this ?: 0
+
+    return SimpleDateFormat(format ?: "dd MMM yyyy", Locale.getDefault()).format(calendar.time)
+}
+
+fun Long?.formatDateWithoutYear(format: String? = null): String {
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = this ?: 0
+
+    return SimpleDateFormat(format ?: "dd MMM", Locale.getDefault()).format(calendar.time)
+}
+
+fun Long?.formatTime(format: String? = null): String {
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = this ?: 0
+
+    return SimpleDateFormat(format ?: "h:mm a", Locale.getDefault()).format(calendar.time)
+}
+
+fun Long?.formatMinuteSecond(format: String? = null): String {
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = this ?: 0
+
+    return SimpleDateFormat(format ?: "mm:ss", Locale.getDefault()).format(calendar.time)
+}
+
+fun Long?.formatSecond(format: String? = null): String {
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = this ?: 0
+
+    return SimpleDateFormat(format ?: "0:ss", Locale.getDefault()).format(calendar.time)
+}
+
+fun Long?.formatDateTime(format: String? = null): String {
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = this ?: 0
+
+    return SimpleDateFormat(format ?: "dd MMM yyyy, h:mm a", Locale.getDefault()).format(calendar.time)
+}
+
+fun Long?.formatDateTime24Hours(format: String? = null): String {
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = this ?: 0
+
+    return SimpleDateFormat(format ?: "dd MMM yyyy, HH:mm a", Locale.getDefault()).format(calendar.time)
+}
+
+/** Extension for Double */
+fun Double?.formatAmount(firstFormat: String? = null, secondFormat: String? = null): String {
+    var formatter = DecimalFormat(firstFormat ?: "###,###,##0.00")
+    formatter.roundingMode = RoundingMode.DOWN
+
+    var formatted = formatter.format(this ?: 0)
+    if (formatted == "0.00") {
+        formatter = DecimalFormat(secondFormat ?: "###,###,##0.0000")
+        formatter.roundingMode = RoundingMode.DOWN
+    }
+
+    formatted = formatter.format(this ?: 0)
+    if (formatted == "0.0000") {
+        formatter = DecimalFormat(firstFormat ?: "###,###,##0.00")
+        formatter.roundingMode = RoundingMode.DOWN
+    }
+
+    return formatter.format(this ?: 0)
 }

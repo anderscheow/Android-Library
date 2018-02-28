@@ -53,8 +53,8 @@ abstract class BaseDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
-        dialog.setCancelable(true)
-        dialog.setCanceledOnTouchOutside(true)
+        dialog.setCancelable(false)
+        dialog.setCanceledOnTouchOutside(false)
 
         if (getTitle() > 0) {
             dialog.setTitle(getTitle())

@@ -93,11 +93,11 @@ fun String?.isNotNullAndNotEmpty(): Boolean {
     return this != null && this.isNotEmpty()
 }
 
-fun String.formatToSpanned(text: String): Spanned {
+fun String.formatToSpanned(): Spanned {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT)
+        Html.fromHtml(this, Html.FROM_HTML_MODE_COMPACT)
     } else {
-        Html.fromHtml(text)
+        Html.fromHtml(this)
     }
 }
 

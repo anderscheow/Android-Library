@@ -155,6 +155,24 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
     //endregion
 
     //region Alert Dialog
+    fun showOkAlertDialog(action: () -> Unit, message: String, buttonText: Int = 0) {
+        alert(message) {
+            isCancelable = false
+
+            if (buttonText == 0) {
+                okButton {
+                    action.invoke()
+                    it.dismiss()
+                }
+            } else {
+                positiveButton(buttonText, {
+                    action.invoke()
+                    it.dismiss()
+                })
+            }
+        }.show()
+    }
+
     fun showYesAlertDialog(action: () -> Unit, message: String, buttonText: Int = 0) {
         alert(message) {
             isCancelable = false

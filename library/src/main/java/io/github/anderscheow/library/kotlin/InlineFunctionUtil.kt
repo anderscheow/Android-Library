@@ -3,6 +3,7 @@ package io.github.anderscheow.library.kotlin
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Build
+import android.os.Handler
 import android.text.Html
 import android.text.Spanned
 import java.math.RoundingMode
@@ -85,6 +86,10 @@ fun empty(): String {
 // Generate empty List
 fun <T> emptyList(): List<T> {
     return ArrayList()
+}
+
+fun delay(timeInMilli: Long, action: () -> Unit) {
+    Handler().postDelayed(action, timeInMilli)
 }
 
 /** Extension for String */

@@ -5,11 +5,9 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Transformations
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
-
 import io.github.anderscheow.library.constant.NetworkState
 import io.github.anderscheow.library.paging.BaseDataSourceFactory
 import io.github.anderscheow.library.paging.BaseItemKeyedDataSource
-
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
@@ -19,13 +17,13 @@ abstract class PagingAndroidViewModel<in T, Key, Value>(context: Application) : 
 
     protected abstract val loadPageSize: Int
 
+    protected abstract fun getDataSourceFactory(executor: Executor): BaseDataSourceFactory<Key, Value>
+
     var items: LiveData<PagedList<Value>>? = null
     var networkState: LiveData<NetworkState>? = null
     var totalItems: LiveData<Long>? = null
 
     private var tDataSource: LiveData<BaseItemKeyedDataSource<Key, Value>>? = null
-
-    protected abstract fun getDataSourceFactory(executor: Executor): BaseDataSourceFactory<Key, Value>
 
     fun init() {
         val executor = Executors.newFixedThreadPool(numberOfThreads)

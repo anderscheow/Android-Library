@@ -3,6 +3,7 @@ package io.github.anderscheow.library.base.live.view_model
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.databinding.ObservableBoolean
+import android.databinding.ObservableField
 import android.support.annotation.StringRes
 
 import io.github.anderscheow.library.base.live.util.ProgressDialogMessage
@@ -12,6 +13,8 @@ import io.reactivex.disposables.CompositeDisposable
 abstract class BaseAndroidViewModel<in T>(context: Application) : AndroidViewModel(context) {
 
     val isLoading = ObservableBoolean(false)
+
+    val listSize = ObservableField<Long>()
 
     val toastMessage = ToastMessage()
     val progressDialogMessage = ProgressDialogMessage()
@@ -54,5 +57,15 @@ abstract class BaseAndroidViewModel<in T>(context: Application) : AndroidViewMod
 
     fun start() {
         start(null)
+    }
+
+    fun setListSize(totalItems: Long) {
+        showProgressDialog(-1)
+        setIsLoading(false)
+
+        if (totalItems != -1L) {
+            listSize.set(totalItems)
+            listSize.notifyChange()
+        }
     }
 }

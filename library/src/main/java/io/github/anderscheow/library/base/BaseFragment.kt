@@ -12,7 +12,7 @@ import butterknife.Unbinder
 import com.orhanobut.logger.Logger
 import io.github.anderscheow.library.constant.EventBusType
 import org.greenrobot.eventbus.EventBus
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.*
 
 abstract class BaseFragment : Fragment() {
 
@@ -158,5 +158,25 @@ abstract class BaseFragment : Fragment() {
                 (activity as? FoundationAppCompatActivity)?.toast(message)
             }
         }
+    }
+
+    fun showOkAlertDialog(action: () -> Unit, message: String, buttonText: Int = 0) {
+        activity?.let {
+            (activity as? FoundationAppCompatActivity)?.showOkAlertDialog(action, message, buttonText)
+        }
+    }
+
+    fun showYesAlertDialog(action: () -> Unit, message: String, buttonText: Int = 0) {
+        activity?.let {
+            (activity as? FoundationAppCompatActivity)?.showYesAlertDialog(action, message, buttonText)
+        }
+    }
+
+    fun showNoAlertDialog(action: () -> Unit, message: String, buttonText: Int = 0) {
+        (activity as? FoundationAppCompatActivity)?.showNoAlertDialog(action, message, buttonText)
+    }
+
+    fun showYesNoAlertDialog(yesAction: () -> Unit, noAction: () -> Unit, message: String, yesButtonText: Int = 0, noButtonText: Int = 0) {
+        (activity as? FoundationAppCompatActivity)?.showYesNoAlertDialog(yesAction, noAction, message, yesButtonText, noButtonText)
     }
 }

@@ -155,7 +155,7 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
     //endregion
 
     //region Alert Dialog
-    fun showOkAlertDialog(action: () -> Unit, message: String, buttonText: Int = 0) {
+    fun showOkAlertDialog(action: () -> Unit, message: CharSequence, buttonText: Int = 0) {
         alert(message) {
             isCancelable = false
 
@@ -173,7 +173,7 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
         }.show()
     }
 
-    fun showYesAlertDialog(action: () -> Unit, message: String, buttonText: Int = 0) {
+    fun showYesAlertDialog(action: () -> Unit, message: CharSequence, buttonText: Int = 0) {
         alert(message) {
             isCancelable = false
 
@@ -191,7 +191,7 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
         }.show()
     }
 
-    fun showNoAlertDialog(action: () -> Unit, message: String, buttonText: Int = 0) {
+    fun showNoAlertDialog(action: () -> Unit, message: CharSequence, buttonText: Int = 0) {
         alert(message) {
             isCancelable = false
 
@@ -209,7 +209,7 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
         }.show()
     }
 
-    fun showYesNoAlertDialog(yesAction: () -> Unit, noAction: () -> Unit, message: String, yesButtonText: Int = 0, noButtonText: Int = 0) {
+    fun showYesNoAlertDialog(yesAction: () -> Unit, noAction: () -> Unit, message: CharSequence, yesButtonText: Int = 0, noButtonText: Int = 0) {
         alert(message) {
             isCancelable = false
 

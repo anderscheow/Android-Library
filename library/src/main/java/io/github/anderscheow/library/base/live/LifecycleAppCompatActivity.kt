@@ -20,12 +20,12 @@ abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : Founda
     override fun onCreate(savedInstanceState: Bundle?) {
         initializer.invoke()
 
+        super.onCreate(savedInstanceState)
+
         viewModel = setupViewModel()
 
         val binding = DataBindingUtil.setContentView<ViewDataBinding>(this, getResLayout())
         binding.setVariable(BR.obj, viewModel)
-
-        super.onCreate(savedInstanceState)
 
         getToolbar()?.let {
             setSupportActionBar(getToolbar())

@@ -160,14 +160,16 @@ fun Long?.formatDateTime(format: String? = null): String {
     val calendar = Calendar.getInstance()
     calendar.timeInMillis = this ?: 0
 
-    return SimpleDateFormat(format ?: "dd MMM yyyy, h:mm a", Locale.getDefault()).format(calendar.time)
+    return SimpleDateFormat(format
+            ?: "dd MMM yyyy, h:mm a", Locale.getDefault()).format(calendar.time)
 }
 
 fun Long?.formatDateTime24Hours(format: String? = null): String {
     val calendar = Calendar.getInstance()
     calendar.timeInMillis = this ?: 0
 
-    return SimpleDateFormat(format ?: "dd MMM yyyy, HH:mm a", Locale.getDefault()).format(calendar.time)
+    return SimpleDateFormat(format
+            ?: "dd MMM yyyy, HH:mm a", Locale.getDefault()).format(calendar.time)
 }
 
 /** Extension for Double */

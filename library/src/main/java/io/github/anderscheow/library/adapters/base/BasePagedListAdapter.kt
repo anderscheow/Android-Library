@@ -5,7 +5,7 @@ import android.content.Context
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.support.annotation.LayoutRes
-import android.support.v7.recyclerview.extensions.DiffCallback
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -18,7 +18,7 @@ import io.github.anderscheow.library.databinding.ViewNetworkStateBinding
 abstract class BasePagedListAdapter<T>(
         val context: Context,
         private val callback: NetworkStateViewHolder.RetryCallback,
-        diffCallback: DiffCallback<T>) : PagedListAdapter<T, RecyclerView.ViewHolder>(diffCallback) {
+        diffCallback: DiffUtil.ItemCallback<T>) : PagedListAdapter<T, RecyclerView.ViewHolder>(diffCallback) {
 
     @get:LayoutRes
     protected abstract val bodyLayout: Int

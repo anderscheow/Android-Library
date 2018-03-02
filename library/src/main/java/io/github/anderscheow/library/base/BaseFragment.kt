@@ -12,7 +12,7 @@ import butterknife.Unbinder
 import com.orhanobut.logger.Logger
 import io.github.anderscheow.library.constant.EventBusType
 import org.greenrobot.eventbus.EventBus
-import org.jetbrains.anko.*
+import org.jetbrains.anko.toast
 
 abstract class BaseFragment : Fragment() {
 

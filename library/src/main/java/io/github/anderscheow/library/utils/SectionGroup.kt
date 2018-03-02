@@ -1,6 +1,6 @@
 package io.github.anderscheow.library.utils
 
-import android.support.v7.recyclerview.extensions.DiffCallback
+import android.support.v7.util.DiffUtil
 
 
 class SectionGroup {
@@ -19,7 +19,7 @@ class SectionGroup {
 
     companion object {
 
-        var DIFF_CALLBACK: DiffCallback<SectionGroup> = object : DiffCallback<SectionGroup>() {
+        var DIFF_CALLBACK: DiffUtil.ItemCallback<SectionGroup> = object : DiffUtil.ItemCallback<SectionGroup>() {
             override fun areItemsTheSame(oldItem: SectionGroup, newItem: SectionGroup): Boolean {
                 return false
             }

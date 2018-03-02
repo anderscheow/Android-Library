@@ -8,13 +8,13 @@ buildscript {
         android_gradle_version = '3.0.1'
         android_support_constraint_layout_version = '1.1.0-beta4'
         android_support_multidex_version = '1.0.2'
-        android_support_version = '27.0.2'
+        android_support_version = '27.1.0'
 
         /** Android Architecture Lifecycle */
         android_arch_lifecycle_version = '1.1.0'
 
         /** Android Architecture Paging */
-        android_arch_paging_version = '1.0.0-alpha5'
+        android_arch_paging_version = '1.0.0-alpha6'
 
         /** Anko */
         anko_version='0.10.4'

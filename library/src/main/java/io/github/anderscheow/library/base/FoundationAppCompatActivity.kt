@@ -94,24 +94,38 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     protected fun canAccessCamera(): Boolean {
-        return PackageManager.PERMISSION_GRANTED == checkSelfPermission(Manifest.permission.CAMERA)
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PackageManager.PERMISSION_GRANTED == checkSelfPermission(Manifest.permission.CAMERA)
+        } else {
+            true
+        }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     protected fun canAccessStorage(): Boolean {
-        return PackageManager.PERMISSION_GRANTED == checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PackageManager.PERMISSION_GRANTED == checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+        } else {
+            true
+        }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     protected fun canAccessLocation(): Boolean {
-        return PackageManager.PERMISSION_GRANTED == checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) && PackageManager.PERMISSION_GRANTED == checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PackageManager.PERMISSION_GRANTED == checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) &&
+                    PackageManager.PERMISSION_GRANTED == checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+        } else {
+            true
+        }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     protected fun shouldShowLocationPermissionRationalDialog(): Boolean {
-        return shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION) && shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION) &&
+                    shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)
+        } else {
+            true
+        }
     }
 
     //region Progress Dialog

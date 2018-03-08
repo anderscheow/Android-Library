@@ -160,23 +160,23 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
-    fun showOkAlertDialog(action: () -> Unit, message: String, buttonText: Int = 0) {
+    fun showOkAlertDialog(action: () -> Unit, message: String, title: CharSequence? = null, buttonText: Int = 0) {
         activity?.let {
-            (activity as? FoundationAppCompatActivity)?.showOkAlertDialog(action, message, buttonText)
+            (activity as? FoundationAppCompatActivity)?.showOkAlertDialog(action, message, title, buttonText)
         }
     }
 
-    fun showYesAlertDialog(action: () -> Unit, message: String, buttonText: Int = 0) {
+    fun showYesAlertDialog(action: () -> Unit, message: String, title: CharSequence? = null, buttonText: Int = 0) {
         activity?.let {
-            (activity as? FoundationAppCompatActivity)?.showYesAlertDialog(action, message, buttonText)
+            (activity as? FoundationAppCompatActivity)?.showYesAlertDialog(action, message, title, buttonText)
         }
     }
 
-    fun showNoAlertDialog(action: () -> Unit, message: String, buttonText: Int = 0) {
-        (activity as? FoundationAppCompatActivity)?.showNoAlertDialog(action, message, buttonText)
+    fun showNoAlertDialog(action: () -> Unit, message: String, title: CharSequence? = null, buttonText: Int = 0) {
+        (activity as? FoundationAppCompatActivity)?.showNoAlertDialog(action, message, title, buttonText)
     }
 
-    fun showYesNoAlertDialog(yesAction: () -> Unit, noAction: () -> Unit, message: String, yesButtonText: Int = 0, noButtonText: Int = 0) {
-        (activity as? FoundationAppCompatActivity)?.showYesNoAlertDialog(yesAction, noAction, message, yesButtonText, noButtonText)
+    fun showYesNoAlertDialog(yesAction: () -> Unit, noAction: () -> Unit, message: String, title: CharSequence? = null, yesButtonText: Int = 0, noButtonText: Int = 0) {
+        (activity as? FoundationAppCompatActivity)?.showYesNoAlertDialog(yesAction, noAction, message, title, yesButtonText, noButtonText)
     }
 }

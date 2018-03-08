@@ -169,8 +169,8 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
     //endregion
 
     //region Alert Dialog
-    fun showOkAlertDialog(action: () -> Unit, message: CharSequence, buttonText: Int = 0) {
-        alert(message) {
+    fun showOkAlertDialog(action: () -> Unit, message: CharSequence, title: CharSequence? = null, buttonText: Int = 0) {
+        alert(message, title) {
             isCancelable = false
 
             if (buttonText == 0) {
@@ -187,8 +187,8 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
         }.show()
     }
 
-    fun showYesAlertDialog(action: () -> Unit, message: CharSequence, buttonText: Int = 0) {
-        alert(message) {
+    fun showYesAlertDialog(action: () -> Unit, message: CharSequence, title: CharSequence? = null, buttonText: Int = 0) {
+        alert(message, title) {
             isCancelable = false
 
             if (buttonText == 0) {
@@ -205,8 +205,8 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
         }.show()
     }
 
-    fun showNoAlertDialog(action: () -> Unit, message: CharSequence, buttonText: Int = 0) {
-        alert(message) {
+    fun showNoAlertDialog(action: () -> Unit, message: CharSequence, title: CharSequence? = null, buttonText: Int = 0) {
+        alert(message, title) {
             isCancelable = false
 
             if (buttonText == 0) {
@@ -223,8 +223,8 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
         }.show()
     }
 
-    fun showYesNoAlertDialog(yesAction: () -> Unit, noAction: () -> Unit, message: CharSequence, yesButtonText: Int = 0, noButtonText: Int = 0) {
-        alert(message) {
+    fun showYesNoAlertDialog(yesAction: () -> Unit, noAction: () -> Unit, message: CharSequence, title: CharSequence? = null, yesButtonText: Int = 0, noButtonText: Int = 0) {
+        alert(message, title) {
             isCancelable = false
 
             if (yesButtonText == 0) {

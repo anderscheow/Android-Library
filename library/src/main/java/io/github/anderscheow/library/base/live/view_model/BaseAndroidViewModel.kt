@@ -21,13 +21,18 @@ abstract class BaseAndroidViewModel<in T>(context: Application) : AndroidViewMod
 
     protected val disposable = CompositeDisposable()
 
-    abstract fun start(args: T?)
-
-    abstract fun onRefresh()
+    abstract fun start(args: T? = null)
 
     override fun onCleared() {
         super.onCleared()
         disposable.clear()
+    }
+
+    open fun startWithoutProgressDialog() {
+    }
+
+    open fun onRefresh() {
+        start()
     }
 
     /**
@@ -53,10 +58,6 @@ abstract class BaseAndroidViewModel<in T>(context: Application) : AndroidViewMod
     protected fun setIsLoading(value: Boolean) {
         isLoading.set(value)
         isLoading.notifyChange()
-    }
-
-    fun start() {
-        start(null)
     }
 
     fun setListSize(totalItems: Long) {

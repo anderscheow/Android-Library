@@ -115,7 +115,7 @@ fun Context.isConnectedToInternet(): Boolean {
 
 /** Extension for Long */
 fun Long?.formatAmount(format: String? = null): String {
-    val d = this ?: 0 / 100.0
+    val d = (this ?: 0) / 100.0
     val formatter = DecimalFormat(format ?: "###,###,##0.00")
 
     return formatter.format(d)

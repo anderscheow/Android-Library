@@ -5,7 +5,7 @@ import android.arch.paging.DataSource
 
 import java.util.concurrent.Executor
 
-abstract class BaseDataSourceFactory<Key, Value>(private val executor: Executor) : DataSource.Factory<Key, Value> {
+abstract class BaseDataSourceFactory<Key, Value>(private val executor: Executor) : DataSource.Factory<Key, Value>() {
 
     val mutableLiveData: MutableLiveData<BaseItemKeyedDataSource<Key, Value>> = MutableLiveData()
 

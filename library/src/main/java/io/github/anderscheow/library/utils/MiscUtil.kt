@@ -3,6 +3,9 @@ package io.github.anderscheow.library.utils
 import android.app.Activity
 import android.content.Context
 import android.util.DisplayMetrics
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT
 import java.util.*
 
 object MiscUtil {
@@ -34,5 +37,21 @@ object MiscUtil {
                 copy.add(iterator.next())
         }
         return copy
+    }
+
+    fun showKeyboard(context: Context, view: View?) {
+        view?.let {
+            it.requestFocus()
+
+            (context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)?.
+                    toggleSoftInput(InputMethodManager.SHOW_FORCED, SHOW_IMPLICIT)
+        }
+    }
+
+    fun hideKeyboard(context: Context, view: View?) {
+        view?.let {
+            (context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)?.
+                    hideSoftInputFromWindow(it.windowToken, 0)
+        }
     }
 }

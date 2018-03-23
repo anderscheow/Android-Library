@@ -121,55 +121,60 @@ fun Long?.formatAmount(format: String? = null): String {
     return formatter.format(d)
 }
 
-fun Long?.formatDateWithYear(format: String? = null): String {
+fun Long?.formatDateWithYear(): String {
     val calendar = Calendar.getInstance()
     calendar.timeInMillis = this ?: 0
 
-    return SimpleDateFormat(format ?: "dd MMM yyyy", Locale.getDefault()).format(calendar.time)
+    return SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(calendar.time)
 }
 
-fun Long?.formatDateWithoutYear(format: String? = null): String {
+fun Long?.formatDateWithoutYear(): String {
     val calendar = Calendar.getInstance()
     calendar.timeInMillis = this ?: 0
 
-    return SimpleDateFormat(format ?: "dd MMM", Locale.getDefault()).format(calendar.time)
+    return SimpleDateFormat("dd MMM", Locale.getDefault()).format(calendar.time)
 }
 
-fun Long?.formatTime(format: String? = null): String {
+fun Long?.formatTime(): String {
     val calendar = Calendar.getInstance()
     calendar.timeInMillis = this ?: 0
 
-    return SimpleDateFormat(format ?: "h:mm a", Locale.getDefault()).format(calendar.time)
+    return SimpleDateFormat("h:mm a", Locale.getDefault()).format(calendar.time)
 }
 
-fun Long?.formatMinuteSecond(format: String? = null): String {
+fun Long?.formatMinuteSecond(): String {
     val calendar = Calendar.getInstance()
     calendar.timeInMillis = this ?: 0
 
-    return SimpleDateFormat(format ?: "mm:ss", Locale.getDefault()).format(calendar.time)
+    return SimpleDateFormat("mm:ss", Locale.getDefault()).format(calendar.time)
 }
 
-fun Long?.formatSecond(format: String? = null): String {
+fun Long?.formatSecond(): String {
     val calendar = Calendar.getInstance()
     calendar.timeInMillis = this ?: 0
 
-    return SimpleDateFormat(format ?: "0:ss", Locale.getDefault()).format(calendar.time)
+    return SimpleDateFormat("0:ss", Locale.getDefault()).format(calendar.time)
 }
 
-fun Long?.formatDateTime(format: String? = null): String {
+fun Long?.formatDateTime(): String {
     val calendar = Calendar.getInstance()
     calendar.timeInMillis = this ?: 0
 
-    return SimpleDateFormat(format
-            ?: "dd MMM yyyy, h:mm a", Locale.getDefault()).format(calendar.time)
+    return SimpleDateFormat("dd MMM yyyy, h:mm a", Locale.getDefault()).format(calendar.time)
 }
 
-fun Long?.formatDateTime24Hours(format: String? = null): String {
+fun Long?.formatDateTime24Hours(): String {
     val calendar = Calendar.getInstance()
     calendar.timeInMillis = this ?: 0
 
-    return SimpleDateFormat(format
-            ?: "dd MMM yyyy, HH:mm a", Locale.getDefault()).format(calendar.time)
+    return SimpleDateFormat("dd MMM yyyy, HH:mm a", Locale.getDefault()).format(calendar.time)
+}
+
+fun Long?.formatDate(format: String): String {
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = this ?: 0
+
+    return SimpleDateFormat(format, Locale.getDefault()).format(calendar.time)
 }
 
 /** Extension for Double */

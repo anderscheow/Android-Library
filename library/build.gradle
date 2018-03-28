@@ -12,7 +12,6 @@ apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.0'
 
     defaultConfig {
         minSdkVersion 16
@@ -79,7 +78,7 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$reactive_rxjava_version"
 
     /** Others */
-    api 'com.orhanobut:logger:2.1.1'
+    api 'com.orhanobut:logger:2.2.0'
     api 'org.greenrobot:eventbus:3.0.0'
 
     testApi 'junit:junit:4.12'

@@ -8,8 +8,6 @@ apply plugin: 'kotlin-kapt'
 
 apply from: 'maven-push.gradle'
 
-apply plugin: 'com.jakewharton.butterknife'
-
 android {
     compileSdkVersion 27
 
@@ -30,6 +28,9 @@ android {
     }
     dataBinding {
         enabled = true
+    }
+    androidExtensions {
+        experimental = true
     }
     defaultConfig {
         multiDexEnabled true

@@ -29,7 +29,7 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
 
     abstract fun init()
 
-    abstract var initializer: () -> Unit
+    abstract var initBeforeSuperOnCreate: () -> Unit
 
     var progressDialog: ProgressDialog? = null
         private set

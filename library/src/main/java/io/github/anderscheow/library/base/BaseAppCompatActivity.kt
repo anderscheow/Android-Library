@@ -6,7 +6,7 @@ import butterknife.ButterKnife
 abstract class BaseAppCompatActivity : FoundationAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        initializer.invoke()
+        initBeforeSuperOnCreate.invoke()
 
         super.onCreate(savedInstanceState)
 

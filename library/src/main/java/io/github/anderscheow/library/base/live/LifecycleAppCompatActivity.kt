@@ -18,7 +18,7 @@ abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : Founda
     abstract fun setupViewModel(): VM
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        initializer.invoke()
+        initBeforeSuperOnCreate.invoke()
 
         super.onCreate(savedInstanceState)
 

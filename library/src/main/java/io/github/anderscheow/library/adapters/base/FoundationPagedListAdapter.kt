@@ -1,7 +1,6 @@
 package io.github.anderscheow.library.adapters.base
 
 import android.arch.paging.PagedListAdapter
-import android.content.Context
 import android.databinding.ViewDataBinding
 import android.support.annotation.LayoutRes
 import android.support.v7.util.DiffUtil
@@ -10,7 +9,6 @@ import io.github.anderscheow.library.R
 import io.github.anderscheow.library.constant.NetworkState
 
 abstract class FoundationPagedListAdapter<T>(
-        val context: Context,
         private val callback: (() -> Unit)?,
         diffCallback: DiffUtil.ItemCallback<T>)
     : PagedListAdapter<T, RecyclerView.ViewHolder>(diffCallback) {

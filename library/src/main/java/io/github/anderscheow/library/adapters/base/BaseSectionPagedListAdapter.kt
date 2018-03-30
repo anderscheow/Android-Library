@@ -1,6 +1,5 @@
 package io.github.anderscheow.library.adapters.base
 
-import android.content.Context
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.support.annotation.LayoutRes
@@ -13,9 +12,8 @@ import io.github.anderscheow.library.databinding.ViewNetworkStateBinding
 import io.github.anderscheow.library.utils.SectionGroup
 
 abstract class BaseSectionPagedListAdapter<Key, Value>(
-        context: Context,
         private val callback: () -> Unit)
-    : FoundationPagedListAdapter<SectionGroup>(context, callback, SectionGroup.DIFF_CALLBACK) {
+    : FoundationPagedListAdapter<SectionGroup>(callback, SectionGroup.DIFF_CALLBACK) {
 
     @get:LayoutRes
     protected abstract val headerLayout: Int

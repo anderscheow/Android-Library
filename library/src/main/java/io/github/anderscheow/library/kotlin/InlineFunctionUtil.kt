@@ -30,7 +30,7 @@ fun <T1 : Any, T2 : Any, T3 : Any, T4 : Any, T5 : Any, R : Any> safeLet(p1: T1?,
 
 /** Check is String and is not null and not empty */
 fun <T : Any, R : Any> isNotNullAndNotEmpty(p1: T?, block: (T) -> R?): R? {
-    if (p1 is String? && !p1.isNullOrEmpty()) {
+    if (p1 is String? && p1.isNotNullAndNotEmpty()) {
         p1?.let { block(it) }
     }
 
@@ -39,7 +39,7 @@ fun <T : Any, R : Any> isNotNullAndNotEmpty(p1: T?, block: (T) -> R?): R? {
 
 fun <T : Any, R : Any> isNotNullAndNotEmpty(p1: T?, p2: T?, block: (T, T) -> R?): R? {
     if (p1 is String && p2 is String) {
-        if (!p1.isNotNullAndNotEmpty() && !p2.isNotNullAndNotEmpty()) {
+        if (p1.isNotNullAndNotEmpty() && p2.isNotNullAndNotEmpty()) {
             block(p1, p2)
         }
     }
@@ -49,7 +49,7 @@ fun <T : Any, R : Any> isNotNullAndNotEmpty(p1: T?, p2: T?, block: (T, T) -> R?)
 
 fun <T : Any, R : Any> isNotNullAndNotEmpty(p1: T?, p2: T?, p3: T?, block: (T, T, T) -> R?): R? {
     if (p1 is String && p2 is String && p3 is String) {
-        if (!p1.isNotNullAndNotEmpty() && !p2.isNotNullAndNotEmpty() && !p3.isNotNullAndNotEmpty()) {
+        if (p1.isNotNullAndNotEmpty() && p2.isNotNullAndNotEmpty() && p3.isNotNullAndNotEmpty()) {
             block(p1, p2, p3)
         }
     }
@@ -59,7 +59,7 @@ fun <T : Any, R : Any> isNotNullAndNotEmpty(p1: T?, p2: T?, p3: T?, block: (T, T
 
 fun <T : Any, R : Any> isNotNullAndNotEmpty(p1: T?, p2: T?, p3: T?, p4: T?, block: (T, T, T, T) -> R?): R? {
     if (p1 is String && p2 is String && p3 is String && p4 is String) {
-        if (!p1.isNotNullAndNotEmpty() && !p2.isNotNullAndNotEmpty() && !p3.isNotNullAndNotEmpty() && !p4.isNotNullAndNotEmpty()) {
+        if (p1.isNotNullAndNotEmpty() && p2.isNotNullAndNotEmpty() && p3.isNotNullAndNotEmpty() && p4.isNotNullAndNotEmpty()) {
             block(p1, p2, p3, p4)
         }
     }
@@ -69,7 +69,7 @@ fun <T : Any, R : Any> isNotNullAndNotEmpty(p1: T?, p2: T?, p3: T?, p4: T?, bloc
 
 fun <T : Any, R : Any> isNotNullAndNotEmpty(p1: T?, p2: T?, p3: T?, p4: T?, p5: T?, block: (T, T, T, T, T) -> R?): R? {
     if (p1 is String && p2 is String && p3 is String && p4 is String && p5 is String) {
-        if (!p1.isNotNullAndNotEmpty() && !p2.isNotNullAndNotEmpty() && !p3.isNotNullAndNotEmpty() && !p4.isNotNullAndNotEmpty() && !p5.isNotNullAndNotEmpty()) {
+        if (p1.isNotNullAndNotEmpty() && p2.isNotNullAndNotEmpty() && p3.isNotNullAndNotEmpty() && p4.isNotNullAndNotEmpty() && p5.isNotNullAndNotEmpty()) {
             block(p1, p2, p3, p4, p5)
         }
     }

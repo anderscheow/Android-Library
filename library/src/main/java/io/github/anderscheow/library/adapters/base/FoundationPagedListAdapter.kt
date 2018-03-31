@@ -13,10 +13,10 @@ abstract class FoundationPagedListAdapter<T>(
         diffCallback: DiffUtil.ItemCallback<T>)
     : PagedListAdapter<T, RecyclerView.ViewHolder>(diffCallback) {
 
-    @get:LayoutRes
-    protected abstract val bodyLayout: Int
+    @LayoutRes
+    protected abstract fun getBodyLayout(position: Int): Int
 
-    protected abstract fun getBodyViewHolder(binding: ViewDataBinding): RecyclerView.ViewHolder
+    protected abstract fun getBodyViewHolder(viewType: Int, binding: ViewDataBinding): RecyclerView.ViewHolder
 
     var networkState: NetworkState? = null
         set(value) {

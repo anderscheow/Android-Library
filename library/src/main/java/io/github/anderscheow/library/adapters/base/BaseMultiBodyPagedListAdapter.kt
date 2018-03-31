@@ -20,11 +20,13 @@ abstract class BaseMultiBodyPagedListAdapter<T>(
     @get:LayoutRes
     protected abstract val defaultLayout: Int
 
+    protected abstract fun getDefaultViewHolder(binding: ViewDataBinding): RecyclerView.ViewHolder
+
     protected abstract val bodyLayouts: List<BodyViewTypeHolder>
 
-    protected abstract fun getBodyViewTypeIdentifier(position: Int): String
+    protected abstract fun getBodyLayouts(binding: ViewDataBinding): HashMap<Int, RecyclerView.ViewHolder>
 
-    protected abstract fun getDefaultViewHolder(binding: ViewDataBinding): RecyclerView.ViewHolder
+    protected abstract fun getBodyViewTypeIdentifier(position: Int): String?
 
     //region Unused and ignored
     override val bodyLayout: Int
@@ -66,15 +68,16 @@ abstract class BaseMultiBodyPagedListAdapter<T>(
         return if (hasExtraRow() && position == itemCount - 1) {
             NETWORK_STATE_LAYOUT
         } else {
-            bodyLayouts.find {
-                it.identifier == getBodyViewTypeIdentifier(position)
-            }?.layout ?: defaultLayout
+            getBodyViewTypeIdentifier(position)?.let { identifier ->
+                bodyLayouts.find {
+                    it.identifier == identifier
+                }?.layout ?: defaultLayout
+            } ?: defaultLayout
         }
     }
 
     private fun getBodyViewHolder(viewType: Int, binding: ViewDataBinding): RecyclerView.ViewHolder {
-        return bodyLayouts.find {
-            it.layout == viewType
-        }?.viewHolder ?: getDefaultViewHolder(binding)
+        return getBodyLayouts(binding)[viewType] ?:
+                getDefaultViewHolder(binding)
     }
 }

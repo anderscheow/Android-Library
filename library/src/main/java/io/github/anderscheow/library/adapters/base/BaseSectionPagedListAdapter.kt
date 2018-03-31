@@ -24,22 +24,23 @@ abstract class BaseSectionPagedListAdapter<Key, Value>(
         val layoutInflater = LayoutInflater.from(parent.context)
 
         return when (viewType) {
-            headerLayout -> {
-                val binding = DataBindingUtil.inflate<ViewDataBinding>(
-                        layoutInflater, headerLayout, parent, false)
-                getHeaderViewHolder(binding)
-            }
-            bodyLayout -> {
-                val binding = DataBindingUtil.inflate<ViewDataBinding>(
-                        layoutInflater, bodyLayout, parent, false)
-                getBodyViewHolder(binding)
-            }
             NETWORK_STATE_LAYOUT -> {
                 val binding = DataBindingUtil.inflate<ViewNetworkStateBinding>(
                         layoutInflater, NETWORK_STATE_LAYOUT, parent, false)
                 NetworkStateViewHolder.create(binding, callback)
             }
-            else -> throw IllegalArgumentException("unknown view type")
+            
+            headerLayout -> {
+                val binding = DataBindingUtil.inflate<ViewDataBinding>(
+                        layoutInflater, headerLayout, parent, false)
+                getHeaderViewHolder(binding)
+            }
+
+            else -> {
+                val binding = DataBindingUtil.inflate<ViewDataBinding>(
+                        layoutInflater, viewType, parent, false)
+                getBodyViewHolder(viewType, binding)
+            }
         }
     }
 
@@ -47,11 +48,12 @@ abstract class BaseSectionPagedListAdapter<Key, Value>(
         val itemViewType = getItemViewType(position)
 
         when (itemViewType) {
+            NETWORK_STATE_LAYOUT -> (holder as NetworkStateViewHolder).bind(networkState)
+
             headerLayout -> (holder as MyBaseViewHolder<Key>).bind(getItem(position)?.section as Key)
 
-            bodyLayout -> (holder as MyBaseViewHolder<Value>).bind(getItem(position)?.row as Value)
+            else -> (holder as MyBaseViewHolder<Value>).bind(getItem(position)?.row as Value)
 
-            NETWORK_STATE_LAYOUT -> (holder as NetworkStateViewHolder).bind(networkState)
         }
     }
 
@@ -62,7 +64,7 @@ abstract class BaseSectionPagedListAdapter<Key, Value>(
             val item = getItem(position)
             if (item != null) {
                 if (item.isRow) {
-                    bodyLayout
+                    getBodyLayout(position)
                 } else {
                     headerLayout
                 }

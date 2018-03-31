@@ -19,25 +19,24 @@ abstract class BasePagedListAdapter<T>(
         val layoutInflater = LayoutInflater.from(parent.context)
 
         return when (viewType) {
-            bodyLayout -> {
-                val binding = DataBindingUtil.inflate<ViewDataBinding>(
-                        layoutInflater, bodyLayout, parent, false)
-                getBodyViewHolder(binding)
-            }
             NETWORK_STATE_LAYOUT -> {
                 val binding = DataBindingUtil.inflate<ViewNetworkStateBinding>(
                         layoutInflater, NETWORK_STATE_LAYOUT, parent, false)
                 NetworkStateViewHolder.create(binding, callback)
             }
-            else -> throw IllegalArgumentException("unknown view type")
+            else -> {
+                val binding = DataBindingUtil.inflate<ViewDataBinding>(
+                        layoutInflater, viewType, parent, false)
+                getBodyViewHolder(viewType, binding)
+            }
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val itemViewType = getItemViewType(position)
 
-        if (itemViewType == bodyLayout) {
-            (holder as MyBaseViewHolder<T>).bind(getItem(position))
+        if (itemViewType == getBodyLayout(position)) {
+            (holder as? MyBaseViewHolder<T>)?.bind(getItem(position))
         } else if (itemViewType == NETWORK_STATE_LAYOUT) {
             (holder as NetworkStateViewHolder).bind(networkState)
         }
@@ -47,7 +46,7 @@ abstract class BasePagedListAdapter<T>(
         return if (hasExtraRow() && position == itemCount - 1) {
             NETWORK_STATE_LAYOUT
         } else {
-            bodyLayout
+            getBodyLayout(position)
         }
     }
 }

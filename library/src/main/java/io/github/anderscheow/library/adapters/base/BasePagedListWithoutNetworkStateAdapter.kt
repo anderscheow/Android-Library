@@ -15,25 +15,21 @@ abstract class BasePagedListWithoutNetworkStateAdapter<T>(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
 
-        return when (viewType) {
-            bodyLayout -> {
-                val binding = DataBindingUtil.inflate<ViewDataBinding>(
-                        layoutInflater, bodyLayout, parent, false)
-                getBodyViewHolder(binding)
-            }
-            else -> throw IllegalArgumentException("unknown view type")
-        }
+        val binding = DataBindingUtil.inflate<ViewDataBinding>(
+                layoutInflater, viewType, parent, false)
+
+        return getBodyViewHolder(viewType, binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val itemViewType = getItemViewType(position)
 
-        if (itemViewType == bodyLayout) {
-            (holder as MyBaseViewHolder<T>).bind(getItem(position))
+        if (itemViewType == getBodyLayout(position)) {
+            (holder as? MyBaseViewHolder<T>)?.bind(getItem(position))
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return bodyLayout
+        return getBodyLayout(position)
     }
 }

@@ -181,7 +181,7 @@ public class PagingRequestHelper {
     }
     @GuardedBy("mLock")
     private StatusReport prepareStatusReportLocked() {
-        Throwable[] errors = new Throwable[]{
+        String[] errors = new String[]{
                 mRequestQueues[0].mLastError,
                 mRequestQueues[1].mLastError,
                 mRequestQueues[2].mLastError
@@ -199,14 +199,14 @@ public class PagingRequestHelper {
     }
     @AnyThread
     @VisibleForTesting
-    void recordResult(@NonNull RequestWrapper wrapper, @Nullable Throwable throwable) {
+    void recordResult(@NonNull RequestWrapper wrapper, @Nullable String errorMessage) {
         StatusReport report = null;
-        final boolean success = throwable == null;
+        final boolean success = errorMessage == null;
         boolean hasListeners = !mListeners.isEmpty();
         synchronized (mLock) {
             RequestQueue queue = mRequestQueues[wrapper.mType.ordinal()];
             queue.mRunning = null;
-            queue.mLastError = throwable;
+            queue.mLastError = errorMessage;
             if (success) {
                 queue.mFailed = null;
                 queue.mStatus = Status.SUCCESS;
@@ -278,7 +278,7 @@ public class PagingRequestHelper {
     /**
      * Runner class that runs a request tracked by the {@link PagingRequestHelper}.
      * <p>
-     * When a request is invoked, it must call one of {@link Callback#recordFailure(Throwable)}
+     * When a request is invoked, it must call one of {@link Callback#recordFailure(String)}
      * or {@link Callback#recordSuccess()} once and only once. This call
      * can be made any time. Until that method call is made, {@link PagingRequestHelper} will
      * consider the request is running.
@@ -319,17 +319,17 @@ public class PagingRequestHelper {
              * Call this method with the failure message and the request can be retried via
              * {@link #retryAllFailed()}.
              *
-             * @param throwable The error that occured while carrying out the request.
+             * @param errorMessage The error that occured while carrying out the request.
              */
             @SuppressWarnings("unused")
-            public final void recordFailure(@NonNull Throwable throwable) {
+            public final void recordFailure(@NonNull String errorMessage) {
                 //noinspection ConstantConditions
-                if (throwable == null) {
+                if (errorMessage == null) {
                     throw new IllegalArgumentException("You must provide a throwable describing"
                             + " the error to record the failure");
                 }
                 if (mCalled.compareAndSet(false, true)) {
-                    mHelper.recordResult(mWrapper, throwable);
+                    mHelper.recordResult(mWrapper, errorMessage);
                 } else {
                     throw new IllegalStateException(
                             "already called recordSuccess or recordFailure");
@@ -358,9 +358,9 @@ public class PagingRequestHelper {
         @NonNull
         public final Status after;
         @NonNull
-        private final Throwable[] mErrors;
+        private final String[] mErrors;
         StatusReport(@NonNull Status initial, @NonNull Status before, @NonNull Status after,
-                @NonNull Throwable[] errors) {
+                @NonNull String[] errors) {
             this.initial = initial;
             this.before = before;
             this.after = after;
@@ -394,7 +394,7 @@ public class PagingRequestHelper {
          * {@code null} if the request for the given type did not fail.
          */
         @Nullable
-        public Throwable getErrorFor(@NonNull RequestType type) {
+        public String getErrorFor(@NonNull RequestType type) {
             return mErrors[type.ordinal()];
         }
         @Override
@@ -484,7 +484,7 @@ public class PagingRequestHelper {
         @Nullable
         Request mRunning;
         @Nullable
-        Throwable mLastError;
+        String mLastError;
         @NonNull
         Status mStatus = Status.SUCCESS;
         RequestQueue(@NonNull RequestType requestType) {

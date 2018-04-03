@@ -10,7 +10,7 @@ abstract class PagingRepository<T : PagingModel> {
 
     abstract fun insertResultIntoDb(items : List<T>?)
 
-    abstract fun getFirstPageItemsFromApi(success: (List<T>) -> Unit, failed: (Throwable?) -> Unit)
+    abstract fun getFirstPageItemsFromApi(success: (List<T>) -> Unit, failed: (String?) -> Unit)
 
     @MainThread
     abstract fun getItems(pageSize: Int): Listing<T>
@@ -25,7 +25,7 @@ abstract class PagingRepository<T : PagingModel> {
 
             networkState.postValue(NetworkState.LOADED)
         }, {
-            networkState.value = NetworkState.error(it?.message)
+            networkState.postValue(NetworkState.error(it))
         })
 
         return networkState

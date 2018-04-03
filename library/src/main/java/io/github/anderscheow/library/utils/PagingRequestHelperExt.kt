@@ -6,7 +6,7 @@ import io.github.anderscheow.library.constant.NetworkState
 
 private fun getErrorMessage(report: PagingRequestHelper.StatusReport): String {
     return PagingRequestHelper.RequestType.values().mapNotNull {
-        report.getErrorFor(it)?.message
+        report.getErrorFor(it)
     }.first()
 }
 

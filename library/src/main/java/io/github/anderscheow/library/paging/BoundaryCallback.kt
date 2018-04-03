@@ -16,7 +16,7 @@ abstract class BoundaryCallback<T : PagingModel>(private val handleResponse: (Li
 
     private var pageNumber = 1
 
-    abstract fun loadItemsSynchronously(pageNumber: Int, success: (List<T>) -> Unit, failed: (Throwable?) -> Unit)
+    abstract fun loadItemsSynchronously(pageNumber: Int, success: (List<T>) -> Unit, failed: (String) -> Unit)
 
     /**
      * Database returned 0 items. We should query the backend for more items.
@@ -54,8 +54,8 @@ abstract class BoundaryCallback<T : PagingModel>(private val handleResponse: (Li
         insertItemsIntoDb(items, callback)
     }
 
-    private fun failedCallback(throwable: Throwable?, callback: PagingRequestHelper.Request.Callback) {
-        callback.recordFailure(throwable ?: Throwable("Unknown exception"))
+    private fun failedCallback(errorMessage: String, callback: PagingRequestHelper.Request.Callback) {
+        callback.recordFailure(errorMessage)
     }
 
     /**

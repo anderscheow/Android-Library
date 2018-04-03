@@ -16,7 +16,7 @@ abstract class PagingRepository<T : PagingModel> {
     abstract fun getItems(pageSize: Int): Listing<T>
 
     @MainThread
-    private fun refresh(): LiveData<NetworkState> {
+    protected fun refresh(): LiveData<NetworkState> {
         val networkState = MutableLiveData<NetworkState>()
         networkState.value = NetworkState.LOADING
 

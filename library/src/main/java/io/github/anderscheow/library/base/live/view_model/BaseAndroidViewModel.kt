@@ -40,7 +40,7 @@ abstract class BaseAndroidViewModel<in T>(context: Application) : AndroidViewMod
      *
      * @param message if >=0 show, if -1 dismiss
      */
-    protected fun showProgressDialog(@StringRes message: Int) {
+    protected fun showProgressDialog(@StringRes message: Int = 0) {
         progressDialogMessage.postValue(message)
     }
 

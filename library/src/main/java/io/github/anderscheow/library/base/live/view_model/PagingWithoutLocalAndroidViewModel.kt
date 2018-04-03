@@ -11,7 +11,7 @@ import io.github.anderscheow.library.paging.BaseItemKeyedDataSource
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
-abstract class PagingAndroidViewModel<in T, Key, Value>(context: Application) : BaseAndroidViewModel<T>(context) {
+abstract class PagingWithoutLocalAndroidViewModel<in T, Key, Value>(context: Application) : BaseAndroidViewModel<T>(context) {
 
     protected abstract val numberOfThreads: Int
 

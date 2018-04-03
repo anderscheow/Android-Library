@@ -56,9 +56,7 @@ abstract class BaseDialogFragment : DialogFragment() {
         dialog.setCancelable(false)
         dialog.setCanceledOnTouchOutside(false)
 
-        if (getTitle() > 0) {
-            dialog.setTitle(getTitle())
-        }
+        dialog.setTitle(getTitle())
 
         return dialog
     }

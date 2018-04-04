@@ -8,9 +8,11 @@ import io.github.anderscheow.library.utils.Listing
 
 abstract class PagingRepository<T : PagingModel> {
 
+    protected val totalItems = MutableLiveData<Long>()
+
     abstract fun insertResultIntoDb(items : List<T>?)
 
-    abstract fun getFirstPageItemsFromApi(success: (List<T>) -> Unit, failed: (String?) -> Unit)
+    abstract fun getFirstPageItemsFromApi()
 
     @MainThread
     abstract fun getItems(pageSize: Int): Listing<T>
@@ -20,13 +22,7 @@ abstract class PagingRepository<T : PagingModel> {
         val networkState = MutableLiveData<NetworkState>()
         networkState.value = NetworkState.LOADING
 
-        getFirstPageItemsFromApi({
-            insertResultIntoDb(it)
-
-            networkState.postValue(NetworkState.LOADED)
-        }, {
-            networkState.postValue(NetworkState.error(it))
-        })
+        getFirstPageItemsFromApi()
 
         return networkState
     }

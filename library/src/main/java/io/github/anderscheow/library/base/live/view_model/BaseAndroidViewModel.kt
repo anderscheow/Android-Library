@@ -60,8 +60,8 @@ abstract class BaseAndroidViewModel<in T>(context: Application) : AndroidViewMod
         isLoading.notifyChange()
     }
 
-    fun setListSize(totalItems: Long) {
-        showProgressDialog(-1)
+    fun finishLoading(totalItems: Long = -1) {
+        dismissProgressDialog()
         setIsLoading(false)
 
         if (totalItems != -1L) {

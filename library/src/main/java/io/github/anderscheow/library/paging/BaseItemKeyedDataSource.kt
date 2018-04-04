@@ -18,6 +18,12 @@ abstract class BaseItemKeyedDataSource<Key, Value>(private val retryExecutor: Ex
     var pageNumber = 1
         private set
 
+    protected var hasNext = true
+
+    abstract fun loadInitial(success: (List<Value>, Long) -> Unit, failed: (String) -> Unit)
+
+    abstract fun loadAfter(success: (List<Value>) -> Unit, failed: (String) -> Unit)
+
     @CallSuper
     override fun loadInitial(params: ItemKeyedDataSource.LoadInitialParams<Key>, callback: ItemKeyedDataSource.LoadInitialCallback<Value>) {
         retry = {
@@ -25,6 +31,14 @@ abstract class BaseItemKeyedDataSource<Key, Value>(private val retryExecutor: Ex
         }
 
         networkState.postValue(NetworkState.LOADING)
+
+        loadInitial({ items, total ->
+            callback.onResult(items)
+
+            postSuccessValue(total)
+        }, {
+            postFailedValue(it)
+        })
     }
 
     @CallSuper
@@ -34,6 +48,14 @@ abstract class BaseItemKeyedDataSource<Key, Value>(private val retryExecutor: Ex
         }
 
         networkState.postValue(NetworkState.LOADING)
+
+        loadAfter({ items ->
+            callback.onResult(items)
+
+            postSuccessValue()
+        }, {
+            postFailedValue(it)
+        })
     }
 
     @CallSuper
@@ -41,24 +63,24 @@ abstract class BaseItemKeyedDataSource<Key, Value>(private val retryExecutor: Ex
 
     }
 
-    protected fun incrementPageNumber() {
-        pageNumber += 1
-    }
-
-    protected fun postSuccessValue() {
+    private fun postSuccessValue() {
         networkState.postValue(NetworkState.LOADED)
+
+        pageNumber += 1
 
         retry = null
     }
 
-    protected fun postSuccessValue(totalOfElements: Long) {
+    private fun postSuccessValue(totalOfElements: Long) {
         networkState.postValue(NetworkState.LOADED)
         totalItems.postValue(totalOfElements)
 
+        pageNumber += 1
+
         retry = null
     }
 
-    protected fun postFailedValue(errorMessage: String) {
+    private fun postFailedValue(errorMessage: String) {
         networkState.postValue(NetworkState.error(errorMessage))
     }
 

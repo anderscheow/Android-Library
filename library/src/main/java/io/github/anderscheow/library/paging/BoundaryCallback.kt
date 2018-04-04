@@ -7,7 +7,6 @@ import io.github.anderscheow.library.utils.createStatusLiveData
 import java.util.concurrent.Executor
 
 abstract class BoundaryCallback<T : PagingModel>(private val handleResponse: (List<T>?) -> Unit,
-                                                 private val totalItems: (Long) -> Unit,
                                                  private val executor: Executor)
     : PagedList.BoundaryCallback<T>() {
 
@@ -16,7 +15,16 @@ abstract class BoundaryCallback<T : PagingModel>(private val handleResponse: (Li
 
     private var pageNumber = 1
 
-    abstract fun loadItemsSynchronously(pageNumber: Int, success: (List<T>) -> Unit, failed: (String) -> Unit)
+    protected var hasNext = true
+
+    abstract fun loadItems(pageNumber: Int, success: (List<T>) -> Unit, failed: (String) -> Unit)
+
+    fun refresh() {
+        pageNumber = 1
+        hasNext = true
+
+        onZeroItemsLoaded()
+    }
 
     /**
      * Database returned 0 items. We should query the backend for more items.
@@ -24,7 +32,7 @@ abstract class BoundaryCallback<T : PagingModel>(private val handleResponse: (Li
     @MainThread
     override fun onZeroItemsLoaded() {
         helper.runIfNotRunning(PagingRequestHelper.RequestType.INITIAL) { callback ->
-            loadItemsSynchronously(pageNumber, { items ->
+            loadItems(pageNumber, { items ->
                 successCallback(items, callback)
             }, {
                 failedCallback(it, callback)
@@ -38,11 +46,15 @@ abstract class BoundaryCallback<T : PagingModel>(private val handleResponse: (Li
     @MainThread
     override fun onItemAtEndLoaded(itemAtEnd: T) {
         helper.runIfNotRunning(PagingRequestHelper.RequestType.AFTER) { callback ->
-            loadItemsSynchronously(pageNumber, { items ->
-                successCallback(items, callback)
-            }, {
-                failedCallback(it, callback)
-            })
+            if (hasNext) {
+                loadItems(pageNumber, { items ->
+                    successCallback(items, callback)
+                }, {
+                    failedCallback(it, callback)
+                })
+            } else {
+                successCallback(emptyList(), callback)
+            }
         }
     }
 

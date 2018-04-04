@@ -17,7 +17,9 @@ abstract class BoundaryCallback<T : PagingModel>(private val handleResponse: (Li
 
     protected var hasNext = true
 
-    abstract fun loadItems(pageNumber: Int, success: (List<T>) -> Unit, failed: (String) -> Unit)
+    abstract fun loadInitial(pageNumber: Int = 1, success: (List<T>) -> Unit, failed: (String) -> Unit)
+
+    abstract fun loadAfter(pageNumber: Int, success: (List<T>) -> Unit, failed: (String) -> Unit)
 
     fun refresh() {
         pageNumber = 1
@@ -32,7 +34,7 @@ abstract class BoundaryCallback<T : PagingModel>(private val handleResponse: (Li
     @MainThread
     override fun onZeroItemsLoaded() {
         helper.runIfNotRunning(PagingRequestHelper.RequestType.INITIAL) { callback ->
-            loadItems(pageNumber, { items ->
+            loadInitial(pageNumber, { items ->
                 successCallback(items, callback)
             }, {
                 failedCallback(it, callback)
@@ -47,7 +49,7 @@ abstract class BoundaryCallback<T : PagingModel>(private val handleResponse: (Li
     override fun onItemAtEndLoaded(itemAtEnd: T) {
         helper.runIfNotRunning(PagingRequestHelper.RequestType.AFTER) { callback ->
             if (hasNext) {
-                loadItems(pageNumber, { items ->
+                loadAfter(pageNumber, { items ->
                     successCallback(items, callback)
                 }, {
                     failedCallback(it, callback)

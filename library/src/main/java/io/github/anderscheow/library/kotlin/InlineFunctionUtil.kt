@@ -6,6 +6,9 @@ import android.os.Build
 import android.os.Handler
 import android.text.Html
 import android.text.Spanned
+import android.view.View
+import android.widget.EditText
+import android.widget.TextView
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
@@ -88,8 +91,38 @@ fun <T> emptyList(): List<T> {
     return ArrayList()
 }
 
+// Delay action within period of time
 fun delay(timeInMilli: Long, action: () -> Unit) {
     Handler().postDelayed(action, timeInMilli)
+}
+
+// Iterate views and change its visibility to GONE
+fun hideFields(vararg views: View) {
+    for (view in views) {
+        if (view.visibility != View.GONE) view.visibility = View.GONE
+    }
+}
+
+fun hideField(view: View) {
+    hideFields(view)
+}
+
+// Iterate views and change its visibility to VISIBLE
+fun showFields(vararg views: View) {
+    for (view in views) {
+        if (view.visibility != View.VISIBLE) view.visibility = View.VISIBLE
+    }
+}
+
+fun showField(view: View) {
+    showFields(view)
+}
+
+// Iterate edit texts and clear its text
+fun clearTexts(editTexts: Array<EditText>) {
+    for (editText in editTexts) {
+        editText.text.clear()
+    }
 }
 
 /** Extension for String */
@@ -179,20 +212,53 @@ fun Long?.formatDate(format: String): String {
 
 /** Extension for Double */
 fun Double?.formatAmount(firstFormat: String? = null, secondFormat: String? = null): String {
-    var formatter = DecimalFormat(firstFormat ?: "###,###,##0.00")
+    val twoZeroFormatted = this.formatAmount(firstFormat ?: "###,###,##0.00")
+
+    if (twoZeroFormatted == "0.00") {
+        val fourZeroFormatted = this.formatAmount(firstFormat ?: "###,###,##0.0000")
+
+        if (fourZeroFormatted == "0.0000") {
+            return fourZeroFormatted
+        }
+    }
+
+    return twoZeroFormatted
+}
+
+fun Double?.formatAmount(format: String): String {
+    val formatter = DecimalFormat(format)
     formatter.roundingMode = RoundingMode.DOWN
 
-    var formatted = formatter.format(this ?: 0)
-    if (formatted == "0.00") {
-        formatter = DecimalFormat(secondFormat ?: "###,###,##0.0000")
-        formatter.roundingMode = RoundingMode.DOWN
-    }
-
-    formatted = formatter.format(this ?: 0)
-    if (formatted == "0.0000") {
-        formatter = DecimalFormat(firstFormat ?: "###,###,##0.00")
-        formatter.roundingMode = RoundingMode.DOWN
-    }
-
     return formatter.format(this ?: 0)
+}
+
+/** Extension for View */
+fun View.gone() {
+    this.visibility = View.GONE
+}
+
+fun View.invisible() {
+    this.visibility = View.INVISIBLE
+}
+
+fun View.visible() {
+    this.visibility = View.VISIBLE
+}
+
+fun View.enable() {
+    this.isEnabled = true
+}
+
+fun View.disable() {
+    this.isEnabled = false
+}
+
+/** Extension for TextView */
+fun TextView.setTextToSpanned(value: String) {
+    this.text = value.formatToSpanned()
+}
+
+/** Extension for CharSequence */
+fun CharSequence.trimToString(): String {
+    return this.toString().trim()
 }

@@ -25,6 +25,7 @@ abstract class BasePagedListWithoutNetworkStateAdapter<T>(
         val itemViewType = getItemViewType(position)
 
         if (itemViewType == getBodyLayout(position)) {
+            @Suppress("UNCHECKED_CAST")
             (holder as? MyBaseViewHolder<T>)?.bind(getItem(position))
         }
     }

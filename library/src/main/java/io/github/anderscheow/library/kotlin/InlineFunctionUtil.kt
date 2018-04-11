@@ -91,6 +91,10 @@ fun <T> emptyList(): List<T> {
     return ArrayList()
 }
 
+fun toSpanned(value: String): Spanned {
+    return value.formatToSpanned()
+}
+
 // Delay action within period of time
 fun delay(timeInMilli: Long, action: () -> Unit) {
     Handler().postDelayed(action, timeInMilli)
@@ -119,7 +123,7 @@ fun showField(view: View) {
 }
 
 // Iterate edit texts and clear its text
-fun clearTexts(editTexts: Array<EditText>) {
+fun clearTexts(vararg editTexts: EditText) {
     for (editText in editTexts) {
         editText.text.clear()
     }
@@ -135,6 +139,7 @@ fun String.formatToSpanned(): Spanned {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         Html.fromHtml(this, Html.FROM_HTML_MODE_COMPACT)
     } else {
+        @Suppress("DEPRECATION")
         Html.fromHtml(this)
     }
 }
@@ -211,6 +216,7 @@ fun Long?.formatDate(format: String): String {
 }
 
 /** Extension for Double */
+@Suppress("UNUSED_PARAMETER")
 fun Double?.formatAmount(firstFormat: String? = null, secondFormat: String? = null): String {
     val twoZeroFormatted = this.formatAmount(firstFormat ?: "###,###,##0.00")
 
@@ -255,7 +261,7 @@ fun View.disable() {
 
 /** Extension for TextView */
 fun TextView.setTextToSpanned(value: String) {
-    this.text = value.formatToSpanned()
+    this.text = toSpanned(value)
 }
 
 /** Extension for CharSequence */

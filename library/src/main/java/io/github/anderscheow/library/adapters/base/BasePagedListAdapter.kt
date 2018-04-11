@@ -36,6 +36,7 @@ abstract class BasePagedListAdapter<T>(
         val itemViewType = getItemViewType(position)
 
         if (itemViewType == getBodyLayout(position)) {
+            @Suppress("UNCHECKED_CAST")
             (holder as? MyBaseViewHolder<T>)?.bind(getItem(position))
         } else if (itemViewType == NETWORK_STATE_LAYOUT) {
             (holder as NetworkStateViewHolder).bind(networkState)

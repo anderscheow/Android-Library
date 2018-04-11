@@ -44,6 +44,7 @@ abstract class BaseSectionPagedListAdapter<Key, Value>(
         }
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val itemViewType = getItemViewType(position)
 

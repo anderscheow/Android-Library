@@ -41,7 +41,7 @@ abstract class PagingWithoutLocalAndroidViewModel<in T, Key, Value>(context: App
                 .setPageSize(loadPageSize).build()
 
         items = LivePagedListBuilder(factory, pagedListConfig)
-                .setBackgroundThreadExecutor(executor)
+                .setFetchExecutor(executor)
                 .build()
     }
 

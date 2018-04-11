@@ -19,6 +19,7 @@ abstract class LifecycleFragment<VM : BaseAndroidViewModel<*>> : BaseFragment() 
 
     var viewModel: VM? = null
 
+    @Suppress("DEPRECATION")
     private var progressDialog: ProgressDialog? = null
 
     private var unbinder: Unbinder? = null

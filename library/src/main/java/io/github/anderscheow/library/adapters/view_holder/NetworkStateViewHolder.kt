@@ -36,6 +36,7 @@ class NetworkStateViewHolder(private val binding: ViewNetworkStateBinding,
             return NetworkStateViewHolder(binding, callback)
         }
 
+        @Suppress("UNUSED_PARAMETER")
         fun create(binding: ViewNetworkStateBinding,
                    callback: () -> Unit,
                    @StringRes errorMessage: Int?): NetworkStateViewHolder {

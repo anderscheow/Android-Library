@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="io.github.anderscheow.android_library.MainActivity">
+    tools:context="io.github.anderscheow.android_library.MainSampleActivity">
 
     <io.github.anderscheow.library.views.LoadingTextView
         android:id="@+id/textView"

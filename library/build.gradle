@@ -43,7 +43,7 @@ android {
 
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestApi('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
@@ -63,8 +63,7 @@ dependencies {
     api "android.arch.paging:runtime:$android_arch_paging_version"
 
     /** Anko */
-    api "org.jetbrains.anko:anko-commons:$anko_version"
-    api "org.jetbrains.anko:anko-design:$anko_version"
+    api "org.jetbrains.anko:anko:$anko_version"
 
     /** Butterknife */
     api "com.jakewharton:butterknife:$butterknife_version"
@@ -82,7 +81,7 @@ dependencies {
     api 'com.orhanobut:logger:2.2.0'
     api 'org.greenrobot:eventbus:3.0.0'
 
-    testApi 'junit:junit:4.12'
+    androidTestImplementation 'junit:junit:4.12'
 }
 repositories {
     mavenCentral()

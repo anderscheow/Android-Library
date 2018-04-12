@@ -14,6 +14,8 @@ class SlideButton @JvmOverloads constructor(context: Context, attrs: AttributeSe
     private var listener: SlideButtonListener? = null
     private val orientation: Int
 
+    var progressThreshold: Int = 90
+
     interface SlideButtonListener {
         fun handleSlide()
 
@@ -68,7 +70,7 @@ class SlideButton @JvmOverloads constructor(context: Context, attrs: AttributeSe
                 } else
                     return false
             } else if (event.action == MotionEvent.ACTION_UP) {
-                progress = if (progress > 90) {
+                progress = if (progress > progressThreshold) {
                     handleSlide()
                     100
                 } else {

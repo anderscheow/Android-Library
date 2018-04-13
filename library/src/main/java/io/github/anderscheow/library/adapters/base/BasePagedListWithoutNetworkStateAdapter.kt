@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import io.github.anderscheow.library.adapters.view_holder.MyBaseViewHolder
 
+@Suppress("UNUSED")
 abstract class BasePagedListWithoutNetworkStateAdapter<T>(
         diffCallback: DiffUtil.ItemCallback<T>)
     : FoundationPagedListAdapter<T>(null, diffCallback) {

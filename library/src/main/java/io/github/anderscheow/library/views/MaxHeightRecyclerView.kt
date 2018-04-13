@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.View
 
+@Suppress("UNUSED")
 class MaxHeightRecyclerView : RecyclerView {
 
     constructor(context: Context) : super(context)

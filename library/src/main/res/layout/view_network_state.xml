@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2017 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,26 +15,31 @@
   -->
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <data>
-        <import type="android.view.View"/>
-        <import type="io.github.anderscheow.library.constant.NetworkState"/>
+
+        <import type="android.view.View" />
+
+        <import type="io.github.anderscheow.library.constant.NetworkState" />
+
         <variable
             name="obj"
-            type="io.github.anderscheow.library.constant.NetworkState"/>
+            type="io.github.anderscheow.library.constant.NetworkState" />
     </data>
 
     <LinearLayout
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:orientation="vertical"
-                  android:padding="8dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
         <TextView
             android:id="@+id/text_view_error_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/prompt_please_try_again"
-            android:visibility="@{obj.message != null ? View.VISIBLE : View.GONE, default=gone}"/>
+            android:visibility="@{obj.message != null ? View.VISIBLE : View.GONE, default=gone}" />
 
         <ProgressBar
             android:id="@+id/progress_bar"
@@ -43,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="@{obj.status == NetworkState.Status.RUNNING ? View.VISIBLE : View.GONE, default=visible}"/>
+            android:visibility="@{obj.status == NetworkState.Status.RUNNING ? View.VISIBLE : View.GONE, default=visible}" />
 
         <Button
             android:id="@+id/button_retry"
@@ -52,6 +56,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/action_retry"
-            android:visibility="@{obj.status == NetworkState.Status.FAILED ? View.VISIBLE : View.GONE, default=gone}"/>
+            android:visibility="@{obj.status == NetworkState.Status.FAILED ? View.VISIBLE : View.GONE, default=gone}" />
     </LinearLayout>
 </layout>

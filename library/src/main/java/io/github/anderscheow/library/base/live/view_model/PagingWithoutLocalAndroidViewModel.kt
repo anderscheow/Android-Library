@@ -11,6 +11,7 @@ import io.github.anderscheow.library.paging.BaseItemKeyedDataSource
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
+@Suppress("UNUSED")
 abstract class PagingWithoutLocalAndroidViewModel<in T, Key, Value>(context: Application) : BaseAndroidViewModel<T>(context) {
 
     protected abstract val numberOfThreads: Int
@@ -53,6 +54,7 @@ abstract class PagingWithoutLocalAndroidViewModel<in T, Key, Value>(context: App
         tDataSource?.value?.invalidate()
     }
 
+    @Suppress("UNUSED")
     fun retry() {
         tDataSource?.value?.retry()
     }

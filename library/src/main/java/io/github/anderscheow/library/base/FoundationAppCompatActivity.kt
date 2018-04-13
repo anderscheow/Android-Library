@@ -94,6 +94,7 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
+    @Suppress("UNUSED")
     protected fun canAccessCamera(): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             PackageManager.PERMISSION_GRANTED == checkSelfPermission(Manifest.permission.CAMERA)
@@ -102,6 +103,7 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
         }
     }
 
+    @Suppress("UNUSED")
     protected fun canAccessStorage(): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             PackageManager.PERMISSION_GRANTED == checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -110,6 +112,7 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
         }
     }
 
+    @Suppress("UNUSED")
     protected fun canAccessLocation(): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             PackageManager.PERMISSION_GRANTED == checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) &&
@@ -119,6 +122,7 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
         }
     }
 
+    @Suppress("UNUSED")
     protected fun shouldShowLocationPermissionRationalDialog(): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION) &&
@@ -151,6 +155,7 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
         toast(R.string.prompt_internet_required)
     }
 
+    @Suppress("UNUSED")
     fun isConnectedToInternet(action: () -> Unit) {
         if (isConnectedToInternet()) {
             action.invoke()
@@ -159,6 +164,7 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
         }
     }
 
+    @Suppress("UNUSED")
     fun checkLoadingIndicator(active: Boolean, message: Int) {
         if (active) {
             showProgressDialog(message)

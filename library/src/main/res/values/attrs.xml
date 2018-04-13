@@ -2,7 +2,7 @@
 <resources>
 
     <declare-styleable name="slideButton">
-        <attr name="orientation" >
+        <attr name="orientation">
             <!-- the switch moves only on the x-axis(horizontally) -->
             <enum name="horizontal" value="0" />
             <!-- the switch moves only on the y-axis(vertically) -->

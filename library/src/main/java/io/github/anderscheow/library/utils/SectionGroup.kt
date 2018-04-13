@@ -29,6 +29,7 @@ class SectionGroup {
             }
         }
 
+        @Suppress("UNUSED")
         fun createSection(section: Any): SectionGroup {
 
             return SectionGroup().apply {
@@ -38,6 +39,7 @@ class SectionGroup {
             }
         }
 
+        @Suppress("UNUSED")
         fun createRow(row: Any): SectionGroup {
             return SectionGroup().apply {
                 this.row = row
@@ -46,6 +48,7 @@ class SectionGroup {
             }
         }
 
+        @Suppress("UNUSED")
         fun createFooter(): SectionGroup {
             return SectionGroup().apply {
                 this.isRow = true

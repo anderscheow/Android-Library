@@ -8,6 +8,7 @@ import android.view.MotionEvent
 
 import io.github.anderscheow.library.R
 
+@Suppress("UNUSED")
 class SlideButton @JvmOverloads constructor(context: Context, attrs: AttributeSet, defStyle: Int = 0) : android.support.v7.widget.AppCompatSeekBar(context, attrs, defStyle) {
 
     private var mThumb: Drawable? = null

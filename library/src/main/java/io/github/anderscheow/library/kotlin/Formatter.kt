@@ -21,6 +21,7 @@ fun String.formatToSpanned(): Spanned {
 }
 
 /** Extension for Long */
+@Suppress("UNUSED")
 fun Long?.formatAmount(format: String? = null): String {
     val d = (this ?: 0) / 100.0
     val formatter = DecimalFormat(format ?: "###,###,##0.00")
@@ -28,6 +29,7 @@ fun Long?.formatAmount(format: String? = null): String {
     return formatter.format(d)
 }
 
+@Suppress("UNUSED")
 fun Long?.formatDateWithYear(): String {
     val calendar = Calendar.getInstance()
     calendar.timeInMillis = this ?: 0
@@ -35,6 +37,7 @@ fun Long?.formatDateWithYear(): String {
     return SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(calendar.time)
 }
 
+@Suppress("UNUSED")
 fun Long?.formatDateWithoutYear(): String {
     val calendar = Calendar.getInstance()
     calendar.timeInMillis = this ?: 0
@@ -42,6 +45,7 @@ fun Long?.formatDateWithoutYear(): String {
     return SimpleDateFormat("dd MMM", Locale.getDefault()).format(calendar.time)
 }
 
+@Suppress("UNUSED")
 fun Long?.formatTime(): String {
     val calendar = Calendar.getInstance()
     calendar.timeInMillis = this ?: 0
@@ -49,6 +53,7 @@ fun Long?.formatTime(): String {
     return SimpleDateFormat("h:mm a", Locale.getDefault()).format(calendar.time)
 }
 
+@Suppress("UNUSED")
 fun Long?.formatMinuteSecond(): String {
     val calendar = Calendar.getInstance()
     calendar.timeInMillis = this ?: 0
@@ -56,6 +61,7 @@ fun Long?.formatMinuteSecond(): String {
     return SimpleDateFormat("mm:ss", Locale.getDefault()).format(calendar.time)
 }
 
+@Suppress("UNUSED")
 fun Long?.formatSecond(): String {
     val calendar = Calendar.getInstance()
     calendar.timeInMillis = this ?: 0
@@ -63,6 +69,7 @@ fun Long?.formatSecond(): String {
     return SimpleDateFormat("0:ss", Locale.getDefault()).format(calendar.time)
 }
 
+@Suppress("UNUSED")
 fun Long?.formatDateTime(): String {
     val calendar = Calendar.getInstance()
     calendar.timeInMillis = this ?: 0
@@ -70,6 +77,7 @@ fun Long?.formatDateTime(): String {
     return SimpleDateFormat("dd MMM yyyy, h:mm a", Locale.getDefault()).format(calendar.time)
 }
 
+@Suppress("UNUSED")
 fun Long?.formatDateTime24Hours(): String {
     val calendar = Calendar.getInstance()
     calendar.timeInMillis = this ?: 0
@@ -77,6 +85,7 @@ fun Long?.formatDateTime24Hours(): String {
     return SimpleDateFormat("dd MMM yyyy, HH:mm a", Locale.getDefault()).format(calendar.time)
 }
 
+@Suppress("UNUSED")
 fun Long?.formatDate(format: String): String {
     val calendar = Calendar.getInstance()
     calendar.timeInMillis = this ?: 0
@@ -85,7 +94,7 @@ fun Long?.formatDate(format: String): String {
 }
 
 /** Extension for Double */
-@Suppress("UNUSED_PARAMETER")
+@Suppress("UNUSED_PARAMETER", "UNUSED")
 fun Double?.formatAmount(firstFormat: String? = null, secondFormat: String? = null): String {
     val twoZeroFormatted = this.formatAmount(firstFormat ?: "###,###,##0.00")
 
@@ -108,6 +117,7 @@ fun Double?.formatAmount(format: String): String {
 }
 
 /** Extension for CharSequence */
+@Suppress("UNUSED")
 fun CharSequence.trimToString(): String {
     return this.toString().trim()
 }

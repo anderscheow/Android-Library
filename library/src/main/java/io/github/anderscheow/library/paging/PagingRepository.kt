@@ -6,11 +6,12 @@ import android.support.annotation.MainThread
 import io.github.anderscheow.library.constant.NetworkState
 import io.github.anderscheow.library.utils.Listing
 
+@Suppress("UNUSED")
 abstract class PagingRepository<T : PagingModel> {
 
     protected val totalItems = MutableLiveData<Long>()
 
-    abstract fun insertResultIntoDb(items : List<T>?)
+    abstract fun insertResultIntoDb(items: List<T>?)
 
     abstract fun getFirstPageItemsFromApi()
 

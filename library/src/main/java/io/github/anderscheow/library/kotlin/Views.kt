@@ -10,15 +10,15 @@ import android.widget.TextView
 
 /** Extension for AppBar */
 // To enable or disable CollapingToolbarLayout scrolling
+@Suppress("UNUSED")
 fun AppBarLayout.setDragCallback(enable: Boolean) {
     (this.layoutParams as? CoordinatorLayout.LayoutParams)?.let { layoutParams ->
         layoutParams.behavior?.let { behavior ->
-            (behavior as? AppBarLayout.Behavior)?.
-                    setDragCallback(object : AppBarLayout.Behavior.DragCallback() {
-                        override fun canDrag(appBarLayout: AppBarLayout): Boolean {
-                            return enable
-                        }
-                    })
+            (behavior as? AppBarLayout.Behavior)?.setDragCallback(object : AppBarLayout.Behavior.DragCallback() {
+                override fun canDrag(appBarLayout: AppBarLayout): Boolean {
+                    return enable
+                }
+            })
         }
     }
 }
@@ -55,6 +55,7 @@ fun View.disable() {
 }
 
 /** Extension for TextView */
+@Suppress("UNUSED")
 fun TextView.setTextToSpanned(value: String) {
     this.text = toSpanned(value)
 }
@@ -63,25 +64,29 @@ fun TextView.setTextToSpanned(value: String) {
 //region Non-extension
 
 // Iterate views and change its visibility to GONE
+@Suppress("UNUSED")
 fun hideFields(vararg views: View) {
     for (view in views) {
         view.gone()
     }
 }
 
+@Suppress("UNUSED")
 fun hideField(view: View) {
-    hideFields(view)
+    view.gone()
 }
 
 // Iterate views and change its visibility to VISIBLE
+@Suppress("UNUSED")
 fun showFields(vararg views: View) {
     for (view in views) {
         view.visible()
     }
 }
 
+@Suppress("UNUSED")
 fun showField(view: View) {
-    showFields(view)
+    view.visible()
 }
 
 // Iterate edit texts and clear its text
@@ -91,29 +96,34 @@ fun clearTexts(vararg editTexts: EditText) {
     }
 }
 
+@Suppress("UNUSED")
 fun clearText(editText: EditText) {
     clearTexts(editText)
 }
 
 // Iterate views and enable it
+@Suppress("UNUSED")
 fun enableViews(vararg views: View) {
     for (view in views) {
         view.enable()
     }
 }
 
+@Suppress("UNUSED")
 fun enableView(view: View) {
-    enableViews(view)
+    view.enable()
 }
 
 // Iterate views and disable it
+@Suppress("UNUSED")
 fun disableViews(vararg views: View) {
     for (view in views) {
         view.disable()
     }
 }
 
+@Suppress("UNUSED")
 fun disableView(view: View) {
-    disableViews(view)
+    view.disable()
 }
 //endregion

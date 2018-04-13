@@ -1,7 +1,6 @@
 package io.github.anderscheow.library.base.live
 
 import android.app.ProgressDialog
-import android.arch.lifecycle.Observer
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
@@ -13,8 +12,10 @@ import butterknife.Unbinder
 import io.github.anderscheow.library.BR
 import io.github.anderscheow.library.base.BaseFragment
 import io.github.anderscheow.library.base.live.util.ProgressDialogMessage
+import io.github.anderscheow.library.base.live.util.ToastMessage
 import io.github.anderscheow.library.base.live.view_model.BaseAndroidViewModel
 
+@Suppress("UNUSED")
 abstract class LifecycleFragment<VM : BaseAndroidViewModel<*>> : BaseFragment() {
 
     var viewModel: VM? = null
@@ -64,8 +65,12 @@ abstract class LifecycleFragment<VM : BaseAndroidViewModel<*>> : BaseFragment() 
     }
 
     private fun setupToast() {
-        viewModel?.toastMessage?.observe(this, Observer { s -> toast(s) })
+        viewModel?.toastMessage?.observe(this, object : ToastMessage.ToastObserver {
+            override fun onNewMessage(message: String?) {
+                message?.let {
+                    toast(it)
+                }
+            }
+        })
     }
-
-
 }

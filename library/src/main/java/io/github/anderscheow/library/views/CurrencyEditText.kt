@@ -12,6 +12,7 @@ import android.view.MenuItem
 import android.view.View
 import java.text.DecimalFormat
 
+@Suppress("UNUSED")
 class CurrencyEditText : AppCompatEditText {
 
     interface OnAmountChangedListener {

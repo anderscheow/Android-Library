@@ -5,6 +5,7 @@ import android.support.design.widget.TextInputEditText
 import android.util.AttributeSet
 import android.view.KeyEvent
 
+@Suppress("UNUSED")
 class AlwaysOnKeyboardEditText : TextInputEditText {
 
     constructor(context: Context) : super(context)

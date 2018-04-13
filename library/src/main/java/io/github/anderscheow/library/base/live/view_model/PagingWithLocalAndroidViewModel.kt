@@ -9,6 +9,7 @@ import io.github.anderscheow.library.constant.NetworkState
 import io.github.anderscheow.library.paging.PagingModel
 import io.github.anderscheow.library.utils.Listing
 
+@Suppress("UNUSED")
 abstract class PagingWithLocalAndroidViewModel<in T, Value : PagingModel>(context: Application) : BaseAndroidViewModel<T>(context) {
 
     protected val repoResult = MutableLiveData<Listing<Value>>()

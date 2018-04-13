@@ -25,6 +25,7 @@ abstract class BaseRecyclerViewAdapter<T>(val context: Context) : RecyclerView.A
         }
     }
 
+    @Suppress("UNUSED")
     fun addItems(items: List<T>?) {
         items?.let {
             for (item in it) {

@@ -11,6 +11,7 @@ import io.github.anderscheow.library.adapters.view_holder.NetworkStateViewHolder
 import io.github.anderscheow.library.databinding.ViewNetworkStateBinding
 import io.github.anderscheow.library.utils.SectionGroup
 
+@Suppress("UNUSED")
 abstract class BaseSectionPagedListAdapter<Key, Value>(
         private val callback: () -> Unit)
     : FoundationPagedListAdapter<SectionGroup>(callback, SectionGroup.DIFF_CALLBACK) {
@@ -29,7 +30,7 @@ abstract class BaseSectionPagedListAdapter<Key, Value>(
                         layoutInflater, NETWORK_STATE_LAYOUT, parent, false)
                 NetworkStateViewHolder.create(binding, callback)
             }
-            
+
             headerLayout -> {
                 val binding = DataBindingUtil.inflate<ViewDataBinding>(
                         layoutInflater, headerLayout, parent, false)

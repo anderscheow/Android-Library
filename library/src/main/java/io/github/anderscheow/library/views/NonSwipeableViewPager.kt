@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.MotionEvent
 
+@Suppress("UNUSED")
 class NonSwipeableViewPager(context: Context, attrs: AttributeSet) : ViewPager(context, attrs) {
 
     private val enabled: Boolean = false

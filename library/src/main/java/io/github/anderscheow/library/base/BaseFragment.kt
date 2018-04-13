@@ -14,6 +14,7 @@ import io.github.anderscheow.library.constant.EventBusType
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.toast
 
+@Suppress("UNUSED")
 abstract class BaseFragment : Fragment() {
 
     @LayoutRes

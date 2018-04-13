@@ -8,10 +8,12 @@ import android.view.inputmethod.InputMethodManager
 import android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT
 import java.util.*
 
+@Suppress("UNUSED")
 object MiscUtil {
 
     private var displayMetrics: DisplayMetrics? = null
 
+    @Suppress("UNUSED")
     fun getDisplayMetrics(activity: Activity): DisplayMetrics? {
         if (displayMetrics == null) {
             val displayMetrics = DisplayMetrics()
@@ -23,6 +25,7 @@ object MiscUtil {
         return displayMetrics
     }
 
+    @Suppress("UNUSED")
     fun calculateNoOfColumns(context: Context): Int {
         val displayMetrics = context.resources.displayMetrics
         val dpWidth = displayMetrics.widthPixels / displayMetrics.density
@@ -30,6 +33,7 @@ object MiscUtil {
         return (dpWidth / 180).toInt()
     }
 
+    @Suppress("UNUSED")
     fun <T> copyIterator(iterator: Iterator<T>?): List<T> {
         val copy = ArrayList<T>()
         if (iterator != null) {
@@ -39,19 +43,19 @@ object MiscUtil {
         return copy
     }
 
+    @Suppress("UNUSED")
     fun showKeyboard(context: Context, view: View?) {
         view?.let {
             it.requestFocus()
 
-            (context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)?.
-                    toggleSoftInput(InputMethodManager.SHOW_FORCED, SHOW_IMPLICIT)
+            (context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)?.toggleSoftInput(InputMethodManager.SHOW_FORCED, SHOW_IMPLICIT)
         }
     }
 
+    @Suppress("UNUSED")
     fun hideKeyboard(context: Context, view: View?) {
         view?.let {
-            (context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)?.
-                    hideSoftInputFromWindow(it.windowToken, 0)
+            (context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)?.hideSoftInputFromWindow(it.windowToken, 0)
         }
     }
 }

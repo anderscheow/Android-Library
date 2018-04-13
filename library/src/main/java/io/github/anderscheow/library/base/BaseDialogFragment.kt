@@ -14,6 +14,7 @@ import com.orhanobut.logger.Logger
 import io.github.anderscheow.library.constant.EventBusType
 import org.greenrobot.eventbus.EventBus
 
+@Suppress("UNUSED")
 abstract class BaseDialogFragment : DialogFragment() {
 
     @LayoutRes

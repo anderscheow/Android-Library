@@ -106,6 +106,11 @@ fun Double?.formatAmount(format: String): String {
 
     return formatter.format(this ?: 0)
 }
+
+/** Extension for CharSequence */
+fun CharSequence.trimToString(): String {
+    return this.toString().trim()
+}
 //endregion
 
 //region Non-extension

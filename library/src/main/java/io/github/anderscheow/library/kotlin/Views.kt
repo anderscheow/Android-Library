@@ -1,10 +1,27 @@
 package io.github.anderscheow.library.kotlin
 
+import android.support.design.widget.AppBarLayout
+import android.support.design.widget.CoordinatorLayout
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 
 //region Extensions
+
+/** Extension for AppBar */
+// To enable or disable CollapingToolbarLayout scrolling
+fun AppBarLayout.setDragCallback(enable: Boolean) {
+    (this.layoutParams as? CoordinatorLayout.LayoutParams)?.let { layoutParams ->
+        layoutParams.behavior?.let { behavior ->
+            (behavior as? AppBarLayout.Behavior)?.
+                    setDragCallback(object : AppBarLayout.Behavior.DragCallback() {
+                        override fun canDrag(appBarLayout: AppBarLayout): Boolean {
+                            return enable
+                        }
+                    })
+        }
+    }
+}
 
 /** Extension for View */
 fun View.gone() {
@@ -40,11 +57,6 @@ fun View.disable() {
 /** Extension for TextView */
 fun TextView.setTextToSpanned(value: String) {
     this.text = toSpanned(value)
-}
-
-/** Extension for CharSequence */
-fun CharSequence.trimToString(): String {
-    return this.toString().trim()
 }
 //endregion
 

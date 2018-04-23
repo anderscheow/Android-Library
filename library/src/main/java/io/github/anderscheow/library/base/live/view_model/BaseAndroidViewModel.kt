@@ -9,6 +9,7 @@ import android.support.annotation.StringRes
 import io.github.anderscheow.library.base.live.util.ProgressDialogMessage
 import io.github.anderscheow.library.base.live.util.ToastMessage
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
 abstract class BaseAndroidViewModel<in T>(context: Application) : AndroidViewModel(context) {
 
@@ -22,6 +23,10 @@ abstract class BaseAndroidViewModel<in T>(context: Application) : AndroidViewMod
     protected val disposable = CompositeDisposable()
 
     abstract fun start(args: T? = null)
+
+    protected fun launch(job: () -> Disposable) {
+        disposable.add(job())
+    }
 
     override fun onCleared() {
         super.onCleared()

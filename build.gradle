@@ -21,7 +21,7 @@ buildscript {
         butterknife_version = '8.8.1'
 
         /** Reactive */
-        reactive_rxandroid_version = '2.0.1'
+        reactive_rxandroid_version = '2.0.2'
         reactive_rxjava_version = '2.1.2'
     }
     repositories {

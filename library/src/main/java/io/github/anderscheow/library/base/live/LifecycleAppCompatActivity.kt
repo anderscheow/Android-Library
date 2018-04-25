@@ -9,12 +9,15 @@ import io.github.anderscheow.library.base.FoundationAppCompatActivity
 import io.github.anderscheow.library.base.live.util.ProgressDialogMessage
 import io.github.anderscheow.library.base.live.util.ToastMessage
 import io.github.anderscheow.library.base.live.view_model.BaseAndroidViewModel
+import io.github.anderscheow.library.kotlin.lazyThreadSafetyNone
 import org.jetbrains.anko.toast
 
 @Suppress("UNUSED")
 abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : FoundationAppCompatActivity() {
 
-    var viewModel: VM? = null
+    protected val viewModel by lazyThreadSafetyNone {
+        setupViewModel()
+    }
 
     abstract fun setupViewModel(): VM
 
@@ -22,8 +25,6 @@ abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : Founda
         initBeforeSuperOnCreate.invoke()
 
         super.onCreate(savedInstanceState)
-
-        viewModel = setupViewModel()
 
         val binding = DataBindingUtil.setContentView<ViewDataBinding>(this, getResLayout())
         binding.setVariable(BR.obj, viewModel)
@@ -43,7 +44,7 @@ abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : Founda
     }
 
     private fun setupProgressDialog() {
-        viewModel?.progressDialogMessage?.observe(this, object : ProgressDialogMessage.ProgressDialogObserver {
+        viewModel.progressDialogMessage.observe(this, object : ProgressDialogMessage.ProgressDialogObserver {
             override fun onNewMessage(message: Int) {
                 showProgressDialog(message)
             }
@@ -55,7 +56,7 @@ abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : Founda
     }
 
     private fun setupToast() {
-        viewModel?.toastMessage?.observe(this, object : ToastMessage.ToastObserver {
+        viewModel.toastMessage.observe(this, object : ToastMessage.ToastObserver {
             override fun onNewMessage(message: String?) {
                 message?.let {
                     toast(it)

@@ -62,4 +62,7 @@ fun getConnectivityReceiver(action: () -> Unit): BroadcastReceiver {
         }
     }
 }
+
+// Thread safe lazy initializer
+fun <T> lazyThreadSafetyNone(initializer: () -> T): Lazy<T> = lazy(LazyThreadSafetyMode.NONE, initializer)
 //endregion

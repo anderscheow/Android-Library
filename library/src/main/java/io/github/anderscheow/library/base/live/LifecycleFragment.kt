@@ -1,6 +1,5 @@
 package io.github.anderscheow.library.base.live
 
-import android.app.ProgressDialog
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
@@ -10,18 +9,19 @@ import android.view.ViewGroup
 import butterknife.ButterKnife
 import butterknife.Unbinder
 import io.github.anderscheow.library.BR
-import io.github.anderscheow.library.base.BaseFragment
+import io.github.anderscheow.library.base.FoundationFragment
 import io.github.anderscheow.library.base.live.util.ProgressDialogMessage
 import io.github.anderscheow.library.base.live.util.ToastMessage
 import io.github.anderscheow.library.base.live.view_model.BaseAndroidViewModel
+import io.github.anderscheow.library.kotlin.lazyThreadSafetyNone
+import org.jetbrains.anko.support.v4.toast
 
 @Suppress("UNUSED")
-abstract class LifecycleFragment<VM : BaseAndroidViewModel<*>> : BaseFragment() {
+abstract class LifecycleFragment<VM : BaseAndroidViewModel<*>> : FoundationFragment() {
 
-    var viewModel: VM? = null
-
-    @Suppress("DEPRECATION")
-    private var progressDialog: ProgressDialog? = null
+    protected val viewModel by lazyThreadSafetyNone {
+        setupViewModel()
+    }
 
     private var unbinder: Unbinder? = null
 
@@ -29,8 +29,6 @@ abstract class LifecycleFragment<VM : BaseAndroidViewModel<*>> : BaseFragment() 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        viewModel = setupViewModel()
 
         setupProgressDialog()
         setupToast()
@@ -53,7 +51,7 @@ abstract class LifecycleFragment<VM : BaseAndroidViewModel<*>> : BaseFragment() 
     }
 
     private fun setupProgressDialog() {
-        viewModel?.progressDialogMessage?.observe(this, object : ProgressDialogMessage.ProgressDialogObserver {
+        viewModel.progressDialogMessage.observe(this, object : ProgressDialogMessage.ProgressDialogObserver {
             override fun onNewMessage(message: Int) {
                 showProgressDialog(message)
             }
@@ -65,7 +63,7 @@ abstract class LifecycleFragment<VM : BaseAndroidViewModel<*>> : BaseFragment() 
     }
 
     private fun setupToast() {
-        viewModel?.toastMessage?.observe(this, object : ToastMessage.ToastObserver {
+        viewModel.toastMessage.observe(this, object : ToastMessage.ToastObserver {
             override fun onNewMessage(message: String?) {
                 message?.let {
                     toast(it)

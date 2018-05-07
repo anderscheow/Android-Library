@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.2.40'
+    ext.kotlin_version = '1.2.41'
 
     ext {
         /** Android Support */
@@ -12,7 +12,7 @@ buildscript {
         android_arch_lifecycle_version = '1.1.1'
 
         /** Android Architecture Paging */
-        android_arch_paging_version = '1.0.0-beta1'
+        android_arch_paging_version = '1.0.0-rc1'
 
         /** Anko */
         anko_version='0.10.4'

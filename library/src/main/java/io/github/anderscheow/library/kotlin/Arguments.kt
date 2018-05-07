@@ -1,4 +1,4 @@
-@file:Suppress("UNCHECKED_CAST")
+@file:Suppress("UNUSED", "UNCHECKED_CAST")
 
 package io.github.anderscheow.library.kotlin
 

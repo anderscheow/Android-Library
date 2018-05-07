@@ -1,3 +1,5 @@
+@file:Suppress("UNUSED", "UNCHECKED_CAST")
+
 package io.github.anderscheow.library.kotlin
 
 import kotlin.reflect.KMutableProperty0
@@ -15,9 +17,7 @@ class ReferencedProperty<T>(private val get: () -> T,
                           value: T) = set(value)
 }
 
-@Suppress("UNUSED")
 fun <T> ref(property: KMutableProperty0<T>) = ReferencedProperty(property::get,
         property::set)
 
-@Suppress("UNUSED")
 fun <T> ref(property: KProperty0<T>) = ReferencedProperty(property::get)

@@ -1,8 +1,12 @@
 package io.github.anderscheow.library.kotlin
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CoordinatorLayout
 import android.view.View
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.DecelerateInterpolator
 import android.widget.EditText
 import android.widget.TextView
 
@@ -51,6 +55,53 @@ fun View.enable() {
 fun View.disable() {
     if (this.isEnabled) {
         this.isEnabled = false
+    }
+}
+
+fun View.fadeIn(timeInMillis: Long = 300,
+                onAnimationStart: (() -> Unit)? = null,
+                onAnimationEnd: (() -> Unit)? = null) {
+    this.post {
+        this.visibility = View.VISIBLE
+        this.alpha = 0f
+
+        this.animate()
+                .alpha(1f)
+                .setInterpolator(DecelerateInterpolator())
+                .setDuration(timeInMillis)
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationStart(animation: Animator?) {
+                        onAnimationStart?.invoke()
+                    }
+
+                    override fun onAnimationEnd(animation: Animator?) {
+                        onAnimationEnd?.invoke()
+
+                        this@fadeIn.visible()
+                    }
+                })
+    }
+}
+
+fun View.fadeOut(timeInMillis: Long = 300, gone: Boolean = true,
+                 onAnimationStart: (() -> Unit)? = null,
+                 onAnimationEnd: (() -> Unit)? = null) {
+    this.post {
+        this.animate()
+                .alpha(0f)
+                .setInterpolator(AccelerateInterpolator())
+                .setDuration(timeInMillis)
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationStart(animation: Animator?) {
+                        onAnimationStart?.invoke()
+                    }
+
+                    override fun onAnimationEnd(animation: Animator?) {
+                        onAnimationEnd?.invoke()
+
+                        if (gone) this@fadeOut.gone() else this@fadeOut.invisible()
+                    }
+                })
     }
 }
 

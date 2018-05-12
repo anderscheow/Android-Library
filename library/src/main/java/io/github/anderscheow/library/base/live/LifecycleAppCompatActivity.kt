@@ -29,13 +29,15 @@ abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : Founda
         val binding = DataBindingUtil.setContentView<ViewDataBinding>(this, getResLayout())
         binding.setVariable(BR.obj, viewModel)
 
+        if (requiredButterknife()) {
+            ButterKnife.bind(this)
+        }
+
         getToolbar()?.let {
             setSupportActionBar(getToolbar())
 
             supportActionBar?.setDisplayHomeAsUpEnabled(requiredDisplayHomeAsUp())
         }
-
-        ButterKnife.bind(this)
 
         setupProgressDialog()
         setupToast()

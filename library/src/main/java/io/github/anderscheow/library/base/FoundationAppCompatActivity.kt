@@ -30,6 +30,10 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
 
     abstract var initBeforeSuperOnCreate: () -> Unit
 
+    open fun requiredButterknife(): Boolean {
+        return false
+    }
+
     @Suppress("DEPRECATION")
     var progressDialog: ProgressDialog? = null
         private set

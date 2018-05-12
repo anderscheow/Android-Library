@@ -25,6 +25,10 @@ abstract class BaseDialogFragment : DialogFragment() {
     // Header and content
     abstract fun getTitle(): String?
 
+    open fun requiredButterknife(): Boolean {
+        return false
+    }
+
     var isDestroy = false
         private set
 
@@ -66,7 +70,10 @@ abstract class BaseDialogFragment : DialogFragment() {
                               savedInstanceState: Bundle?): View? {
         Logger.v("Fragment CREATED VIEW")
         val view = inflater.inflate(getResLayout(), container, false)
-        unbinder = ButterKnife.bind(this, view)
+
+        if (requiredButterknife()) {
+            unbinder = ButterKnife.bind(this, view)
+        }
 
         return view
     }

@@ -17,7 +17,10 @@ abstract class BaseFragment : FoundationFragment() {
                               savedInstanceState: Bundle?): View? {
         Logger.v("Fragment CREATED VIEW")
         val view = inflater.inflate(getResLayout(), container, false)
-        unbinder = ButterKnife.bind(this, view)
+
+        if (requiredButterknife()) {
+            unbinder = ButterKnife.bind(this, view)
+        }
 
         return view
     }

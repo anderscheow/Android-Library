@@ -30,6 +30,10 @@ abstract class FoundationFragment : Fragment() {
 
     abstract var initializer: () -> Unit
 
+    open fun requiredButterknife(): Boolean {
+        return false
+    }
+
     var isDestroy = false
         private set
 

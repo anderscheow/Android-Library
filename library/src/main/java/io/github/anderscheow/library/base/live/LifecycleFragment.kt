@@ -38,7 +38,10 @@ abstract class LifecycleFragment<VM : BaseAndroidViewModel<*>> : FoundationFragm
                               savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<ViewDataBinding>(inflater, getResLayout(), container, false)
         val view = binding.root
-        unbinder = ButterKnife.bind(this, view)
+
+        if (requiredButterknife()) {
+            unbinder = ButterKnife.bind(this, view)
+        }
 
         binding.setVariable(BR.obj, viewModel)
 

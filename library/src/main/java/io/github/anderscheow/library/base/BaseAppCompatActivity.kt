@@ -11,7 +11,10 @@ abstract class BaseAppCompatActivity : FoundationAppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(getResLayout())
-        ButterKnife.bind(this)
+
+        if (requiredButterknife()) {
+            ButterKnife.bind(this)
+        }
 
         getToolbar()?.let {
             setSupportActionBar(getToolbar())

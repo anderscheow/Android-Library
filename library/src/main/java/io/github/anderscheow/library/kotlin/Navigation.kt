@@ -9,6 +9,11 @@ import android.net.Uri
 
 /**
  *  Redirect to user to specific uri and try fallbackUri if failed
+ *
+ *  @param uri Primary Uri
+ *  @param fallbackUri Fallback Uri
+ *  @param intentAction Type of action for intent
+ *  @param packageName Package name of your destination
  */
 fun Context.redirectTo(uri: Uri,
                        fallbackUri: Uri?,

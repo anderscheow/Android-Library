@@ -36,7 +36,9 @@ fun Context.redirectTo(url: String,
                        packageName: String? = null) {
     this.redirectTo(
             uri = Uri.parse(url),
-            fallbackUri = Uri.parse(fallbackUrl),
+            fallbackUri = fallbackUrl?.let {
+                Uri.parse(fallbackUrl)
+            },
             intentAction = intentAction,
             packageName = packageName
     )

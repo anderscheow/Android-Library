@@ -64,7 +64,7 @@ fun <T> lazyThreadSafetyNone(initializer: () -> T): Lazy<T> = lazy(LazyThreadSaf
  * Extension method to check is aboveApi.
  */
 inline fun aboveApi(api: Int, included: Boolean = false, block: () -> Unit) {
-    if (Build.VERSION.SDK_INT > if (included) api - 1 else api) {
+    if (Build.VERSION.SDK_INT > included then api - 1 ?: api) {
         block()
     }
 }
@@ -73,7 +73,7 @@ inline fun aboveApi(api: Int, included: Boolean = false, block: () -> Unit) {
  * Extension method to check is belowApi.
  */
 inline fun belowApi(api: Int, included: Boolean = false, block: () -> Unit) {
-    if (Build.VERSION.SDK_INT < if (included) api + 1 else api) {
+    if (Build.VERSION.SDK_INT < included then api + 1 ?: api) {
         block()
     }
 }

@@ -50,6 +50,7 @@ dependencies {
 
     /** Core */
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
     /** Android Support */
     api "com.android.support:appcompat-v7:$android_support_version"

@@ -50,6 +50,7 @@ dependencies {
 
     /** Core */
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
     /** Android Support */
     api "com.android.support:appcompat-v7:$android_support_version"
@@ -75,12 +76,13 @@ dependencies {
     kapt "com.android.databinding:compiler:$android_gradle_version"
 
     /** Reactive */
-    implementation "io.reactivex.rxjava2:rxandroid:$reactive_rxandroid_version"
-    implementation "io.reactivex.rxjava2:rxjava:$reactive_rxjava_version"
+    api "io.reactivex.rxjava2:rxandroid:$reactive_rxandroid_version"
+    api "io.reactivex.rxjava2:rxjava:$reactive_rxjava_version"
 
     /** Others */
     api 'com.orhanobut:logger:2.2.0'
-    api 'org.greenrobot:eventbus:3.0.0'
+    api 'org.greenrobot:eventbus:3.1.1'
+    api 'androidx.core:core-ktx:0.3'
 
     androidTestImplementation 'junit:junit:4.12'
 }

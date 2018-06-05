@@ -6,18 +6,16 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
+import android.os.Build
 import android.os.Handler
+import android.support.annotation.ColorRes
+import android.support.annotation.DrawableRes
+import android.support.v4.content.ContextCompat
 import java.util.*
 
 //region Extensions
-
-/** Extension for Context */
-// Check is network available
-fun Context.isConnectedToInternet(): Boolean {
-    val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
-    return connectivityManager?.activeNetworkInfo?.isConnected ?: false
-}
 //endregion
 
 //region Non-extension
@@ -46,7 +44,7 @@ fun assertNull(value: Any?, action: () -> Unit) {
     action.invoke()
 }
 
-// To detect internet conenctivity
+// To detect internet connectivity
 val connectivityIntentFilter = IntentFilter().apply {
     this.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
 }
@@ -61,4 +59,28 @@ fun getConnectivityReceiver(action: () -> Unit): BroadcastReceiver {
 
 // Thread safe lazy initializer
 fun <T> lazyThreadSafetyNone(initializer: () -> T): Lazy<T> = lazy(LazyThreadSafetyMode.NONE, initializer)
+
+/**
+ * Extension method to check is aboveApi.
+ */
+inline fun aboveApi(api: Int, included: Boolean = false, block: () -> Unit) {
+    if (Build.VERSION.SDK_INT > included then api - 1 ?: api) {
+        block()
+    }
+}
+
+/**
+ * Extension method to check is belowApi.
+ */
+inline fun belowApi(api: Int, included: Boolean = false, block: () -> Unit) {
+    if (Build.VERSION.SDK_INT < included then api + 1 ?: api) {
+        block()
+    }
+}
+
+/**
+ * Extension method to get the TAG name for all object
+ */
+@Suppress("FunctionName")
+fun <T : Any> T.TAG() = this::class.simpleName
 //endregion

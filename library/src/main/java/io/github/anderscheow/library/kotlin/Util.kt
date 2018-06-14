@@ -36,9 +36,13 @@ fun delay(timeInMilli: Long, action: () -> Unit) {
 }
 
 // Throw NPE when detect is null, otherwise invoke action
-fun assertNull(value: Any?, action: () -> Unit) {
+fun assertNull(value: Any?, message: String? = null, action: () -> Unit) {
     if (value == null) {
-        throw NullPointerException()
+        if (message == null) {
+            throw NullPointerException()
+        } else {
+            throw NullPointerException(message)
+        }
     }
 
     action.invoke()

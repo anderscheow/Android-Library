@@ -60,8 +60,8 @@ fun View.disable() {
 }
 
 fun View.fadeIn(timeInMillis: Long = 300,
-                onAnimationStart: (() -> Unit)? = null,
-                onAnimationEnd: (() -> Unit)? = null) {
+                onAnimationStart: ((Animator?) -> Unit)? = null,
+                onAnimationEnd: ((Animator?) -> Unit)? = null) {
     this.post {
         this.visibility = View.VISIBLE
         this.alpha = 0f
@@ -72,11 +72,11 @@ fun View.fadeIn(timeInMillis: Long = 300,
                 .setDuration(timeInMillis)
                 .setListener(object : AnimatorListenerAdapter() {
                     override fun onAnimationStart(animation: Animator?) {
-                        onAnimationStart?.invoke()
+                        onAnimationStart?.invoke(animation)
                     }
 
                     override fun onAnimationEnd(animation: Animator?) {
-                        onAnimationEnd?.invoke()
+                        onAnimationEnd?.invoke(animation)
 
                         this@fadeIn.visible()
                     }
@@ -85,8 +85,8 @@ fun View.fadeIn(timeInMillis: Long = 300,
 }
 
 fun View.fadeOut(timeInMillis: Long = 300, gone: Boolean = true,
-                 onAnimationStart: (() -> Unit)? = null,
-                 onAnimationEnd: (() -> Unit)? = null) {
+                 onAnimationStart: ((Animator?) -> Unit)? = null,
+                 onAnimationEnd: ((Animator?) -> Unit)? = null) {
     this.post {
         this.animate()
                 .alpha(0f)
@@ -94,11 +94,11 @@ fun View.fadeOut(timeInMillis: Long = 300, gone: Boolean = true,
                 .setDuration(timeInMillis)
                 .setListener(object : AnimatorListenerAdapter() {
                     override fun onAnimationStart(animation: Animator?) {
-                        onAnimationStart?.invoke()
+                        onAnimationStart?.invoke(animation)
                     }
 
                     override fun onAnimationEnd(animation: Animator?) {
-                        onAnimationEnd?.invoke()
+                        onAnimationEnd?.invoke(animation)
 
                         if (gone) this@fadeOut.gone() else this@fadeOut.invisible()
                     }

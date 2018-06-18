@@ -11,6 +11,8 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.widget.EditText
 import android.widget.TextView
+import org.jetbrains.anko.backgroundResource
+import org.jetbrains.anko.textColor
 
 //region Extensions
 
@@ -109,6 +111,18 @@ fun View.fadeOut(timeInMillis: Long = 300, gone: Boolean = true,
 /** Extension for TextView */
 fun TextView.setTextToSpanned(value: String) {
     this.text = toSpanned(value)
+}
+
+fun TextView.disable(backgroundResource: Int = 0, textColor: Int = 0) {
+    this.disable()
+    if (backgroundResource > 0) this.backgroundResource = backgroundResource
+    if (textColor > 0) this.textColor = textColor
+}
+
+fun TextView.enable(backgroundResource: Int = 0, textColor: Int = 0) {
+    this.enable()
+    if (backgroundResource > 0) this.backgroundResource = backgroundResource
+    if (textColor > 0) this.textColor = textColor
 }
 //endregion
 

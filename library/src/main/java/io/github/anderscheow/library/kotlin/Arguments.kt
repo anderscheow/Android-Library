@@ -20,23 +20,23 @@ fun Fragment.withArguments(vararg arguments: Pair<String, Serializable>): Fragme
 /**
  * Retrieve property from intent
  */
-fun <T : Any> FragmentActivity.argument(key: String) = lazy { intent.extras[key] as T }
+fun <T : Any> FragmentActivity.argument(key: String) = lazy { intent.extras[key] as T? }
 
 /**
  * Retrieve property with default value from intent
  */
-fun <T : Any> FragmentActivity.argument(key: String, defaultValue: T? = null) = lazy {
+fun <T : Any> FragmentActivity.argument(key: String, defaultValue: T) = lazy {
     intent.extras[key] as? T ?: defaultValue
 }
 
 /**
  * Retrieve property from intent
  */
-fun <T : Any> Fragment.argument(key: String) = lazy { arguments?.get(key) as T }
+fun <T : Any> Fragment.argument(key: String) = lazy { arguments?.get(key) as T? }
 
 /**
  * Retrieve property with default value from intent
  */
-fun <T : Any> Fragment.argument(key: String, defaultValue: T? = null) = lazy {
-    arguments?.get(key)  as? T ?: defaultValue
+fun <T : Any> Fragment.argument(key: String, defaultValue: T) = lazy {
+    arguments?.get(key) as? T ?: defaultValue
 }

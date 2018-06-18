@@ -97,6 +97,14 @@ class CurrencyEditText : AppCompatEditText {
         addTextChangedListener(textChangedListener)
     }
 
+    fun formatAmount(value: String) {
+        value.toLongOrNull()?.let {
+            this.currentAmountInLong = 0
+
+            formatAmount()
+        }
+    }
+
     private fun init() {
         isCursorVisible = false
         isLongClickable = false

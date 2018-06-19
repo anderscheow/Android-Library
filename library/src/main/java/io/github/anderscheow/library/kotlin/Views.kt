@@ -113,13 +113,13 @@ fun TextView.setTextToSpanned(value: String) {
     this.text = toSpanned(value)
 }
 
-fun TextView.disable(backgroundResource: Int = 0, textColor: Int = 0) {
+fun TextView.disableWith(backgroundResource: Int = 0, textColor: Int = 0) {
     this.disable()
     if (backgroundResource > 0) this.backgroundResource = backgroundResource
     if (textColor > 0) this.textColor = textColor
 }
 
-fun TextView.enable(backgroundResource: Int = 0, textColor: Int = 0) {
+fun TextView.enableWith(backgroundResource: Int = 0, textColor: Int = 0) {
     this.enable()
     if (backgroundResource > 0) this.backgroundResource = backgroundResource
     if (textColor > 0) this.textColor = textColor

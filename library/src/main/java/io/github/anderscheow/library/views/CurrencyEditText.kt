@@ -10,6 +10,7 @@ import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import java.math.BigDecimal
 import java.text.DecimalFormat
 
 @Suppress("UNUSED")
@@ -53,6 +54,9 @@ class CurrencyEditText : AppCompatEditText {
     // public variables
     var maxLength = 10
     var currency = "RM"
+        set(value) {
+            field = value.trim()
+        }
     var formatter = DecimalFormat("###,###,##0.00")
 
     constructor(context: Context) : super(context) {
@@ -94,7 +98,7 @@ class CurrencyEditText : AppCompatEditText {
     }
 
     fun formatAmount(value: String) {
-        this.currentAmountInString = value
+        this.currentAmountInString = value.trim()
 
         formatAmount()
     }
@@ -150,7 +154,7 @@ class CurrencyEditText : AppCompatEditText {
         val formattedAmount = formatter.format(d)
 
         setText(StringBuilder()
-                .append(currency.trim())
+                .append(currency)
                 .append(" ")
                 .append(formattedAmount)
                 .toString())

@@ -15,7 +15,7 @@ import org.jetbrains.anko.browse
  */
 fun Context.rate(packageName: String = this.packageName): Boolean =
         browse("market://details?id=$packageName") or
-        browse("http://play.google.com/store/apps/details?id=$packageName")
+                browse("http://play.google.com/store/apps/details?id=$packageName")
 
 /**
  * Extension method to check network availability

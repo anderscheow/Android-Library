@@ -33,8 +33,8 @@ fun Context.redirectTo(uri: Uri,
 }
 
 /**
-*  Redirect to user to specific url and try fallbackUrl if failed
-*/
+ *  Redirect to user to specific url and try fallbackUrl if failed
+ */
 fun Context.redirectTo(url: String,
                        fallbackUrl: String?,
                        intentAction: String = Intent.ACTION_VIEW,

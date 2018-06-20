@@ -53,10 +53,6 @@ class CurrencyEditText : AppCompatEditText {
     // public variables
     var maxLength = 10
     var currency = "RM"
-        set(value) {
-            field = value
-            formatAmount()
-        }
     var formatter = DecimalFormat("###,###,##0.00")
 
     constructor(context: Context) : super(context) {
@@ -98,11 +94,9 @@ class CurrencyEditText : AppCompatEditText {
     }
 
     fun formatAmount(value: String) {
-        value.toLongOrNull()?.let {
-            this.currentAmountInLong = 0
+        this.currentAmountInString = value
 
-            formatAmount()
-        }
+        formatAmount()
     }
 
     private fun init() {

@@ -1,5 +1,6 @@
 package io.github.anderscheow.library.views
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v4.view.ViewPager
 import android.util.AttributeSet
@@ -9,17 +10,20 @@ import android.view.MotionEvent
 @Suppress("UNUSED")
 class NonSwipeableViewPager(context: Context, attrs: AttributeSet) : ViewPager(context, attrs) {
 
-    private val enabled: Boolean = false
+    override fun isEnabled(): Boolean {
+        return false
+    }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        return this.enabled && super.onTouchEvent(event)
+        return isEnabled && super.onTouchEvent(event)
     }
 
     override fun onInterceptTouchEvent(event: MotionEvent): Boolean {
-        return this.enabled && super.onInterceptTouchEvent(event)
+        return isEnabled && super.onInterceptTouchEvent(event)
     }
 
     override fun executeKeyEvent(event: KeyEvent): Boolean {
-        return this.enabled && super.executeKeyEvent(event)
+        return isEnabled && super.executeKeyEvent(event)
     }
 }

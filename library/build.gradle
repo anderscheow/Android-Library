@@ -11,11 +11,11 @@ apply plugin: 'org.jetbrains.dokka-android'
 apply from: 'maven-push.gradle'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 27
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 28
+        targetSdkVersion 27
         versionCode 1040200
         versionName "1.4.2"
 
@@ -55,7 +55,6 @@ dependencies {
     /** Android Support */
     api "com.android.support:appcompat-v7:$android_support_version"
     api "com.android.support:design:$android_support_version"
-    api "com.android.support:support-annotations:$android_support_version"
 
     /** Android Architecture Lifecycle */
     api "android.arch.lifecycle:extensions:$android_arch_lifecycle_version"

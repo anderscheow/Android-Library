@@ -14,7 +14,7 @@ import org.jetbrains.anko.browse
  * Extension method to rate app on PlayStore for Context.
  */
 fun Context.rate(packageName: String = this.packageName): Boolean =
-        browse("market://details?id=$packageName") or
+        browse("market://details?id=$packageName") ||
                 browse("http://play.google.com/store/apps/details?id=$packageName")
 
 /**

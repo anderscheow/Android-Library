@@ -66,9 +66,9 @@ abstract class BaseSectionPagedListAdapter<Key, Value>(
             val item = getItem(position)
             if (item != null && item.isRow) {
                 getBodyLayout(position)
+            } else {
+                headerLayout
             }
-
-            headerLayout
         }
     }
 }

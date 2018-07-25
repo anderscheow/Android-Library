@@ -138,6 +138,8 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
 
     //region Progress Dialog
     fun showProgressDialog(message: Int) {
+        if (isFinishing) return
+
         if (progressDialog == null) {
             progressDialog = indeterminateProgressDialog(R.string.prompt_please_wait) {
                 setCanceledOnTouchOutside(false)
@@ -152,6 +154,8 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
     }
 
     fun dismissProgressDialog() {
+        if (isFinishing) return
+
         progressDialog?.dismiss()
     }
 
@@ -179,9 +183,12 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
     //endregion
 
     //region Alert Dialog
-    fun showOkAlertDialog(action: () -> Unit, message: CharSequence, title: CharSequence? = null, buttonText: Int = 0) {
+    fun showOkAlertDialog(message: CharSequence, title: CharSequence? = null,
+                          buttonText: Int = 0, cancellable: Boolean = false, action: () -> Unit) {
+        if (isFinishing) return
+
         alert(message, title) {
-            isCancelable = false
+            isCancelable = cancellable
 
             if (buttonText == 0) {
                 okButton {
@@ -189,17 +196,20 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
                     it.dismiss()
                 }
             } else {
-                positiveButton(buttonText, {
+                positiveButton(buttonText) {
                     action.invoke()
                     it.dismiss()
-                })
+                }
             }
         }.show()
     }
 
-    fun showYesAlertDialog(action: () -> Unit, message: CharSequence, title: CharSequence? = null, buttonText: Int = 0) {
+    fun showYesAlertDialog(message: CharSequence, title: CharSequence? = null,
+                           buttonText: Int = 0, cancellable: Boolean = false, action: () -> Unit) {
+        if (isFinishing) return
+
         alert(message, title) {
-            isCancelable = false
+            isCancelable = cancellable
 
             if (buttonText == 0) {
                 yesButton {
@@ -207,17 +217,20 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
                     it.dismiss()
                 }
             } else {
-                positiveButton(buttonText, {
+                positiveButton(buttonText) {
                     action.invoke()
                     it.dismiss()
-                })
+                }
             }
         }.show()
     }
 
-    fun showNoAlertDialog(action: () -> Unit, message: CharSequence, title: CharSequence? = null, buttonText: Int = 0) {
+    fun showNoAlertDialog(message: CharSequence, title: CharSequence? = null,
+                          buttonText: Int = 0, cancellable: Boolean = false, action: () -> Unit) {
+        if (isFinishing) return
+
         alert(message, title) {
-            isCancelable = false
+            isCancelable = cancellable
 
             if (buttonText == 0) {
                 noButton {
@@ -225,17 +238,22 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
                     it.dismiss()
                 }
             } else {
-                negativeButton(buttonText, {
+                negativeButton(buttonText) {
                     action.invoke()
                     it.dismiss()
-                })
+                }
             }
         }.show()
     }
 
-    fun showYesNoAlertDialog(yesAction: () -> Unit, noAction: () -> Unit, message: CharSequence, title: CharSequence? = null, yesButtonText: Int = 0, noButtonText: Int = 0) {
+    fun showYesNoAlertDialog(message: CharSequence, title: CharSequence? = null,
+                             yesButtonText: Int = 0, noButtonText: Int = 0,
+                             cancellable: Boolean = false,
+                             yesAction: () -> Unit, noAction: () -> Unit) {
+        if (isFinishing) return
+
         alert(message, title) {
-            isCancelable = false
+            isCancelable = cancellable
 
             if (yesButtonText == 0) {
                 yesButton {
@@ -243,10 +261,10 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
                     it.dismiss()
                 }
             } else {
-                positiveButton(yesButtonText, {
+                positiveButton(yesButtonText) {
                     yesAction.invoke()
                     it.dismiss()
-                })
+                }
             }
 
             if (noButtonText == 0) {
@@ -255,10 +273,10 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
                     it.dismiss()
                 }
             } else {
-                negativeButton(noButtonText, {
+                negativeButton(noButtonText) {
                     noAction.invoke()
                     it.dismiss()
-                })
+                }
             }
         }.show()
     }

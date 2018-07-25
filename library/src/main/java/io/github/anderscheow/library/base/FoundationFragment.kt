@@ -10,6 +10,7 @@ import com.orhanobut.logger.Logger
 import io.github.anderscheow.library.R
 import io.github.anderscheow.library.constant.EventBusType
 import io.github.anderscheow.library.kotlin.isConnectedToInternet
+import io.github.anderscheow.library.kotlin.isNotThere
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
@@ -137,6 +138,8 @@ abstract class FoundationFragment : Fragment() {
     }
 
     fun showProgressDialog(message: Int) {
+        if (isNotThere()) return
+
         if (progressDialog == null) {
             progressDialog = indeterminateProgressDialog(R.string.prompt_please_wait) {
                 setCanceledOnTouchOutside(false)
@@ -151,6 +154,8 @@ abstract class FoundationFragment : Fragment() {
     }
 
     fun dismissProgressDialog() {
+        if (isNotThere()) return
+
         progressDialog?.dismiss()
     }
 
@@ -178,9 +183,12 @@ abstract class FoundationFragment : Fragment() {
         }
     }
 
-    fun showOkAlertDialog(action: () -> Unit, message: String, title: CharSequence? = null, buttonText: Int = 0) {
-        context?.alert(message, title) {
-            isCancelable = false
+    fun showOkAlertDialog(message: CharSequence, title: CharSequence? = null,
+                          buttonText: Int = 0, cancellable: Boolean = false, action: () -> Unit) {
+        if (isNotThere()) return
+
+        activity?.alert(message, title) {
+            isCancelable = cancellable
 
             if (buttonText == 0) {
                 okButton {
@@ -188,17 +196,20 @@ abstract class FoundationFragment : Fragment() {
                     it.dismiss()
                 }
             } else {
-                positiveButton(buttonText, {
+                positiveButton(buttonText) {
                     action.invoke()
                     it.dismiss()
-                })
+                }
             }
         }?.show()
     }
 
-    fun showYesAlertDialog(action: () -> Unit, message: String, title: CharSequence? = null, buttonText: Int = 0) {
-        context?.alert(message, title) {
-            isCancelable = false
+    fun showYesAlertDialog(message: CharSequence, title: CharSequence? = null,
+                           buttonText: Int = 0, cancellable: Boolean = false, action: () -> Unit) {
+        if (isNotThere()) return
+
+        activity?.alert(message, title) {
+            isCancelable = cancellable
 
             if (buttonText == 0) {
                 yesButton {
@@ -206,17 +217,20 @@ abstract class FoundationFragment : Fragment() {
                     it.dismiss()
                 }
             } else {
-                positiveButton(buttonText, {
+                positiveButton(buttonText) {
                     action.invoke()
                     it.dismiss()
-                })
+                }
             }
         }?.show()
     }
 
-    fun showNoAlertDialog(action: () -> Unit, message: String, title: CharSequence? = null, buttonText: Int = 0) {
-        context?.alert(message, title) {
-            isCancelable = false
+    fun showNoAlertDialog(message: CharSequence, title: CharSequence? = null,
+                          buttonText: Int = 0, cancellable: Boolean = false, action: () -> Unit) {
+        if (isNotThere()) return
+
+        activity?.alert(message, title) {
+            isCancelable = cancellable
 
             if (buttonText == 0) {
                 noButton {
@@ -224,17 +238,22 @@ abstract class FoundationFragment : Fragment() {
                     it.dismiss()
                 }
             } else {
-                negativeButton(buttonText, {
+                negativeButton(buttonText) {
                     action.invoke()
                     it.dismiss()
-                })
+                }
             }
         }?.show()
     }
 
-    fun showYesNoAlertDialog(yesAction: () -> Unit, noAction: () -> Unit, message: String, title: CharSequence? = null, yesButtonText: Int = 0, noButtonText: Int = 0) {
-        context?.alert(message, title) {
-            isCancelable = false
+    fun showYesNoAlertDialog(message: CharSequence, title: CharSequence? = null,
+                             yesButtonText: Int = 0, noButtonText: Int = 0,
+                             cancellable: Boolean = false,
+                             yesAction: () -> Unit, noAction: () -> Unit) {
+        if (isNotThere()) return
+
+        activity?.alert(message, title) {
+            isCancelable = cancellable
 
             if (yesButtonText == 0) {
                 yesButton {
@@ -242,10 +261,10 @@ abstract class FoundationFragment : Fragment() {
                     it.dismiss()
                 }
             } else {
-                positiveButton(yesButtonText, {
+                positiveButton(yesButtonText) {
                     yesAction.invoke()
                     it.dismiss()
-                })
+                }
             }
 
             if (noButtonText == 0) {
@@ -254,10 +273,10 @@ abstract class FoundationFragment : Fragment() {
                     it.dismiss()
                 }
             } else {
-                negativeButton(noButtonText, {
+                negativeButton(noButtonText) {
                     noAction.invoke()
                     it.dismiss()
-                })
+                }
             }
         }?.show()
     }

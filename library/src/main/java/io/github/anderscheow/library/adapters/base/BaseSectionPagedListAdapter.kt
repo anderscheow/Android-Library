@@ -64,15 +64,11 @@ abstract class BaseSectionPagedListAdapter<Key, Value>(
             NETWORK_STATE_LAYOUT
         } else {
             val item = getItem(position)
-            if (item != null) {
-                if (item.isRow) {
-                    getBodyLayout(position)
-                } else {
-                    headerLayout
-                }
-            } else {
-                headerLayout
+            if (item != null && item.isRow) {
+                getBodyLayout(position)
             }
+
+            headerLayout
         }
     }
 }

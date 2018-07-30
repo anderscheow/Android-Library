@@ -6,6 +6,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CoordinatorLayout
+import android.support.v4.widget.TextViewCompat
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
@@ -123,6 +124,14 @@ fun TextView.enableWith(backgroundResource: Int = 0, textColor: Int = 0) {
     this.enable()
     if (backgroundResource > 0) this.backgroundResource = backgroundResource
     if (textColor > 0) this.textColor = textColor
+}
+
+fun TextView.setSizeTextTypeToUniform() {
+    TextViewCompat.setAutoSizeTextTypeWithDefaults(this, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM)
+}
+
+fun TextView.setSizeTextTypeToNone() {
+    TextViewCompat.setAutoSizeTextTypeWithDefaults(this, TextViewCompat.AUTO_SIZE_TEXT_TYPE_NONE)
 }
 //endregion
 

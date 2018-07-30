@@ -20,10 +20,10 @@ abstract class PagingWithLocalAndroidViewModel<in T, Value : PagingModel>(contex
     var refreshState: LiveData<NetworkState>? = null
 
     fun init() {
-        items = Transformations.switchMap(repoResult, { it.pagedList })
-        networkState = Transformations.switchMap(repoResult, { it.networkState })
-        totalItems = Transformations.switchMap(repoResult, { it.totalItems })
-        refreshState = Transformations.switchMap(repoResult, { it.refreshState })
+        items = Transformations.switchMap(repoResult) { it.pagedList }
+        networkState = Transformations.switchMap(repoResult) { it.networkState }
+        totalItems = Transformations.switchMap(repoResult) { it.totalItems }
+        refreshState = Transformations.switchMap(repoResult) { it.refreshState }
     }
 
     override fun start(args: T?) {

@@ -10,7 +10,6 @@ import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import java.math.BigDecimal
 import java.text.DecimalFormat
 
 @Suppress("UNUSED")
@@ -104,7 +103,7 @@ class CurrencyEditText : AppCompatEditText {
     }
 
     private fun init() {
-        isCursorVisible = false
+        isCursorVisible = true
         isLongClickable = false
 
         onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
@@ -132,7 +131,7 @@ class CurrencyEditText : AppCompatEditText {
             }
         }
 
-        setOnEditorActionListener { _, _, _ -> true }
+        //setOnEditorActionListener { _, _, _ -> true }
 
         setOnClickListener {
             setCursorToEnd()

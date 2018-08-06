@@ -1,14 +1,14 @@
-package io.github.anderscheow.library.paging
+package io.github.anderscheow.library.paging.local_remote
 
 import android.arch.paging.PagedList
 import android.support.annotation.MainThread
-import io.github.anderscheow.library.utils.PagingRequestHelper
-import io.github.anderscheow.library.utils.createStatusLiveData
+import io.github.anderscheow.library.paging.util.PagingRequestHelper
+import io.github.anderscheow.library.paging.util.createStatusLiveData
 import java.util.concurrent.Executor
 
 @Suppress("UNUSED")
 abstract class BoundaryCallback<T : PagingModel>(private val handleResponse: (List<T>?) -> Unit,
-                                                 private val executor: Executor)
+                                                                                                   private val executor: Executor)
     : PagedList.BoundaryCallback<T>() {
 
     val helper = PagingRequestHelper(executor)

@@ -1,4 +1,4 @@
-package io.github.anderscheow.library.paging
+package io.github.anderscheow.library.paging.remote
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.paging.ItemKeyedDataSource

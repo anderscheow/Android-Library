@@ -83,4 +83,13 @@ inline fun belowApi(api: Int, included: Boolean = false, block: () -> Unit) {
  */
 @Suppress("FunctionName")
 fun <T : Any> T.TAG() = this::class.simpleName
+
+fun <T> copyIterator(iterator: Iterator<T>?): List<T> {
+    val copy = ArrayList<T>()
+    if (iterator != null) {
+        while (iterator.hasNext())
+            copy.add(iterator.next())
+    }
+    return copy
+}
 //endregion

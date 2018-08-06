@@ -1,7 +1,6 @@
-package io.github.anderscheow.library.utils
+package io.github.anderscheow.library.adapters.util
 
 import android.support.v7.util.DiffUtil
-
 
 class SectionGroup {
 

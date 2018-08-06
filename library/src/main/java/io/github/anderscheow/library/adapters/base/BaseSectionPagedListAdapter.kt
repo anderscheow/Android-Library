@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import io.github.anderscheow.library.adapters.view_holder.MyBaseViewHolder
 import io.github.anderscheow.library.adapters.view_holder.NetworkStateViewHolder
 import io.github.anderscheow.library.databinding.ViewNetworkStateBinding
-import io.github.anderscheow.library.utils.SectionGroup
+import io.github.anderscheow.library.adapters.util.SectionGroup
 
 @Suppress("UNUSED")
 abstract class BaseSectionPagedListAdapter<Key, Value>(

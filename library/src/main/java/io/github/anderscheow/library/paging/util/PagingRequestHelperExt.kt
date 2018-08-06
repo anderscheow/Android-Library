@@ -1,4 +1,4 @@
-package io.github.anderscheow.library.utils
+package io.github.anderscheow.library.paging.util
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData

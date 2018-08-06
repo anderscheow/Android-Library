@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.anderscheow.library.utils;
+package io.github.anderscheow.library.paging.util;
 
 import android.arch.paging.DataSource;
 import android.support.annotation.AnyThread;

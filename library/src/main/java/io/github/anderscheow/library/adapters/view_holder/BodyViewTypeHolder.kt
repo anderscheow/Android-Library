@@ -1,4 +1,4 @@
-package io.github.anderscheow.library.utils
+package io.github.anderscheow.library.adapters.view_holder
 
 import android.support.annotation.LayoutRes
 

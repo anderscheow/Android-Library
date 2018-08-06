@@ -6,8 +6,8 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Transformations
 import android.arch.paging.PagedList
 import io.github.anderscheow.library.constant.NetworkState
-import io.github.anderscheow.library.paging.PagingModel
-import io.github.anderscheow.library.utils.Listing
+import io.github.anderscheow.library.paging.local_remote.PagingModel
+import io.github.anderscheow.library.paging.util.Listing
 
 @Suppress("UNUSED")
 abstract class PagingWithLocalAndroidViewModel<in T, Value : PagingModel>(context: Application) : BaseAndroidViewModel<T>(context) {

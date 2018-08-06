@@ -6,8 +6,8 @@ import android.arch.lifecycle.Transformations
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
 import io.github.anderscheow.library.constant.NetworkState
-import io.github.anderscheow.library.paging.BaseDataSourceFactory
-import io.github.anderscheow.library.paging.BaseItemKeyedDataSource
+import io.github.anderscheow.library.paging.remote.BaseDataSourceFactory
+import io.github.anderscheow.library.paging.remote.BaseItemKeyedDataSource
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 

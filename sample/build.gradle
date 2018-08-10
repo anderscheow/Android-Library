@@ -1,18 +1,14 @@
-apply plugin: 'com.android.application'
-
-apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-android-extensions'
+rootProject.sampleModulePlugins.each {
+    apply plugin: it
+}
 
 android {
-    compileSdkVersion 27
-
+    def ext = rootProject.extensions.ext
+    compileSdkVersion ext.android.compileSdkVersion
     defaultConfig {
         applicationId "io.github.anderscheow.android_library"
-        minSdkVersion 16
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion ext.android.minSdkVersion
+        targetSdkVersion ext.android.targetSdkVersion
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -31,15 +27,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "com.android.support:appcompat-v7:27.1.1"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
-
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-
-    implementation project(':library')
+    rootProject.sampleModuleDependencies.each {
+        add(it.configuration, it.dependency, it.options)
+    }
 }

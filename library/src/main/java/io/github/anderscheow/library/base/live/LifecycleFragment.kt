@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import butterknife.ButterKnife
-import butterknife.Unbinder
 import io.github.anderscheow.library.BR
 import io.github.anderscheow.library.base.FoundationFragment
 import io.github.anderscheow.library.base.live.util.ProgressDialogMessage
@@ -23,8 +21,6 @@ abstract class LifecycleFragment<VM : BaseAndroidViewModel<*>> : FoundationFragm
         setupViewModel()
     }
 
-    private var unbinder: Unbinder? = null
-
     abstract fun setupViewModel(): VM
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,18 +35,9 @@ abstract class LifecycleFragment<VM : BaseAndroidViewModel<*>> : FoundationFragm
         val binding = DataBindingUtil.inflate<ViewDataBinding>(inflater, getResLayout(), container, false)
         val view = binding.root
 
-        if (requiredButterknife()) {
-            unbinder = ButterKnife.bind(this, view)
-        }
-
         binding.setVariable(BR.obj, viewModel)
 
         return view
-    }
-
-    override fun onDestroyView() {
-        unbinder?.unbind()
-        super.onDestroyView()
     }
 
     private fun setupProgressDialog() {

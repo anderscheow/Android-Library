@@ -8,8 +8,6 @@ import android.support.v4.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import butterknife.ButterKnife
-import butterknife.Unbinder
 import com.orhanobut.logger.Logger
 import io.github.anderscheow.library.constant.EventBusType
 import org.greenrobot.eventbus.EventBus
@@ -25,14 +23,8 @@ abstract class BaseDialogFragment : DialogFragment() {
     // Header and content
     abstract fun getTitle(): String?
 
-    open fun requiredButterknife(): Boolean {
-        return false
-    }
-
     var isDestroy = false
         private set
-
-    private var unbinder: Unbinder? = null
 
     override fun onAttach(context: Context?) {
         Logger.v("Fragment ATTACHED")
@@ -70,10 +62,6 @@ abstract class BaseDialogFragment : DialogFragment() {
                               savedInstanceState: Bundle?): View? {
         Logger.v("Fragment CREATED VIEW")
         val view = inflater.inflate(getResLayout(), container, false)
-
-        if (requiredButterknife()) {
-            unbinder = ButterKnife.bind(this, view)
-        }
 
         return view
     }
@@ -133,7 +121,6 @@ abstract class BaseDialogFragment : DialogFragment() {
 
     override fun onDestroyView() {
         Logger.v("Fragment VIEW DESTROYED")
-        unbinder?.unbind()
         super.onDestroyView()
     }
 

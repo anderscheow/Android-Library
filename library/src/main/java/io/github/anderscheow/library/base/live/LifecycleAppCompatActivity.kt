@@ -3,7 +3,6 @@ package io.github.anderscheow.library.base.live
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
-import butterknife.ButterKnife
 import io.github.anderscheow.library.BR
 import io.github.anderscheow.library.base.FoundationAppCompatActivity
 import io.github.anderscheow.library.base.live.util.ProgressDialogMessage
@@ -28,10 +27,6 @@ abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : Founda
 
         val binding = DataBindingUtil.setContentView<ViewDataBinding>(this, getResLayout())
         binding.setVariable(BR.obj, viewModel)
-
-        if (requiredButterknife()) {
-            ButterKnife.bind(this)
-        }
 
         getToolbar()?.let {
             setSupportActionBar(getToolbar())

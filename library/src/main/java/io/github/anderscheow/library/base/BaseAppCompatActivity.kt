@@ -1,7 +1,6 @@
 package io.github.anderscheow.library.base
 
 import android.os.Bundle
-import butterknife.ButterKnife
 
 abstract class BaseAppCompatActivity : FoundationAppCompatActivity() {
 
@@ -11,10 +10,6 @@ abstract class BaseAppCompatActivity : FoundationAppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(getResLayout())
-
-        if (requiredButterknife()) {
-            ButterKnife.bind(this)
-        }
 
         getToolbar()?.let {
             setSupportActionBar(getToolbar())

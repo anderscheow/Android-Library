@@ -1,0 +1,139 @@
+ext {
+    android = [
+            compileSdkVersion   : 27,
+            minSdkVersion       : 16,
+            targetSdkVersion    : 27,
+    ]
+
+    /* build plugins versions */
+    build = [
+            gradle      : "3.1.4",
+            kotlin      : "1.2.60",
+            dcendents   : "2.1",
+            dokka       : "0.9.17",
+    ]
+
+    buildPlugins = [
+            gradle      : "com.android.tools.build:gradle:$build.gradle",
+            kotlin      : "org.jetbrains.kotlin:kotlin-gradle-plugin:$build.kotlin",
+            dcendents   : "com.github.dcendents:android-maven-gradle-plugin:$build.dcendents",
+            dokka       : "org.jetbrains.dokka:dokka-android-gradle-plugin:$build.dokka",
+    ]
+
+    /* dependencies versions */
+    def android_arch_lifecycle_version = '1.1.1'
+    def android_arch_paging_version = '1.0.1'
+    def android_core_ktx_version = '0.3'
+    def android_support_version = '27.1.1'
+    def android_support_constraint_layout_version = '1.1.2'
+    def android_support_runner_version = '1.0.2'
+    def android_support_espresso_core_version = '3.0.2'
+    def anko_version = '0.10.4'
+    def event_bus_version = '3.1.1'
+    def junit_version = '4.12'
+    def logger_version = '2.2.0'
+    def reactive_rxandroid_version = '2.0.2'
+    def reactive_rxjava_version = '2.1.2'
+
+    def libs = [
+            /* android support */
+            dataBinding                 :   "com.android.databinding:compiler:$build.gradle",
+            supportAppCompat            :   "com.android.support:appcompat-v7:$android_support_version",
+            supportConstraintLayout     :   "com.android.support.constraint:constraint-layout:$android_support_constraint_layout_version",
+            supportDesign               :   "com.android.support:design:$android_support_version",
+
+            /* android architecture room */
+            lifecycleExtensions         :   "android.arch.lifecycle:extensions:$android_arch_lifecycle_version",
+            lifecyleCompiler            :   "android.arch.lifecycle:compiler:$android_arch_lifecycle_version",
+            pagingRuntime               :   "android.arch.paging:runtime:$android_arch_paging_version",
+
+            /* anko */
+            anko                        :   "org.jetbrains.anko:anko:$anko_version",
+            
+            /* kotlin */
+            kotlinStdlib                :   "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$build.kotlin",
+            kotlinReflect               :   "org.jetbrains.kotlin:kotlin-reflect:$build.kotlin",
+
+            /* reactive */
+            rxandroid                   :   "io.reactivex.rxjava2:rxandroid:$reactive_rxandroid_version",
+            rxjava                      :   "io.reactivex.rxjava2:rxjava:$reactive_rxjava_version",
+
+            /* others */
+            androidCoreKtx              :   "androidx.core:core-ktx:$android_core_ktx_version",
+            eventBus                    :   "org.greenrobot:eventbus:$event_bus_version",
+            logger                      :   "com.orhanobut:logger:$logger_version",
+    ]
+
+    def testLibs = [
+            jnuit                       :   "junit:junit:$junit_version",
+            androidSupportRunner        :   "com.android.support.test:runner:$android_support_runner_version",
+            androidSupportEspressoCore  :   "com.android.support.test.espresso:espresso-core:$android_support_espresso_core_version",
+    ]
+
+    def modules = [
+            library     :   ":library"
+    ]
+
+    libraryModuleDependencies = [
+            /* android support */
+            [configuration: "kapt", dependency: libs.dataBinding],
+            [configuration: "api", dependency: libs.supportAppCompat],
+            [configuration: "api", dependency: libs.supportDesign],
+
+            /* android architecture */
+            [configuration: "api", dependency: libs.lifecycleExtensions],
+            [configuration: "kapt", dependency: libs.lifecyleCompiler],
+            [configuration: "api", dependency: libs.pagingRuntime],
+
+            /* anko */
+            [configuration: "api", dependency: libs.anko],
+
+            /* kotlin */
+            [configuration: "api", dependency: libs.kotlinStdlib],
+            [configuration: "api", dependency: libs.kotlinReflect],
+
+            /* reactive */
+            [configuration: "api", dependency: libs.rxandroid],
+            [configuration: "api", dependency: libs.rxjava],
+
+            /* others */
+            [configuration: "api", dependency: libs.androidCoreKtx],
+            [configuration: "api", dependency: libs.eventBus],
+            [configuration: "api", dependency: libs.logger],
+    ]
+
+    sampleModuleDependencies = [
+            /* android support */
+            [configuration: "implementation", dependency: libs.supportAppCompat],
+            [configuration: "implementation", dependency: libs.supportConstraintLayout],
+
+            /* kotlin */
+            [configuration: "implementation", dependency: libs.kotlinStdlib],
+
+            /* modules */
+            [configuration: "implementation", dependency: project(modules.library)],
+    ]
+
+    def plugins = [
+            android_library             : 'com.android.library',
+            android_application         : 'com.android.application',
+            dokka                       : 'org.jetbrains.dokka-android',
+            kotlin_android              : 'kotlin-android',
+            kotlin_android_extensions   : 'kotlin-android-extensions',
+            kotlin_kapt                 : 'kotlin-kapt',
+    ]
+
+    libraryModulePlugins = [
+            plugins.android_library,
+            plugins.dokka,
+            plugins.kotlin_android,
+            plugins.kotlin_android_extensions,
+            plugins.kotlin_kapt,
+    ]
+
+    sampleModulePlugins = [
+            plugins.android_application,
+            plugins.kotlin_android,
+            plugins.kotlin_android_extensions,
+    ]
+}

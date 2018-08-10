@@ -3,8 +3,6 @@ package io.github.anderscheow.library.adapters.view_holder
 import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView
 import android.view.View
-
-import butterknife.ButterKnife
 import io.github.anderscheow.library.BR
 
 abstract class MyBaseViewHolder<in T>(private val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -20,7 +18,6 @@ abstract class MyBaseViewHolder<in T>(private val binding: ViewDataBinding) : Re
     }
 
     private fun init() {
-        ButterKnife.bind(this, binding.root)
         this.binding.root.setOnClickListener {
             onClick(binding.root, item)
         }

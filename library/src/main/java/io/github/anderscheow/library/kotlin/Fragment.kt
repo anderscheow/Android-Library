@@ -15,6 +15,11 @@ fun <T> Fragment.withContextAs(block: (T) -> Unit) {
     (context as? T)?.let(block)
 }
 
+@Suppress("UNCHECKED_CAST")
+fun <T> Fragment.withContextAs(): T? {
+    return (context as? T)
+}
+
 fun Fragment.withActivity(block: (Activity) -> Unit) {
     activity?.let(block)
 }
@@ -22,4 +27,9 @@ fun Fragment.withActivity(block: (Activity) -> Unit) {
 @Suppress("UNCHECKED_CAST")
 fun <T> Fragment.withActivityAs(block: (T) -> Unit) {
     (activity as? T)?.let(block)
+}
+
+@Suppress("UNCHECKED_CAST")
+fun <T> Fragment.withActivityAs(): T? {
+    return (activity as? T)
 }

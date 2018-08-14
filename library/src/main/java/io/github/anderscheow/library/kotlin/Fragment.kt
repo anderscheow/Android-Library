@@ -6,12 +6,12 @@ import android.support.v4.app.Fragment
 
 fun Fragment.isNotThere(): Boolean = (activity?.isFinishing ?: true) || isDetached
 
-fun Fragment.withContext(block: (Context) -> Unit) {
+inline fun Fragment.withContext(block: (Context) -> Unit) {
     context?.let(block)
 }
 
 @Suppress("UNCHECKED_CAST")
-fun <T> Fragment.withContextAs(block: (T) -> Unit) {
+inline fun <T> Fragment.withContextAs(block: (T) -> Unit) {
     (context as? T)?.let(block)
 }
 
@@ -20,12 +20,12 @@ fun <T> Fragment.withContextAs(): T? {
     return (context as? T)
 }
 
-fun Fragment.withActivity(block: (Activity) -> Unit) {
+inline fun Fragment.withActivity(block: (Activity) -> Unit) {
     activity?.let(block)
 }
 
 @Suppress("UNCHECKED_CAST")
-fun <T> Fragment.withActivityAs(block: (T) -> Unit) {
+inline fun <T> Fragment.withActivityAs(block: (T) -> Unit) {
     (activity as? T)?.let(block)
 }
 

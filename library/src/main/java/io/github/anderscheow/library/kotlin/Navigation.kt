@@ -18,7 +18,8 @@ import android.net.Uri
 fun Context.redirectTo(uri: Uri,
                        fallbackUri: Uri?,
                        intentAction: String = Intent.ACTION_VIEW,
-                       packageName: String? = null) {
+                       packageName: String? = null,
+                       fallbackAction: (() -> Unit)? = null) {
     try {
         startActivity(Intent(intentAction, uri).apply {
             packageName?.let {
@@ -26,9 +27,23 @@ fun Context.redirectTo(uri: Uri,
             }
         })
     } catch (e: ActivityNotFoundException) {
+        redirectToFallbackUri(
+                fallbackUri = fallbackUri,
+                intentAction = intentAction,
+                fallbackAction = fallbackAction
+        )
+    }
+}
+
+private fun Context.redirectToFallbackUri(fallbackUri: Uri?,
+                                          intentAction: String = Intent.ACTION_VIEW,
+                                          fallbackAction: (() -> Unit)? = null) {
+    try {
         fallbackUri?.let {
             startActivity(Intent(intentAction, it))
         }
+    } catch (e: ActivityNotFoundException) {
+        fallbackAction?.invoke()
     }
 }
 
@@ -38,13 +53,15 @@ fun Context.redirectTo(uri: Uri,
 fun Context.redirectTo(url: String,
                        fallbackUrl: String?,
                        intentAction: String = Intent.ACTION_VIEW,
-                       packageName: String? = null) {
+                       packageName: String? = null,
+                       fallbackAction: (() -> Unit)? = null) {
     this.redirectTo(
             uri = Uri.parse(url),
             fallbackUri = fallbackUrl?.let {
                 Uri.parse(fallbackUrl)
             },
             intentAction = intentAction,
-            packageName = packageName
+            packageName = packageName,
+            fallbackAction = fallbackAction
     )
 }

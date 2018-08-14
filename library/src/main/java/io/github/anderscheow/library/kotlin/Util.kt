@@ -61,7 +61,7 @@ fun getConnectivityReceiver(action: () -> Unit): BroadcastReceiver {
 fun <T> lazyThreadSafetyNone(initializer: () -> T): Lazy<T> = lazy(LazyThreadSafetyMode.NONE, initializer)
 
 /**
- * Extension method to check is aboveApi.
+ * Method to check is aboveApi.
  */
 inline fun aboveApi(api: Int, included: Boolean = false, block: () -> Unit) {
     if (Build.VERSION.SDK_INT > included then api - 1 ?: api) {
@@ -70,7 +70,7 @@ inline fun aboveApi(api: Int, included: Boolean = false, block: () -> Unit) {
 }
 
 /**
- * Extension method to check is belowApi.
+ * Method to check is belowApi.
  */
 inline fun belowApi(api: Int, included: Boolean = false, block: () -> Unit) {
     if (Build.VERSION.SDK_INT < included then api + 1 ?: api) {
@@ -79,7 +79,63 @@ inline fun belowApi(api: Int, included: Boolean = false, block: () -> Unit) {
 }
 
 /**
- * Extension method to get the TAG name for all object
+ * Method to check is version at least K.
+ */
+inline fun isAtLeastK(block: () -> Unit) {
+    aboveApi(Build.VERSION_CODES.KITKAT, true, block)
+}
+
+/**
+ * Method to check is version at least L.
+ */
+inline fun isAtLeastL(block: () -> Unit) {
+    aboveApi(Build.VERSION_CODES.LOLLIPOP, true, block)
+}
+
+/**
+ * Method to check is version at least L MR1.
+ */
+inline fun isAtLeastL2(block: () -> Unit) {
+    aboveApi(Build.VERSION_CODES.LOLLIPOP_MR1, true, block)
+}
+
+/**
+ * Method to check is version at least M.
+ */
+inline fun isAtLeastM(block: () -> Unit) {
+    aboveApi(Build.VERSION_CODES.M, true, block)
+}
+
+/**
+ * Method to check is version at least N.
+ */
+inline fun isAtLeastN(block: () -> Unit) {
+    aboveApi(Build.VERSION_CODES.N, true, block)
+}
+
+/**
+ * Method to check is version at least N MR1.
+ */
+inline fun isAtLeastN2(block: () -> Unit) {
+    aboveApi(Build.VERSION_CODES.N_MR1, true, block)
+}
+
+/**
+ * Method to check is version at least O.
+ */
+inline fun isAtLeastO(block: () -> Unit) {
+    aboveApi(Build.VERSION_CODES.O, true, block)
+}
+
+/**
+ * Method to check is version at least O MR1.
+ */
+inline fun isAtLeastO2(block: () -> Unit) {
+    aboveApi(Build.VERSION_CODES.O_MR1, true, block)
+}
+
+/**
+ * Method to get the TAG name for all object
  */
 @Suppress("FunctionName")
 fun <T : Any> T.TAG() = this::class.simpleName

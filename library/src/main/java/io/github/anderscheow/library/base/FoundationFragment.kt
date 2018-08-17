@@ -1,21 +1,21 @@
 package io.github.anderscheow.library.base
 
-import android.app.ProgressDialog
 import android.content.Context
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v4.app.Fragment
 import android.view.View
+import com.kaopiz.kprogresshud.KProgressHUD
 import com.orhanobut.logger.Logger
 import io.github.anderscheow.library.R
 import io.github.anderscheow.library.constant.EventBusType
 import io.github.anderscheow.library.kotlin.isConnectedToInternet
 import io.github.anderscheow.library.kotlin.isNotThere
+import io.github.anderscheow.library.kotlin.withActivity
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.okButton
-import org.jetbrains.anko.support.v4.indeterminateProgressDialog
 import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.yesButton
 
@@ -38,8 +38,7 @@ abstract class FoundationFragment : Fragment() {
     var isDestroy = false
         private set
 
-    @Suppress("DEPRECATION")
-    var progressDialog: ProgressDialog? = null
+    var progressDialog: KProgressHUD? = null
         private set
 
     override fun onAttach(context: Context?) {
@@ -141,14 +140,17 @@ abstract class FoundationFragment : Fragment() {
         if (isNotThere()) return
 
         if (progressDialog == null) {
-            progressDialog = indeterminateProgressDialog(R.string.prompt_please_wait) {
-                setCanceledOnTouchOutside(false)
-                setCancelable(false)
+            withActivity {
+                progressDialog = KProgressHUD.create(it).apply {
+                    this.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                    this.setCancellable(false)
+                    this.setDimAmount(0.3f)
+                }
             }
         }
 
         if (message != 0) {
-            progressDialog?.setMessage(getString(message))
+            progressDialog?.setLabel(getString(message))
         }
         progressDialog?.show()
     }

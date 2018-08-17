@@ -11,13 +11,12 @@ import io.github.anderscheow.library.base.FoundationFragment
 import io.github.anderscheow.library.base.live.util.ProgressDialogMessage
 import io.github.anderscheow.library.base.live.util.ToastMessage
 import io.github.anderscheow.library.base.live.view_model.BaseAndroidViewModel
-import io.github.anderscheow.library.kotlin.lazyThreadSafetyNone
 import org.jetbrains.anko.support.v4.toast
 
 @Suppress("UNUSED")
 abstract class LifecycleFragment<VM : BaseAndroidViewModel<*>> : FoundationFragment() {
 
-    protected val viewModel by lazyThreadSafetyNone {
+    protected val viewModel by lazy {
         setupViewModel()
     }
 

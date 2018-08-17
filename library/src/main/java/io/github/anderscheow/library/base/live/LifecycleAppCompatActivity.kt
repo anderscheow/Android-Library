@@ -8,13 +8,12 @@ import io.github.anderscheow.library.base.FoundationAppCompatActivity
 import io.github.anderscheow.library.base.live.util.ProgressDialogMessage
 import io.github.anderscheow.library.base.live.util.ToastMessage
 import io.github.anderscheow.library.base.live.view_model.BaseAndroidViewModel
-import io.github.anderscheow.library.kotlin.lazyThreadSafetyNone
 import org.jetbrains.anko.toast
 
 @Suppress("UNUSED")
 abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : FoundationAppCompatActivity() {
 
-    protected val viewModel by lazyThreadSafetyNone {
+    protected val viewModel by lazy {
         setupViewModel()
     }
 

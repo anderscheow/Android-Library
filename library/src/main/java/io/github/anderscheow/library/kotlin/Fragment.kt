@@ -6,6 +6,16 @@ import android.support.v4.app.Fragment
 
 fun Fragment.isNotThere(): Boolean = (activity?.isFinishing ?: true) || isDetached
 
+inline fun Fragment.isAdded(block: () -> Unit) {
+    if (isAdded) block.invoke()
+}
+
+inline fun <R> Fragment.isAdded(block: () -> R): R? {
+    if (isAdded) return block()
+
+    return null
+}
+
 inline fun Fragment.withContext(block: (Context) -> Unit) {
     context?.let(block)
 }

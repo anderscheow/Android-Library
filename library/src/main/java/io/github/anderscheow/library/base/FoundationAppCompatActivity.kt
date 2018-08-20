@@ -1,13 +1,13 @@
 package io.github.anderscheow.library.base
 
 import android.Manifest
-import android.app.ProgressDialog
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import com.kaopiz.kprogresshud.KProgressHUD
 import com.orhanobut.logger.Logger
 import io.github.anderscheow.library.R
 import io.github.anderscheow.library.constant.EventBusType
@@ -30,8 +30,7 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
 
     abstract var initBeforeSuperOnCreate: () -> Unit
 
-    @Suppress("DEPRECATION")
-    var progressDialog: ProgressDialog? = null
+    var progressDialog: KProgressHUD? = null
         private set
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -133,18 +132,19 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
     }
 
     //region Progress Dialog
-    fun showProgressDialog(message: Int) {
+    fun showProgressDialog(message: Int = 0) {
         if (isFinishing) return
 
         if (progressDialog == null) {
-            progressDialog = indeterminateProgressDialog(R.string.prompt_please_wait) {
-                setCanceledOnTouchOutside(false)
-                setCancelable(false)
+            progressDialog = KProgressHUD.create(this).apply {
+                this.setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                this.setCancellable(false)
+                this.setDimAmount(0.3f)
             }
         }
 
         if (message != 0) {
-            progressDialog?.setMessage(getString(message))
+            progressDialog?.setLabel(getString(message))
         }
         progressDialog?.show()
     }

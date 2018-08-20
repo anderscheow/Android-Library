@@ -32,7 +32,7 @@ fun delay(timeInMilli: Long, action: () -> Unit) {
 }
 
 // Throw NPE when detect is null, otherwise invoke action
-fun assertNull(value: Any?, message: String? = null, action: () -> Unit) {
+inline fun assertNull(value: Any?, message: String? = null, action: () -> Unit) {
     if (value == null) {
         if (message == null) {
             throw NullPointerException()
@@ -49,7 +49,7 @@ val connectivityIntentFilter = IntentFilter().apply {
     this.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
 }
 
-fun getConnectivityReceiver(action: () -> Unit): BroadcastReceiver {
+inline fun getConnectivityReceiver(crossinline action: () -> Unit): BroadcastReceiver {
     return object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             action.invoke()

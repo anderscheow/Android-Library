@@ -12,9 +12,9 @@ import io.github.anderscheow.library.databinding.ViewNetworkStateBinding
 
 @Suppress("UNUSED")
 abstract class BasePagedListAdapter<T>(
-        private val callback: () -> Unit,
-        diffCallback: DiffUtil.ItemCallback<T>)
-    : FoundationPagedListAdapter<T>(callback, diffCallback) {
+        diffCallback: DiffUtil.ItemCallback<T>,
+        private val callback: () -> Unit)
+    : FoundationPagedListAdapter<T>(diffCallback, callback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -33,11 +33,14 @@ abstract class BasePagedListAdapter<T>(
         }
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val itemViewType = getItemViewType(position)
 
         if (itemViewType == getBodyLayout(position)) {
-            @Suppress("UNCHECKED_CAST")
+            if (holder !is MyBaseViewHolder<*>) {
+                throw IllegalStateException("Must inherit MyBaseViewHolder for body view holder")
+            }
             (holder as? MyBaseViewHolder<T>)?.bind(getItem(position))
         } else if (itemViewType == NETWORK_STATE_LAYOUT) {
             (holder as NetworkStateViewHolder).bind(networkState)

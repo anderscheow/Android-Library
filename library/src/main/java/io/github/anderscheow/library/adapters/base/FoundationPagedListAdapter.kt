@@ -9,8 +9,8 @@ import io.github.anderscheow.library.R
 import io.github.anderscheow.library.constant.NetworkState
 
 abstract class FoundationPagedListAdapter<T>(
-        private val callback: (() -> Unit)?,
-        diffCallback: DiffUtil.ItemCallback<T>)
+        diffCallback: DiffUtil.ItemCallback<T>,
+        private val callback: (() -> Unit)?)
     : PagedListAdapter<T, RecyclerView.ViewHolder>(diffCallback) {
 
     @LayoutRes

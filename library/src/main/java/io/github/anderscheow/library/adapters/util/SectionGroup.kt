@@ -30,7 +30,6 @@ class SectionGroup {
 
         @Suppress("UNUSED")
         fun createSection(section: Any): SectionGroup {
-
             return SectionGroup().apply {
                 this.section = section
                 this.isRow = false

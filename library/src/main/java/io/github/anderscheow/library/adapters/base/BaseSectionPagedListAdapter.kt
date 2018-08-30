@@ -6,15 +6,15 @@ import android.support.annotation.LayoutRes
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import io.github.anderscheow.library.adapters.util.SectionGroup
 import io.github.anderscheow.library.adapters.view_holder.MyBaseViewHolder
 import io.github.anderscheow.library.adapters.view_holder.NetworkStateViewHolder
 import io.github.anderscheow.library.databinding.ViewNetworkStateBinding
-import io.github.anderscheow.library.adapters.util.SectionGroup
 
 @Suppress("UNUSED")
 abstract class BaseSectionPagedListAdapter<Key, Value>(
         private val callback: () -> Unit)
-    : FoundationPagedListAdapter<SectionGroup>(callback, SectionGroup.DIFF_CALLBACK) {
+    : FoundationPagedListAdapter<SectionGroup>(SectionGroup.DIFF_CALLBACK, callback) {
 
     @get:LayoutRes
     protected abstract val headerLayout: Int
@@ -52,9 +52,19 @@ abstract class BaseSectionPagedListAdapter<Key, Value>(
         when (itemViewType) {
             NETWORK_STATE_LAYOUT -> (holder as NetworkStateViewHolder).bind(networkState)
 
-            headerLayout -> (holder as MyBaseViewHolder<Key>).bind(getItem(position)?.section as Key)
+            headerLayout -> {
+                if (holder !is MyBaseViewHolder<*>) {
+                    throw IllegalStateException("Must inherit MyBaseViewHolder for body view holder")
+                }
+                (holder as MyBaseViewHolder<Key>).bind(getItem(position)?.section as Key)
+            }
 
-            else -> (holder as MyBaseViewHolder<Value>).bind(getItem(position)?.row as Value)
+            else -> {
+                if (holder !is MyBaseViewHolder<*>) {
+                    throw IllegalStateException("Must inherit MyBaseViewHolder for body view holder")
+                }
+                (holder as MyBaseViewHolder<Value>).bind(getItem(position)?.row as Value)
+            }
 
         }
     }

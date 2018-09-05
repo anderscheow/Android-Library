@@ -1,18 +1,23 @@
 package io.github.anderscheow.library.base.live.view_model
 
 import android.app.Application
+import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.Transformations
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
+import android.content.Context
+import io.github.anderscheow.library.adapters.base.BasePagedListAdapter
 import io.github.anderscheow.library.constant.NetworkState
 import io.github.anderscheow.library.paging.remote.BaseDataSourceFactory
 import io.github.anderscheow.library.paging.remote.BaseItemKeyedDataSource
+import org.jetbrains.anko.toast
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
 @Suppress("UNUSED")
-abstract class PagingWithoutLocalAndroidViewModel<in T, Key, Value>(context: Application) : BaseAndroidViewModel<T>(context) {
+abstract class PagingWithoutLocalAndroidViewModel<in Args, Key, Value>(context: Application) : BaseAndroidViewModel<Args>(context) {
 
     protected abstract val numberOfThreads: Int
 
@@ -26,7 +31,15 @@ abstract class PagingWithoutLocalAndroidViewModel<in T, Key, Value>(context: App
 
     private var tDataSource: LiveData<BaseItemKeyedDataSource<Key, Value>>? = null
 
-    fun init() {
+    override fun start(args: Args?) {
+        showProgressDialog(0)
+    }
+
+    override fun onRefresh() {
+        tDataSource?.value?.invalidate()
+    }
+
+    open fun init() {
         val executor = Executors.newFixedThreadPool(numberOfThreads)
         val factory = getDataSourceFactory(executor)
         tDataSource = factory.mutableLiveData
@@ -46,16 +59,50 @@ abstract class PagingWithoutLocalAndroidViewModel<in T, Key, Value>(context: App
                 .build()
     }
 
-    override fun start(args: T?) {
-        showProgressDialog(0)
-    }
-
-    override fun onRefresh() {
-        tDataSource?.value?.invalidate()
-    }
-
     @Suppress("UNUSED")
-    fun retry() {
+    open fun retry() {
         tDataSource?.value?.retry()
+    }
+}
+
+fun <Args, Key, Value> PagingWithoutLocalAndroidViewModel<Args, Key, Value>.observeItems(`object`: Any, adapter: BasePagedListAdapter<Value>, customAction: ((PagedList<Value>) -> Unit)? = null) {
+    (`object` as? LifecycleOwner)?.let { owner ->
+        this.items?.observe(owner, Observer { list ->
+            adapter.submitList(list)
+
+            list?.let {
+                customAction?.invoke(list)
+            }
+        })
+    }
+}
+
+fun <Args, Key, Value> PagingWithoutLocalAndroidViewModel<Args, Key, Value>.observeNetworkState(`object`: Any, adapter: BasePagedListAdapter<Value>, showErrorMessage: Boolean = true, customAction: ((NetworkState) -> Unit)? = null) {
+    (`object` as? LifecycleOwner)?.let { owner ->
+        this.networkState?.observe(owner, Observer { networkState ->
+            adapter.networkState = networkState
+
+            networkState?.let {
+                if (networkState.status == NetworkState.Status.FAILED) {
+                    this.finishLoading()
+
+                    if (showErrorMessage) {
+                        (`object` as? Context)?.toast(it.message ?: "")
+                    }
+                }
+                customAction?.invoke(networkState)
+            }
+        })
+    }
+}
+
+fun <Args, Key, Value> PagingWithoutLocalAndroidViewModel<Args, Key, Value>.observeTotalItems(`object`: Any, customAction: ((Long) -> Unit)? = null) {
+    (`object` as? LifecycleOwner)?.let { owner ->
+        this.totalItems?.observe(owner, Observer { totalItems ->
+            totalItems?.let {
+                this.finishLoading(totalItems)
+                customAction?.invoke(totalItems)
+            }
+        })
     }
 }

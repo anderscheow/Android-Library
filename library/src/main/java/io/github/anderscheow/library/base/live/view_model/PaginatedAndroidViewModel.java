@@ -4,7 +4,7 @@ import android.app.Application;
 import android.databinding.ObservableField;
 
 @Deprecated
-public abstract class PaginatedAndroidViewModel<T> extends BaseAndroidViewModel<T> {
+public abstract class PaginatedAndroidViewModel<Args> extends BaseAndroidViewModel<Args> {
 
     public final ObservableField<Long> totalOfElements = new ObservableField<>();
 

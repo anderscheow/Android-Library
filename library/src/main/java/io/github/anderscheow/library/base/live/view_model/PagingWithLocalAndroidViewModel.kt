@@ -35,12 +35,19 @@ abstract class PagingWithLocalAndroidViewModel<in Args, Value : PagingModel>(con
         listing?.retry?.invoke()
     }
 
-    override val numberOfThreads: Int = throw IllegalStateException("Do not use this field (numberOfThreads)")
+    override val numberOfThreads: Int
+        get() {
+            throw IllegalStateException("Do not use this field (numberOfThreads)")
+        }
 
-    override val loadPageSize: Int = throw IllegalStateException("Do not use this field (loadPageSize)")
+    override val loadPageSize: Int
+        get() {
+            throw IllegalStateException("Do not use this field (loadPageSize)")
+        }
 
-    override fun getDataSourceFactory(executor: Executor): BaseDataSourceFactory<Void, Value> =
-            throw IllegalStateException("Do not use this method (getDataSourceFactory)")
+    override fun getDataSourceFactory(executor: Executor): BaseDataSourceFactory<Void, Value> {
+        throw IllegalStateException("Do not use this method (getDataSourceFactory)")
+    }
 }
 
 fun <T, Value : PagingModel> PagingWithLocalAndroidViewModel<T, Value>.observeRefreshState(`object`: Any, customAction: ((NetworkState) -> Unit)? = null) {

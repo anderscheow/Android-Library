@@ -1,32 +1,21 @@
 package io.github.anderscheow.library.base.live.view_model
 
 import android.app.Application
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.Transformations
-import android.arch.paging.PagedList
+import android.arch.lifecycle.*
 import io.github.anderscheow.library.constant.NetworkState
 import io.github.anderscheow.library.paging.local_remote.PagingModel
+import io.github.anderscheow.library.paging.remote.BaseDataSourceFactory
 import io.github.anderscheow.library.paging.util.Listing
+import java.util.concurrent.Executor
 
 @Suppress("UNUSED")
-abstract class PagingWithLocalAndroidViewModel<in T, Value : PagingModel>(context: Application) : BaseAndroidViewModel<T>(context) {
+abstract class PagingWithLocalAndroidViewModel<in Args, Value : PagingModel>(context: Application) : PagingWithoutLocalAndroidViewModel<Args, Void, Value>(context) {
 
     protected val repoResult = MutableLiveData<Listing<Value>>()
 
-    var items: LiveData<PagedList<Value>>? = null
-    var networkState: LiveData<NetworkState>? = null
-    var totalItems: LiveData<Long>? = null
     var refreshState: LiveData<NetworkState>? = null
 
-    fun init() {
-        items = Transformations.switchMap(repoResult) { it.pagedList }
-        networkState = Transformations.switchMap(repoResult) { it.networkState }
-        totalItems = Transformations.switchMap(repoResult) { it.totalItems }
-        refreshState = Transformations.switchMap(repoResult) { it.refreshState }
-    }
-
-    override fun start(args: T?) {
+    override fun start(args: Args?) {
         showProgressDialog(0)
     }
 
@@ -34,8 +23,32 @@ abstract class PagingWithLocalAndroidViewModel<in T, Value : PagingModel>(contex
         repoResult.value?.refresh?.invoke()
     }
 
-    fun retry() {
+    override fun init() {
+        items = Transformations.switchMap(repoResult) { it.pagedList }
+        networkState = Transformations.switchMap(repoResult) { it.networkState }
+        totalItems = Transformations.switchMap(repoResult) { it.totalItems }
+        refreshState = Transformations.switchMap(repoResult) { it.refreshState }
+    }
+
+    override fun retry() {
         val listing = repoResult.value
         listing?.retry?.invoke()
+    }
+
+    override val numberOfThreads: Int = throw IllegalStateException("Do not use this field (numberOfThreads)")
+
+    override val loadPageSize: Int = throw IllegalStateException("Do not use this field (loadPageSize)")
+
+    override fun getDataSourceFactory(executor: Executor): BaseDataSourceFactory<Void, Value> =
+            throw IllegalStateException("Do not use this method (getDataSourceFactory)")
+}
+
+fun <T, Value : PagingModel> PagingWithLocalAndroidViewModel<T, Value>.observeRefreshState(`object`: Any, customAction: ((NetworkState) -> Unit)? = null) {
+    (`object` as? LifecycleOwner)?.let { owner ->
+        this.refreshState?.observe(owner, Observer { refreshState ->
+            refreshState?.let {
+                customAction?.invoke(refreshState)
+            }
+        })
     }
 }

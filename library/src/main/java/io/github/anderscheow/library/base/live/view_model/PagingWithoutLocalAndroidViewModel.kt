@@ -8,7 +8,7 @@ import android.arch.lifecycle.Transformations
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
 import android.content.Context
-import io.github.anderscheow.library.adapters.base.BasePagedListAdapter
+import io.github.anderscheow.library.adapters.base.FoundationPagedListAdapter
 import io.github.anderscheow.library.constant.NetworkState
 import io.github.anderscheow.library.paging.remote.BaseDataSourceFactory
 import io.github.anderscheow.library.paging.remote.BaseItemKeyedDataSource
@@ -65,7 +65,7 @@ abstract class PagingWithoutLocalAndroidViewModel<in Args, Key, Value>(context: 
     }
 }
 
-fun <Args, Key, Value> PagingWithoutLocalAndroidViewModel<Args, Key, Value>.observeItems(`object`: Any, adapter: BasePagedListAdapter<Value>, customAction: ((PagedList<Value>) -> Unit)? = null) {
+fun <Args, Key, Value> PagingWithoutLocalAndroidViewModel<Args, Key, Value>.observeItems(`object`: Any, adapter: FoundationPagedListAdapter<Value>, customAction: ((PagedList<Value>) -> Unit)? = null) {
     (`object` as? LifecycleOwner)?.let { owner ->
         this.items?.observe(owner, Observer { list ->
             adapter.submitList(list)
@@ -77,7 +77,7 @@ fun <Args, Key, Value> PagingWithoutLocalAndroidViewModel<Args, Key, Value>.obse
     }
 }
 
-fun <Args, Key, Value> PagingWithoutLocalAndroidViewModel<Args, Key, Value>.observeNetworkState(`object`: Any, adapter: BasePagedListAdapter<Value>, showErrorMessage: Boolean = true, customAction: ((NetworkState) -> Unit)? = null) {
+fun <Args, Key, Value> PagingWithoutLocalAndroidViewModel<Args, Key, Value>.observeNetworkState(`object`: Any, adapter: FoundationPagedListAdapter<Value>, showErrorMessage: Boolean = true, customAction: ((NetworkState) -> Unit)? = null) {
     (`object` as? LifecycleOwner)?.let { owner ->
         this.networkState?.observe(owner, Observer { networkState ->
             adapter.networkState = networkState

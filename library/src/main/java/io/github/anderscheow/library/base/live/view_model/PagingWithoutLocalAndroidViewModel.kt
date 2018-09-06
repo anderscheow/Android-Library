@@ -8,10 +8,12 @@ import android.arch.lifecycle.Transformations
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
 import android.content.Context
+import android.support.v4.app.Fragment
 import io.github.anderscheow.library.adapters.base.FoundationPagedListAdapter
 import io.github.anderscheow.library.constant.NetworkState
 import io.github.anderscheow.library.paging.remote.BaseDataSourceFactory
 import io.github.anderscheow.library.paging.remote.BaseItemKeyedDataSource
+import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.toast
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
@@ -87,7 +89,11 @@ fun <Args, Key, Value> PagingWithoutLocalAndroidViewModel<Args, Key, Value>.obse
                     this.finishLoading()
 
                     if (showErrorMessage) {
-                        (`object` as? Context)?.toast(it.message ?: "")
+                        if (`object` is Context) {
+                            `object`.toast(it.message ?: "")
+                        } else if (`object` is Fragment) {
+                            `object`.toast(it.message ?: "")
+                        }
                     }
                 }
                 customAction?.invoke(networkState)

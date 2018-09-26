@@ -1,11 +1,9 @@
 package io.github.anderscheow.library.paging.remote
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.paging.ItemKeyedDataSource
-import android.support.annotation.CallSuper
-
+import androidx.annotation.CallSuper
+import androidx.lifecycle.MutableLiveData
+import androidx.paging.ItemKeyedDataSource
 import io.github.anderscheow.library.constant.NetworkState
-
 import java.util.concurrent.Executor
 
 abstract class BaseItemKeyedDataSource<Key, Value>(private val retryExecutor: Executor) : ItemKeyedDataSource<Key, Value>() {

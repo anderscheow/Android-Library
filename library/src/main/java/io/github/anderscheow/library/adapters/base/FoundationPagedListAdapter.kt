@@ -1,10 +1,10 @@
 package io.github.anderscheow.library.adapters.base
 
-import android.arch.paging.PagedListAdapter
-import android.databinding.ViewDataBinding
-import android.support.annotation.LayoutRes
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.ViewDataBinding
+import androidx.annotation.LayoutRes
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import io.github.anderscheow.library.R
 import io.github.anderscheow.library.constant.NetworkState
 

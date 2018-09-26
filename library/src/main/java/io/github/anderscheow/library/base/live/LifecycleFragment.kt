@@ -1,17 +1,17 @@
 package io.github.anderscheow.library.base.live
 
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import io.github.anderscheow.library.BR
 import io.github.anderscheow.library.base.FoundationFragment
 import io.github.anderscheow.library.base.live.util.ProgressDialogMessage
 import io.github.anderscheow.library.base.live.util.ToastMessage
 import io.github.anderscheow.library.base.live.view_model.BaseAndroidViewModel
-import org.jetbrains.anko.support.v4.toast
+import io.github.anderscheow.library.kotlin.toast
 
 @Suppress("UNUSED")
 abstract class LifecycleFragment<VM : BaseAndroidViewModel<*>> : FoundationFragment() {

@@ -2,10 +2,10 @@ package io.github.anderscheow.library.views
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.MotionEvent
+import androidx.viewpager.widget.ViewPager
 
 @Suppress("UNUSED")
 class NonSwipeableViewPager(context: Context, attrs: AttributeSet) : ViewPager(context, attrs) {

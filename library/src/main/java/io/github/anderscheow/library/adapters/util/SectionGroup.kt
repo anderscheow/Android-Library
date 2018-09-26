@@ -1,6 +1,6 @@
 package io.github.anderscheow.library.adapters.util
 
-import android.support.v7.util.DiffUtil
+import androidx.recyclerview.widget.DiffUtil
 
 class SectionGroup {
 

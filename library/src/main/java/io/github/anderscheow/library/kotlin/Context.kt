@@ -5,11 +5,11 @@ package io.github.anderscheow.library.kotlin
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
-import android.support.annotation.ColorRes
-import android.support.annotation.DrawableRes
-import android.support.v4.content.ContextCompat
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
+import androidx.core.content.ContextCompat
 import org.jetbrains.anko.browse
 
 /**
@@ -54,8 +54,7 @@ fun Context.showKeyboard(view: View?) {
     view?.let {
         it.requestFocus()
 
-        (this.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)?.
-                showSoftInput(it, InputMethodManager.SHOW_IMPLICIT)
+        (this.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)?.showSoftInput(it, InputMethodManager.SHOW_IMPLICIT)
     }
 }
 
@@ -64,7 +63,6 @@ fun Context.showKeyboard(view: View?) {
  */
 fun Context.hideKeyboard(view: View?) {
     view?.let {
-        (this.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)?.
-                hideSoftInputFromWindow(it.windowToken, 0)
+        (this.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)?.hideSoftInputFromWindow(it.windowToken, 0)
     }
 }

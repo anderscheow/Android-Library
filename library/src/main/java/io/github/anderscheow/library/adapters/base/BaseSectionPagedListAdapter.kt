@@ -1,11 +1,11 @@
 package io.github.anderscheow.library.adapters.base
 
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
-import android.support.annotation.LayoutRes
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.annotation.LayoutRes
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import io.github.anderscheow.library.adapters.util.SectionGroup
 import io.github.anderscheow.library.adapters.view_holder.MyBaseViewHolder
 import io.github.anderscheow.library.adapters.view_holder.NetworkStateViewHolder

@@ -38,6 +38,7 @@ ext {
 
     def libs = [
             /* android support */
+            dataBinding                 :   "androidx.databinding:databinding-compiler:$build.gradle",
             supportAppCompat            :   "androidx.appcompat:appcompat:$androidx_version",
             supportConstraintLayout     :   "androidx.constraintlayout:constraintlayout:$androidx_constraint_layout_version",
             supportDesign               :   "com.google.android.material:material:$androidx_version",
@@ -77,6 +78,7 @@ ext {
 
     libraryModuleDependencies = [
             /* android support */
+            [configuration: "kapt", dependency: libs.dataBinding],
             [configuration: "api", dependency: libs.supportAppCompat],
             [configuration: "api", dependency: libs.supportDesign],
 

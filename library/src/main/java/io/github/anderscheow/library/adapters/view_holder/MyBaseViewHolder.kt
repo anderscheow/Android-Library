@@ -1,8 +1,8 @@
 package io.github.anderscheow.library.adapters.view_holder
 
-import android.databinding.ViewDataBinding
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.ViewDataBinding
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import io.github.anderscheow.library.BR
 
 abstract class MyBaseViewHolder<in T>(private val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {

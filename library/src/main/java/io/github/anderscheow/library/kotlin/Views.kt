@@ -4,14 +4,14 @@ package io.github.anderscheow.library.kotlin
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
-import android.support.design.widget.AppBarLayout
-import android.support.design.widget.CoordinatorLayout
-import android.support.v4.widget.TextViewCompat
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.widget.EditText
 import android.widget.TextView
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.widget.TextViewCompat
+import com.google.android.material.appbar.AppBarLayout
 import org.jetbrains.anko.backgroundResource
 import org.jetbrains.anko.textColor
 

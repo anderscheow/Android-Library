@@ -1,6 +1,6 @@
 package io.github.anderscheow.library.adapters.view_holder
 
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 import android.view.View
 import io.github.anderscheow.library.constant.NetworkState
 import io.github.anderscheow.library.databinding.ViewNetworkStateBinding

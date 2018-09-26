@@ -16,8 +16,8 @@
 
 package io.github.anderscheow.library.paging.util
 
-import android.arch.lifecycle.LiveData
-import android.arch.paging.PagedList
+import androidx.lifecycle.LiveData
+import androidx.paging.PagedList
 import io.github.anderscheow.library.constant.NetworkState
 import io.github.anderscheow.library.paging.local_remote.PagingModel
 

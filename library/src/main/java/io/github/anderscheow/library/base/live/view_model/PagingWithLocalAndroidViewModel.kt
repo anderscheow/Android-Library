@@ -1,7 +1,7 @@
 package io.github.anderscheow.library.base.live.view_model
 
 import android.app.Application
-import android.arch.lifecycle.*
+import androidx.lifecycle.*
 import io.github.anderscheow.library.constant.NetworkState
 import io.github.anderscheow.library.paging.local_remote.PagingModel
 import io.github.anderscheow.library.paging.remote.BaseDataSourceFactory

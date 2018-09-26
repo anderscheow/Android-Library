@@ -3,8 +3,8 @@
 package io.github.anderscheow.library.kotlin
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import java.io.Serializable
 
 /**
@@ -20,13 +20,13 @@ fun Fragment.withArguments(vararg arguments: Pair<String, Serializable>): Fragme
 /**
  * Retrieve property from intent
  */
-fun <T : Any> FragmentActivity.argument(key: String) = lazy { intent.extras[key] as T? }
+fun <T : Any> FragmentActivity.argument(key: String) = lazy { intent?.extras?.get(key) as T? }
 
 /**
  * Retrieve property with default value from intent
  */
 fun <T : Any> FragmentActivity.argument(key: String, defaultValue: T) = lazy {
-    intent.extras[key] as? T ?: defaultValue
+    intent?.extras?.get(key) as? T ?: defaultValue
 }
 
 /**

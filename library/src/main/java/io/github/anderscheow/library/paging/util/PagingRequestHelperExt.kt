@@ -1,7 +1,7 @@
 package io.github.anderscheow.library.paging.util
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import io.github.anderscheow.library.constant.NetworkState
 
 private fun getErrorMessage(report: PagingRequestHelper.StatusReport): String {

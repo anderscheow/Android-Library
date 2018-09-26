@@ -1,8 +1,8 @@
 package io.github.anderscheow.library.base.live
 
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.os.Bundle
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import io.github.anderscheow.library.BR
 import io.github.anderscheow.library.base.FoundationAppCompatActivity
 import io.github.anderscheow.library.base.live.util.ProgressDialogMessage

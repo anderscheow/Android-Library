@@ -2,7 +2,9 @@ package io.github.anderscheow.library.kotlin
 
 import android.app.Activity
 import android.content.Context
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
+import org.jetbrains.anko.longToast
+import org.jetbrains.anko.toast
 
 fun Fragment.isNotThere(): Boolean = (activity?.isFinishing ?: true) || isDetached
 
@@ -42,3 +44,11 @@ inline fun <T> Fragment.withActivityAs(block: (T) -> Unit) {
 fun <T> Fragment.withActivityAs(): T? {
     return (activity as? T)
 }
+
+fun Fragment.toast(textResource: Int) = requireActivity().toast(textResource)
+
+fun Fragment.toast(text: CharSequence) = requireActivity().toast(text)
+
+fun Fragment.longToast(textResource: Int) = requireActivity().longToast(textResource)
+
+fun Fragment.longToast(text: CharSequence) = requireActivity().longToast(text)

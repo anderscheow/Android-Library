@@ -5,7 +5,7 @@ import android.content.Context
 import android.util.AttributeSet
 import java.util.*
 
-class LoadingTextView : android.support.v7.widget.AppCompatTextView {
+class LoadingTextView : androidx.appcompat.widget.AppCompatTextView {
 
     private var defaultText = EMPTY
     private var currentDot = ONE_DOT

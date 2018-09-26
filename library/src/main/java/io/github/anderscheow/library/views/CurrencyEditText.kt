@@ -1,7 +1,6 @@
 package io.github.anderscheow.library.views
 
 import android.content.Context
-import android.support.v7.widget.AppCompatEditText
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
@@ -10,6 +9,7 @@ import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.widget.AppCompatEditText
 import java.text.DecimalFormat
 
 @Suppress("UNUSED")

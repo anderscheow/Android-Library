@@ -2,21 +2,18 @@ package io.github.anderscheow.library.base
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.v4.app.Fragment
 import android.view.View
+import androidx.annotation.LayoutRes
+import androidx.fragment.app.Fragment
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.orhanobut.logger.Logger
 import io.github.anderscheow.library.R
 import io.github.anderscheow.library.constant.EventBusType
-import io.github.anderscheow.library.kotlin.isConnectedToInternet
-import io.github.anderscheow.library.kotlin.isNotThere
-import io.github.anderscheow.library.kotlin.withActivity
+import io.github.anderscheow.library.kotlin.*
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.okButton
-import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.yesButton
 
 @Suppress("UNUSED")
@@ -53,6 +50,7 @@ abstract class FoundationFragment : Fragment() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        isAdded {  }
         Logger.v("Fragment CREATED")
         super.onCreate(savedInstanceState)
         if (EventBusType.isOnCreate(getEventBusType())) {

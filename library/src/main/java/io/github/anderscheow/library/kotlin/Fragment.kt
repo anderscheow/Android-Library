@@ -2,9 +2,9 @@ package io.github.anderscheow.library.kotlin
 
 import android.app.Activity
 import android.content.Context
-import androidx.core.widget.toast
 import androidx.fragment.app.Fragment
 import org.jetbrains.anko.longToast
+import org.jetbrains.anko.toast
 
 fun Fragment.isNotThere(): Boolean = (activity?.isFinishing ?: true) || isDetached
 

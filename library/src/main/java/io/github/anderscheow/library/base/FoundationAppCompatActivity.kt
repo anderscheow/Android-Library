@@ -7,17 +7,13 @@ import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.widget.toast
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.orhanobut.logger.Logger
 import io.github.anderscheow.library.R
 import io.github.anderscheow.library.constant.EventBusType
 import io.github.anderscheow.library.kotlin.isConnectedToInternet
 import org.greenrobot.eventbus.EventBus
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.noButton
-import org.jetbrains.anko.okButton
-import org.jetbrains.anko.yesButton
+import org.jetbrains.anko.*
 
 abstract class FoundationAppCompatActivity : AppCompatActivity() {
 

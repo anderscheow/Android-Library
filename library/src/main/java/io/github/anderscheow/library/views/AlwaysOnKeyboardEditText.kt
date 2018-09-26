@@ -1,9 +1,9 @@
 package io.github.anderscheow.library.views
 
 import android.content.Context
-import android.support.design.widget.TextInputEditText
 import android.util.AttributeSet
 import android.view.KeyEvent
+import com.google.android.material.textfield.TextInputEditText
 
 @Suppress("UNUSED")
 class AlwaysOnKeyboardEditText : TextInputEditText {

@@ -1,7 +1,7 @@
 package io.github.anderscheow.library.base.live.util
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 
 class ToastMessage : SingleLiveEvent<String>() {
 

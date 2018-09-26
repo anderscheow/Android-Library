@@ -17,9 +17,9 @@
 package io.github.anderscheow.library.views
 
 import android.content.Context
-import android.support.v4.widget.SwipeRefreshLayout
 import android.util.AttributeSet
 import android.view.View
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 /**
  * Extends [SwipeRefreshLayout] to support non-direct descendant scrolling views.

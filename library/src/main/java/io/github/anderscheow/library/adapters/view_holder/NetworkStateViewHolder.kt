@@ -1,7 +1,7 @@
 package io.github.anderscheow.library.adapters.view_holder
 
-import android.support.annotation.StringRes
 import android.view.View
+import androidx.annotation.StringRes
 import io.github.anderscheow.library.constant.NetworkState
 import io.github.anderscheow.library.databinding.ViewNetworkStateBinding
 import kotlinx.android.extensions.LayoutContainer

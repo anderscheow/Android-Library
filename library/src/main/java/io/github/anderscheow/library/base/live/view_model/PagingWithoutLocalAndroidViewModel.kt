@@ -1,19 +1,19 @@
 package io.github.anderscheow.library.base.live.view_model
 
 import android.app.Application
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.Transformations
-import android.arch.paging.LivePagedListBuilder
-import android.arch.paging.PagedList
 import android.content.Context
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.Transformations
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import io.github.anderscheow.library.adapters.base.FoundationPagedListAdapter
 import io.github.anderscheow.library.constant.NetworkState
+import io.github.anderscheow.library.kotlin.toast
 import io.github.anderscheow.library.paging.remote.BaseDataSourceFactory
 import io.github.anderscheow.library.paging.remote.BaseItemKeyedDataSource
-import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.toast
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors

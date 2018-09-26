@@ -3,11 +3,11 @@ package io.github.anderscheow.library.base
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.v4.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
+import androidx.fragment.app.DialogFragment
 import com.orhanobut.logger.Logger
 import io.github.anderscheow.library.constant.EventBusType
 import org.greenrobot.eventbus.EventBus
@@ -61,9 +61,8 @@ abstract class BaseDialogFragment : DialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         Logger.v("Fragment CREATED VIEW")
-        val view = inflater.inflate(getResLayout(), container, false)
 
-        return view
+        return inflater.inflate(getResLayout(), container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

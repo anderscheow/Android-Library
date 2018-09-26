@@ -1,8 +1,8 @@
 package io.github.anderscheow.library.paging.local_remote
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
-import android.support.annotation.MainThread
+import androidx.annotation.MainThread
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import io.github.anderscheow.library.constant.NetworkState
 import io.github.anderscheow.library.paging.util.Listing
 

@@ -1,14 +1,14 @@
 package io.github.anderscheow.library.base.live
 
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.os.Bundle
+import androidx.core.widget.toast
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import io.github.anderscheow.library.BR
 import io.github.anderscheow.library.base.FoundationAppCompatActivity
 import io.github.anderscheow.library.base.live.util.ProgressDialogMessage
 import io.github.anderscheow.library.base.live.util.ToastMessage
 import io.github.anderscheow.library.base.live.view_model.BaseAndroidViewModel
-import org.jetbrains.anko.toast
 
 @Suppress("UNUSED")
 abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : FoundationAppCompatActivity() {

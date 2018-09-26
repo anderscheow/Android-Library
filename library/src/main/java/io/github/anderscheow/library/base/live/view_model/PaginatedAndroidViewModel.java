@@ -1,6 +1,7 @@
 package io.github.anderscheow.library.base.live.view_model;
 
 import android.app.Application;
+
 import androidx.databinding.ObservableField;
 
 @Deprecated

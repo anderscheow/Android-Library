@@ -1,7 +1,7 @@
 package io.github.anderscheow.library.adapters.view_holder
 
-import androidx.databinding.ViewDataBinding
 import android.view.View
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import io.github.anderscheow.library.BR
 

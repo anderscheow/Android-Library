@@ -1,10 +1,10 @@
 package io.github.anderscheow.library.adapters.base
 
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
-import androidx.annotation.LayoutRes
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import io.github.anderscheow.library.adapters.util.SectionGroup
 import io.github.anderscheow.library.adapters.view_holder.MyBaseViewHolder

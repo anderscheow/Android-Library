@@ -61,9 +61,8 @@ abstract class BaseDialogFragment : DialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         Logger.v("Fragment CREATED VIEW")
-        val view = inflater.inflate(getResLayout(), container, false)
 
-        return view
+        return inflater.inflate(getResLayout(), container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

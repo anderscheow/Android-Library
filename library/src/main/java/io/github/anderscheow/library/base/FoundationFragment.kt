@@ -9,7 +9,10 @@ import com.kaopiz.kprogresshud.KProgressHUD
 import com.orhanobut.logger.Logger
 import io.github.anderscheow.library.R
 import io.github.anderscheow.library.constant.EventBusType
-import io.github.anderscheow.library.kotlin.*
+import io.github.anderscheow.library.kotlin.isConnectedToInternet
+import io.github.anderscheow.library.kotlin.isNotThere
+import io.github.anderscheow.library.kotlin.toast
+import io.github.anderscheow.library.kotlin.withActivity
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
@@ -50,7 +53,6 @@ abstract class FoundationFragment : Fragment() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        isAdded {  }
         Logger.v("Fragment CREATED")
         super.onCreate(savedInstanceState)
         if (EventBusType.isOnCreate(getEventBusType())) {

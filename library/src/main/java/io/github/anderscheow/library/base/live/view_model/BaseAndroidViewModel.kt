@@ -1,11 +1,10 @@
 package io.github.anderscheow.library.base.live.view_model
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.annotation.StringRes
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
-import androidx.annotation.StringRes
-
+import androidx.lifecycle.AndroidViewModel
 import io.github.anderscheow.library.base.live.util.ProgressDialogMessage
 import io.github.anderscheow.library.base.live.util.ToastMessage
 import io.reactivex.disposables.CompositeDisposable

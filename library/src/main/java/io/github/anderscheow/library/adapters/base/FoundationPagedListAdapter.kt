@@ -1,7 +1,7 @@
 package io.github.anderscheow.library.adapters.base
 
-import androidx.databinding.ViewDataBinding
 import androidx.annotation.LayoutRes
+import androidx.databinding.ViewDataBinding
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView

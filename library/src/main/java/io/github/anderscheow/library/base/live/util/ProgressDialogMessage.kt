@@ -1,8 +1,8 @@
 package io.github.anderscheow.library.base.live.util
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import androidx.annotation.StringRes
 
 class ProgressDialogMessage : SingleLiveEvent<Int>() {
 

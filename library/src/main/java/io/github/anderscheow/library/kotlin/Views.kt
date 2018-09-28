@@ -4,6 +4,9 @@ package io.github.anderscheow.library.kotlin
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
@@ -132,6 +135,25 @@ fun TextView.setSizeTextTypeToUniform() {
 
 fun TextView.setSizeTextTypeToNone() {
     TextViewCompat.setAutoSizeTextTypeWithDefaults(this, TextViewCompat.AUTO_SIZE_TEXT_TYPE_NONE)
+}
+
+fun TextView.setDefaultOnEditorActionListener(block: (TextView, Int, KeyEvent) -> Unit) {
+    this.setOnEditorActionListener { v, actionId, event ->
+        block.invoke(v, actionId, event)
+        true
+    }
+}
+
+/** Extension for EditText */
+open class DefaultTextWatcher : TextWatcher {
+    override fun afterTextChanged(s: Editable?) {
+    }
+
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+    }
+
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+    }
 }
 //endregion
 

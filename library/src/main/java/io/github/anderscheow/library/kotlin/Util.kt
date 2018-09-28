@@ -138,7 +138,8 @@ inline fun isAtLeastO2(block: () -> Unit) {
  * Method to get the TAG name for all object
  */
 @Suppress("FunctionName")
-fun <T : Any> T.TAG() = this::class.simpleName
+val <T : Any> T.TAG
+    get() = this::class.simpleName!!
 
 fun <T> copyIterator(iterator: Iterator<T>?): List<T> {
     val copy = ArrayList<T>()

@@ -21,13 +21,14 @@ ext {
     ]
 
     /* dependencies versions */
-    def android_arch_lifecycle_version = '1.1.1'
-    def android_arch_paging_version = '1.0.1'
-    def android_core_ktx_version = '1.0.0'
-    def android_support_version = '27.1.1'
-    def android_support_constraint_layout_version = '1.1.2'
-    def android_support_runner_version = '1.0.2'
-    def android_support_espresso_core_version = '3.0.2'
+    def androidx_app_compat_version = '1.0.0'
+    def androidx_arch_lifecycle_version = '2.0.0-rc01'
+    def androidx_arch_paging_version = '2.0.0-rc01'
+    def androidx_constraint_layout_version = '1.1.2'
+    def androidx_core_ktx_version = '1.0.1'
+    def androidx_material_version = '1.0.0-rc01'
+    def androidx_runner_version = '1.1.0'
+    def androidx_espresso_core_version = '3.1.0'
     def anko_version = '0.10.6'
     def event_bus_version = '3.1.1'
     def junit_version = '4.12'
@@ -37,16 +38,17 @@ ext {
     def reactive_rxjava_version = '2.2.0'
 
     def libs = [
-            /* android support */
+            /* androidx */
+            androidCoreKtx              :   "androidx.core:core-ktx:$androidx_core_ktx_version",
             dataBinding                 :   "com.android.databinding:compiler:$build.gradle",
-            supportAppCompat            :   "com.android.support:appcompat-v7:$android_support_version",
-            supportConstraintLayout     :   "com.android.support.constraint:constraint-layout:$android_support_constraint_layout_version",
-            supportDesign               :   "com.android.support:design:$android_support_version",
+            supportAppCompat            :   "androidx.appcompat:appcompat:$androidx_app_compat_version",
+            supportConstraintLayout     :   "androidx.constraintlayout:constraintlayout:$androidx_constraint_layout_version",
+            supportDesign               :   "com.google.android.material:material:$androidx_material_version",
 
             /* android architecture room */
-            lifecycleExtensions         :   "android.arch.lifecycle:extensions:$android_arch_lifecycle_version",
-            lifecyleCompiler            :   "android.arch.lifecycle:compiler:$android_arch_lifecycle_version",
-            pagingRuntime               :   "android.arch.paging:runtime:$android_arch_paging_version",
+            lifecycleExtensions         :   "androidx.lifecycle:lifecycle-extensions:$androidx_arch_lifecycle_version",
+            lifecyleCompiler            :   "androidx.lifecycle:lifecycle-compiler:$androidx_arch_lifecycle_version",
+            pagingRuntime               :   "androidx.paging:paging-runtime:$androidx_arch_paging_version",
 
             /* anko */
             anko                        :   "org.jetbrains.anko:anko:$anko_version",
@@ -60,7 +62,6 @@ ext {
             rxjava                      :   "io.reactivex.rxjava2:rxjava:$reactive_rxjava_version",
 
             /* others */
-            androidCoreKtx              :   "androidx.core:core-ktx:$android_core_ktx_version",
             eventBus                    :   "org.greenrobot:eventbus:$event_bus_version",
             logger                      :   "com.orhanobut:logger:$logger_version",
             kprogresshud                :   "com.kaopiz:kprogresshud:$kprogresshud_version",
@@ -68,8 +69,8 @@ ext {
 
     def testLibs = [
             jnuit                       :   "junit:junit:$junit_version",
-            androidSupportRunner        :   "com.android.support.test:runner:$android_support_runner_version",
-            androidSupportEspressoCore  :   "com.android.support.test.espresso:espresso-core:$android_support_espresso_core_version",
+            androidSupportRunner        :   "androidx.test:runner:$androidx_runner_version",
+            androidSupportEspressoCore  :   "androidx.test.espresso:espresso-core:$androidx_espresso_core_version",
     ]
 
     def modules = [

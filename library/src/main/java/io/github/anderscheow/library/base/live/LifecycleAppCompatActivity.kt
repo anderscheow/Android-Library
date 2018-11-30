@@ -19,6 +19,8 @@ abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : Founda
 
     abstract fun setupViewModel(): VM
 
+    abstract fun setupViewModelObserver()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         initBeforeSuperOnCreate.invoke()
 
@@ -35,6 +37,7 @@ abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : Founda
 
         setupProgressDialog()
         setupToast()
+        setupViewModelObserver()
 
         init()
     }

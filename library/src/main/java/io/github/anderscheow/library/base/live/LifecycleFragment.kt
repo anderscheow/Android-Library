@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.LifecycleOwner
 import io.github.anderscheow.library.BR
 import io.github.anderscheow.library.base.FoundationFragment
 import io.github.anderscheow.library.base.live.util.ProgressDialogMessage
@@ -22,6 +23,8 @@ abstract class LifecycleFragment<VM : BaseAndroidViewModel<*>> : FoundationFragm
 
     abstract fun setupViewModel(): VM
 
+    abstract fun setupViewModelObserver(lifecycleOwner: LifecycleOwner)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,6 +40,11 @@ abstract class LifecycleFragment<VM : BaseAndroidViewModel<*>> : FoundationFragm
         binding.setVariable(BR.obj, viewModel)
 
         return view
+    }
+
+    override fun onActivityCreated(savedInstaceState: Bundle?) {
+        super.onActivityCreated(savedInstaceState)
+        setupViewModelObserver(viewLifecycleOwner)
     }
 
     private fun setupProgressDialog() {

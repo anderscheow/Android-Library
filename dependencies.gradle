@@ -27,6 +27,7 @@ ext {
     def androidx_constraint_layout_version = '1.1.2'
     def androidx_core_ktx_version = '1.0.1'
     def androidx_material_version = '1.0.0'
+    def androidx_multidex_version = '2.0.0'
     def androidx_runner_version = '1.1.0'
     def androidx_espresso_core_version = '3.1.0'
     def anko_version = '0.10.6'
@@ -44,6 +45,7 @@ ext {
             supportAppCompat            :   "androidx.appcompat:appcompat:$androidx_app_compat_version",
             supportConstraintLayout     :   "androidx.constraintlayout:constraintlayout:$androidx_constraint_layout_version",
             supportDesign               :   "com.google.android.material:material:$androidx_material_version",
+            supportMultidex             :   "androidx.multidex:multidex:$androidx_multidex_version",
 
             /* android architecture room */
             lifecycleExtensions         :   "androidx.lifecycle:lifecycle-extensions:$androidx_arch_lifecycle_version",
@@ -110,6 +112,7 @@ ext {
             /* android support */
             [configuration: "implementation", dependency: libs.supportAppCompat],
             [configuration: "implementation", dependency: libs.supportConstraintLayout],
+            [configuration: "implementation", dependency: libs.supportMultidex],
 
             /* kotlin */
             [configuration: "implementation", dependency: libs.kotlinStdlib],

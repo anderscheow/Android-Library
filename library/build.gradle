@@ -11,16 +11,13 @@ android {
         minSdkVersion ext.android.minSdkVersion
         targetSdkVersion ext.android.targetSdkVersion
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
+        multiDexEnabled true
     }
     dataBinding {
         enabled = true
     }
     androidExtensions {
         experimental = true
-    }
-    defaultConfig {
-        multiDexEnabled true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

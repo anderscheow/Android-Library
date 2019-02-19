@@ -10,7 +10,6 @@ import io.github.anderscheow.library.base.live.util.ToastMessage
 import io.github.anderscheow.library.base.live.view_model.BaseAndroidViewModel
 import org.jetbrains.anko.toast
 
-@Suppress("UNUSED")
 abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : FoundationAppCompatActivity() {
 
     protected val viewModel by lazy {

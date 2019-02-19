@@ -8,7 +8,6 @@ import io.github.anderscheow.library.paging.remote.BaseDataSourceFactory
 import io.github.anderscheow.library.paging.util.Listing
 import java.util.concurrent.Executor
 
-@Suppress("UNUSED")
 abstract class PagingWithLocalAndroidViewModel<in Args, Value : PagingModel>(context: Application) : PagingWithoutLocalAndroidViewModel<Args, Void, Value>(context) {
 
     protected val repoResult = MutableLiveData<Listing<Value>>()
@@ -16,7 +15,7 @@ abstract class PagingWithLocalAndroidViewModel<in Args, Value : PagingModel>(con
     var refreshState: LiveData<NetworkState>? = null
 
     override fun start(args: Args?) {
-        showProgressDialog(0)
+        showProgressDialog()
     }
 
     override fun onRefresh() {

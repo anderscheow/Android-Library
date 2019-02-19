@@ -18,7 +18,6 @@ import org.jetbrains.anko.toast
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
-@Suppress("UNUSED")
 abstract class PagingWithoutLocalAndroidViewModel<in Args, Key, Value>(context: Application) : BaseAndroidViewModel<Args>(context) {
 
     protected abstract val numberOfThreads: Int
@@ -34,7 +33,7 @@ abstract class PagingWithoutLocalAndroidViewModel<in Args, Key, Value>(context: 
     private var tDataSource: LiveData<BaseItemKeyedDataSource<Key, Value>>? = null
 
     override fun start(args: Args?) {
-        showProgressDialog(0)
+        showProgressDialog()
     }
 
     override fun onRefresh() {
@@ -61,7 +60,6 @@ abstract class PagingWithoutLocalAndroidViewModel<in Args, Key, Value>(context: 
                 .build()
     }
 
-    @Suppress("UNUSED")
     open fun retry() {
         tDataSource?.value?.retry()
     }

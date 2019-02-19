@@ -1,5 +1,3 @@
-@file:Suppress("UNUSED")
-
 package io.github.anderscheow.library.kotlin
 
 infix fun <T> Boolean.then(value: T?) = if (this) value else null

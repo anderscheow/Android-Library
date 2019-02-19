@@ -11,7 +11,6 @@ import io.github.anderscheow.library.adapters.view_holder.MyBaseViewHolder
 import io.github.anderscheow.library.adapters.view_holder.NetworkStateViewHolder
 import io.github.anderscheow.library.databinding.ViewNetworkStateBinding
 
-@Suppress("UNUSED")
 abstract class BaseSectionPagedListAdapter<Key, Value>(
         private val callback: () -> Unit)
     : FoundationPagedListAdapter<SectionGroup>(SectionGroup.DIFF_CALLBACK, callback) {

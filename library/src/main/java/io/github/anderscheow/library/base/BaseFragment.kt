@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.orhanobut.logger.Logger
 
-@Suppress("UNUSED")
 abstract class BaseFragment : FoundationFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

@@ -6,7 +6,6 @@ import io.github.anderscheow.library.paging.util.PagingRequestHelper
 import io.github.anderscheow.library.paging.util.createStatusLiveData
 import java.util.concurrent.Executor
 
-@Suppress("UNUSED")
 abstract class BoundaryCallback<T : PagingModel>(private val handleResponse: (List<T>?) -> Unit,
                                                  private val executor: Executor)
     : PagedList.BoundaryCallback<T>() {

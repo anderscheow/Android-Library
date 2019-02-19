@@ -1,7 +1,6 @@
 package io.github.anderscheow.library.constant
 
-@Suppress("DataClassPrivateConstructor")
-data class NetworkState private constructor(
+data class NetworkState constructor(
         val status: Status,
         val message: String? = null) {
 

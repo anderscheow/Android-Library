@@ -14,7 +14,6 @@ import io.github.anderscheow.library.base.live.util.ToastMessage
 import io.github.anderscheow.library.base.live.view_model.BaseAndroidViewModel
 import io.github.anderscheow.library.kotlin.toast
 
-@Suppress("UNUSED")
 abstract class LifecycleFragment<VM : BaseAndroidViewModel<*>> : FoundationFragment() {
 
     protected val viewModel by lazy {

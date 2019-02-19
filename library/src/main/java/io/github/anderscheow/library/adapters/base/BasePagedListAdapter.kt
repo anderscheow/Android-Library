@@ -10,7 +10,6 @@ import io.github.anderscheow.library.adapters.view_holder.MyBaseViewHolder
 import io.github.anderscheow.library.adapters.view_holder.NetworkStateViewHolder
 import io.github.anderscheow.library.databinding.ViewNetworkStateBinding
 
-@Suppress("UNUSED")
 abstract class BasePagedListAdapter<T>(
         diffCallback: DiffUtil.ItemCallback<T>,
         private val callback: () -> Unit)

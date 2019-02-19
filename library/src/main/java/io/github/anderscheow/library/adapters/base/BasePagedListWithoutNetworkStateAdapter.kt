@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import io.github.anderscheow.library.adapters.view_holder.MyBaseViewHolder
 
-@Suppress("UNUSED")
 abstract class BasePagedListWithoutNetworkStateAdapter<T>(
         diffCallback: DiffUtil.ItemCallback<T>)
     : FoundationPagedListAdapter<T>(diffCallback, null) {

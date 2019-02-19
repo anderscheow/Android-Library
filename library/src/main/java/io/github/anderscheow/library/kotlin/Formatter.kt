@@ -1,5 +1,3 @@
-@file:Suppress("UNUSED")
-
 package io.github.anderscheow.library.kotlin
 
 import android.os.Build
@@ -17,7 +15,6 @@ fun String.formatToSpanned(): Spanned {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         Html.fromHtml(this, Html.FROM_HTML_MODE_COMPACT)
     } else {
-        @Suppress("DEPRECATION")
         Html.fromHtml(this)
     }
 }
@@ -111,7 +108,6 @@ fun Long?.formatDate(format: String, locale: Locale = Locale.getDefault(),
 }
 
 /** Extension for Double */
-@Suppress("UNUSED_PARAMETER")
 fun Double?.formatAmount(firstFormat: String? = null, secondFormat: String? = null): String {
     val twoZeroFormatted = this.formatAmount(firstFormat ?: "###,###,##0.00")
 

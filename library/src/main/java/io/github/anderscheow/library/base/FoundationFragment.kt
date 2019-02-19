@@ -19,7 +19,6 @@ import org.jetbrains.anko.noButton
 import org.jetbrains.anko.okButton
 import org.jetbrains.anko.yesButton
 
-@Suppress("UNUSED")
 abstract class FoundationFragment : Fragment() {
 
     @LayoutRes
@@ -165,7 +164,6 @@ abstract class FoundationFragment : Fragment() {
         toast(R.string.prompt_internet_required)
     }
 
-    @Suppress("UNUSED")
     fun isConnectedToInternet(action: () -> Unit) {
         context?.let {
             if (it.isConnectedToInternet()) {
@@ -176,7 +174,6 @@ abstract class FoundationFragment : Fragment() {
         }
     }
 
-    @Suppress("UNUSED")
     fun checkLoadingIndicator(active: Boolean, message: Int) {
         if (active) {
             showProgressDialog(message)

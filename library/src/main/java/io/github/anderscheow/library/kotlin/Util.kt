@@ -1,5 +1,3 @@
-@file:Suppress("UNUSED")
-
 package io.github.anderscheow.library.kotlin
 
 import android.content.BroadcastReceiver

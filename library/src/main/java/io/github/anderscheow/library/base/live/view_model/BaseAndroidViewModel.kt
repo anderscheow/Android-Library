@@ -42,10 +42,10 @@ abstract class BaseAndroidViewModel<in Args>(context: Application) : AndroidView
     /**
      * Called to show or dismiss progress dialog
      *
-     * @param message if >=0 show, if -1 dismiss
+     * @param resId if >=0 show, if -1 dismiss
      */
-    protected fun showProgressDialog(@StringRes message: Int = 0) {
-        progressDialogMessage.postValue(message)
+    protected fun showProgressDialog(@StringRes resId: Int = 0) {
+        progressDialogMessage.postValue(resId)
     }
 
     /**

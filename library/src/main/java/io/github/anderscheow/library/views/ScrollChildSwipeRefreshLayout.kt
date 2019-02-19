@@ -29,7 +29,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
  * the refresh only when the view is on top. This class adds a way (@link #setScrollUpChild} to
  * define which view controls this behavior.
  */
-@Suppress("UNUSED")
 class ScrollChildSwipeRefreshLayout : SwipeRefreshLayout {
 
     private var mScrollUpChild: View? = null

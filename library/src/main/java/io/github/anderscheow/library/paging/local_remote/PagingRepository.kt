@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import io.github.anderscheow.library.constant.NetworkState
 import io.github.anderscheow.library.paging.util.Listing
 
-@Suppress("UNUSED")
 abstract class PagingRepository<T : PagingModel> {
 
     protected val totalItems = MutableLiveData<Long>()

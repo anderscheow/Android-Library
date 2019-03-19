@@ -19,7 +19,7 @@ package io.github.anderscheow.library.paging.util
 import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
 import io.github.anderscheow.library.constant.NetworkState
-import io.github.anderscheow.library.paging.local_remote.PagingModel
+import io.github.anderscheow.library.paging.remoteWithLocal.PagingModel
 
 /**
  * Data class that is necessary for a UI to show a listing and interact w/ the rest of the system

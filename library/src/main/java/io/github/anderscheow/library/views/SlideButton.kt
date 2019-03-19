@@ -5,11 +5,11 @@ import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.MotionEvent
+import androidx.appcompat.widget.AppCompatSeekBar
 
 import io.github.anderscheow.library.R
 
-@Suppress("UNUSED")
-class SlideButton @JvmOverloads constructor(context: Context, attrs: AttributeSet, defStyle: Int = 0) : androidx.appcompat.widget.AppCompatSeekBar(context, attrs, defStyle) {
+class SlideButton @JvmOverloads constructor(context: Context, attrs: AttributeSet, defStyle: Int = 0) : AppCompatSeekBar(context, attrs, defStyle) {
 
     private var mThumb: Drawable? = null
     private var listener: SlideButtonListener? = null

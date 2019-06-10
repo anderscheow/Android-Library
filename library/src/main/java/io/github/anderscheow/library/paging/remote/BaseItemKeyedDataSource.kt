@@ -35,7 +35,7 @@ abstract class BaseItemKeyedDataSource<Key, Value>(private val retryExecutor: Ex
 
             postSuccessValue(total)
         }, {
-            postFailedValue(it)
+            postFailedValue(it, 0)
         })
     }
 
@@ -80,6 +80,11 @@ abstract class BaseItemKeyedDataSource<Key, Value>(private val retryExecutor: Ex
 
     private fun postFailedValue(errorMessage: String) {
         networkState.postValue(NetworkState.error(errorMessage))
+    }
+
+    private fun postFailedValue(errorMessage: String, totalOfElements: Long) {
+        networkState.postValue(NetworkState.error(errorMessage))
+        totalItems.postValue(totalOfElements)
     }
 
     fun retry() {

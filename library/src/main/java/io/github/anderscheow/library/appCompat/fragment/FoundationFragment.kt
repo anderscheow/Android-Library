@@ -4,20 +4,14 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.orhanobut.logger.Logger
 import io.github.anderscheow.library.R
 import io.github.anderscheow.library.constant.EventBusType
-import io.github.anderscheow.library.kotlinExt.isConnectedToInternet
-import io.github.anderscheow.library.kotlinExt.isNotThere
-import io.github.anderscheow.library.kotlinExt.toast
-import io.github.anderscheow.library.kotlinExt.withActivity
+import io.github.anderscheow.library.kotlinExt.*
 import org.greenrobot.eventbus.EventBus
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.noButton
-import org.jetbrains.anko.okButton
-import org.jetbrains.anko.yesButton
 
 abstract class FoundationFragment : Fragment() {
 
@@ -185,113 +179,69 @@ abstract class FoundationFragment : Fragment() {
         }
     }
 
-    inline fun showOkAlertDialog(message: CharSequence,
-                                 title: CharSequence? = null,
-                                 buttonText: Int = 0,
-                                 cancellable: Boolean = false,
-                                 crossinline action: () -> Unit) {
-        if (isNotThere()) return
-
-        activity?.alert(message, title) {
-            isCancelable = cancellable
-
-            if (buttonText == 0) {
-                okButton {
-                    action.invoke()
-                    it.dismiss()
-                }
-            } else {
-                positiveButton(buttonText) {
-                    action.invoke()
-                    it.dismiss()
-                }
-            }
-        }?.show()
-    }
-
     inline fun showYesAlertDialog(message: CharSequence,
                                   title: CharSequence? = null,
-                                  buttonText: Int = 0,
+                                  buttonText: Int,
                                   cancellable: Boolean = false,
                                   crossinline action: () -> Unit) {
         if (isNotThere()) return
 
-        activity?.alert(message, title) {
-            isCancelable = cancellable
-
-            if (buttonText == 0) {
-                yesButton {
-                    action.invoke()
-                    it.dismiss()
-                }
-            } else {
-                positiveButton(buttonText) {
-                    action.invoke()
-                    it.dismiss()
-                }
-            }
-        }?.show()
+        withContext {
+            AlertDialog.Builder(it)
+                    .setMessage(message)
+                    .setTitle(title)
+                    .setCancelable(cancellable)
+                    .setPositiveButton(buttonText) { dialog, _ ->
+                        dialog.dismiss()
+                        action()
+                    }
+                    .show()
+        }
     }
 
     inline fun showNoAlertDialog(message: CharSequence,
                                  title: CharSequence? = null,
-                                 buttonText: Int = 0,
+                                 buttonText: Int,
                                  cancellable: Boolean = false,
                                  crossinline action: () -> Unit) {
         if (isNotThere()) return
 
-        activity?.alert(message, title) {
-            isCancelable = cancellable
-
-            if (buttonText == 0) {
-                noButton {
-                    action.invoke()
-                    it.dismiss()
-                }
-            } else {
-                negativeButton(buttonText) {
-                    action.invoke()
-                    it.dismiss()
-                }
-            }
-        }?.show()
+        withContext {
+            AlertDialog.Builder(it)
+                    .setMessage(message)
+                    .setTitle(title)
+                    .setCancelable(cancellable)
+                    .setNegativeButton(buttonText) { dialog, _ ->
+                        dialog.dismiss()
+                        action()
+                    }
+                    .show()
+        }
     }
 
     inline fun showYesNoAlertDialog(message: CharSequence,
                                     title: CharSequence? = null,
-                                    yesButtonText: Int = 0,
-                                    noButtonText: Int = 0,
+                                    yesButtonText: Int,
+                                    noButtonText: Int,
                                     cancellable: Boolean = false,
                                     crossinline yesAction: () -> Unit,
                                     crossinline noAction: () -> Unit) {
         if (isNotThere()) return
 
-        activity?.alert(message, title) {
-            isCancelable = cancellable
-
-            if (yesButtonText == 0) {
-                yesButton {
-                    yesAction.invoke()
-                    it.dismiss()
-                }
-            } else {
-                positiveButton(yesButtonText) {
-                    yesAction.invoke()
-                    it.dismiss()
-                }
-            }
-
-            if (noButtonText == 0) {
-                noButton {
-                    noAction.invoke()
-                    it.dismiss()
-                }
-            } else {
-                negativeButton(noButtonText) {
-                    noAction.invoke()
-                    it.dismiss()
-                }
-            }
-        }?.show()
+        withContext {
+            AlertDialog.Builder(it)
+                    .setMessage(message)
+                    .setTitle(title)
+                    .setCancelable(cancellable)
+                    .setPositiveButton(yesButtonText) { dialog, _ ->
+                        dialog.dismiss()
+                        yesAction()
+                    }
+                    .setNeutralButton(noButtonText) { dialog, _ ->
+                        dialog.dismiss()
+                        noAction()
+                    }
+                    .show()
+        }
     }
 }

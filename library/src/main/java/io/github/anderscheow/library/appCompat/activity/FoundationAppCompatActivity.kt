@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.kaopiz.kprogresshud.KProgressHUD
@@ -13,7 +14,7 @@ import io.github.anderscheow.library.R
 import io.github.anderscheow.library.constant.EventBusType
 import io.github.anderscheow.library.kotlinExt.isConnectedToInternet
 import org.greenrobot.eventbus.EventBus
-import org.jetbrains.anko.*
+import org.jetbrains.anko.toast
 
 abstract class FoundationAppCompatActivity : AppCompatActivity() {
 
@@ -175,105 +176,64 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
     //endregion
 
     //region Alert Dialog
-    inline fun showOkAlertDialog(message: CharSequence,
+    inline fun showYesAlertDialog(message: CharSequence,
+                                  title: CharSequence? = null,
+                                  buttonText: Int,
+                                  cancellable: Boolean = false,
+                                  crossinline action: () -> Unit) {
+        if (isFinishing) return
+
+        AlertDialog.Builder(this)
+                .setMessage(message)
+                .setTitle(title)
+                .setCancelable(cancellable)
+                .setPositiveButton(buttonText) { dialog, _ ->
+                    dialog.dismiss()
+                    action()
+                }
+                .show()
+    }
+
+    inline fun showNoAlertDialog(message: CharSequence,
                                  title: CharSequence? = null,
-                                 buttonText: Int = 0,
+                                 buttonText: Int,
                                  cancellable: Boolean = false,
                                  crossinline action: () -> Unit) {
         if (isFinishing) return
 
-        alert(message, title) {
-            isCancelable = cancellable
-
-            if (buttonText == 0) {
-                okButton {
-                    action.invoke()
-                    it.dismiss()
+        AlertDialog.Builder(this)
+                .setMessage(message)
+                .setTitle(title)
+                .setCancelable(cancellable)
+                .setNegativeButton(buttonText) { dialog, _ ->
+                    dialog.dismiss()
+                    action()
                 }
-            } else {
-                positiveButton(buttonText) {
-                    action.invoke()
-                    it.dismiss()
-                }
-            }
-        }.show()
+                .show()
     }
 
-    inline fun showYesAlertDialog(message: CharSequence, title: CharSequence? = null,
-                                  buttonText: Int = 0, cancellable: Boolean = false, crossinline action: () -> Unit) {
-        if (isFinishing) return
-
-        alert(message, title) {
-            isCancelable = cancellable
-
-            if (buttonText == 0) {
-                yesButton {
-                    action.invoke()
-                    it.dismiss()
-                }
-            } else {
-                positiveButton(buttonText) {
-                    action.invoke()
-                    it.dismiss()
-                }
-            }
-        }.show()
-    }
-
-    inline fun showNoAlertDialog(message: CharSequence, title: CharSequence? = null,
-                                 buttonText: Int = 0, cancellable: Boolean = false, crossinline action: () -> Unit) {
-        if (isFinishing) return
-
-        alert(message, title) {
-            isCancelable = cancellable
-
-            if (buttonText == 0) {
-                noButton {
-                    action.invoke()
-                    it.dismiss()
-                }
-            } else {
-                negativeButton(buttonText) {
-                    action.invoke()
-                    it.dismiss()
-                }
-            }
-        }.show()
-    }
-
-    inline fun showYesNoAlertDialog(message: CharSequence, title: CharSequence? = null,
-                                    yesButtonText: Int = 0, noButtonText: Int = 0,
+    inline fun showYesNoAlertDialog(message: CharSequence,
+                                    title: CharSequence? = null,
+                                    yesButtonText: Int,
+                                    noButtonText: Int,
                                     cancellable: Boolean = false,
-                                    crossinline yesAction: () -> Unit, crossinline noAction: () -> Unit) {
+                                    crossinline yesAction: () -> Unit,
+                                    crossinline noAction: () -> Unit) {
         if (isFinishing) return
 
-        alert(message, title) {
-            isCancelable = cancellable
-
-            if (yesButtonText == 0) {
-                yesButton {
-                    yesAction.invoke()
-                    it.dismiss()
+        AlertDialog.Builder(this)
+                .setMessage(message)
+                .setTitle(title)
+                .setCancelable(cancellable)
+                .setPositiveButton(yesButtonText) { dialog, _ ->
+                    dialog.dismiss()
+                    yesAction()
                 }
-            } else {
-                positiveButton(yesButtonText) {
-                    yesAction.invoke()
-                    it.dismiss()
+                .setNeutralButton(noButtonText) { dialog, _ ->
+                    dialog.dismiss()
+                    noAction()
                 }
-            }
-
-            if (noButtonText == 0) {
-                noButton {
-                    noAction.invoke()
-                    it.dismiss()
-                }
-            } else {
-                negativeButton(noButtonText) {
-                    noAction.invoke()
-                    it.dismiss()
-                }
-            }
-        }.show()
+                .show()
     }
     //endregion
 }

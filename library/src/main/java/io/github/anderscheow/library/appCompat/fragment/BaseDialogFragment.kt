@@ -28,7 +28,7 @@ abstract class BaseDialogFragment : DialogFragment() {
     var isDestroy = false
         private set
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         Logger.v("Fragment ATTACHED")
         super.onAttach(context)
         if (EventBusType.isOnAttach(getEventBusType())) {

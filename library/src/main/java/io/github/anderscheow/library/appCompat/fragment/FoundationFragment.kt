@@ -32,7 +32,7 @@ abstract class FoundationFragment : Fragment() {
     var progressDialog: KProgressHUD? = null
         private set
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         Logger.v("Fragment ATTACHED")
         super.onAttach(context)
         if (EventBusType.isOnAttach(getEventBusType())) {

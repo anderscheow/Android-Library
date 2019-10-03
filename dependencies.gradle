@@ -84,8 +84,11 @@ ext {
     libraryModuleDependencies = [
             /* android support */
             [configuration: "kapt", dependency: libs.dataBinding],
+            [configuration: "api", dependency: libs.androidCoreKtx],
             [configuration: "api", dependency: libs.supportAppCompat],
+            [configuration: "api", dependency: libs.supportConstraintLayout],
             [configuration: "api", dependency: libs.supportDesign],
+            [configuration: "api", dependency: libs.supportMultidex],
             [configuration: "api", dependency: libs.supportRecyclerView],
 
             /* android architecture */
@@ -112,11 +115,6 @@ ext {
     ]
 
     sampleModuleDependencies = [
-            /* android support */
-            [configuration: "implementation", dependency: libs.supportAppCompat],
-            [configuration: "implementation", dependency: libs.supportConstraintLayout],
-            [configuration: "implementation", dependency: libs.supportMultidex],
-
             /* kotlin */
             [configuration: "implementation", dependency: libs.kotlinStdlib],
 

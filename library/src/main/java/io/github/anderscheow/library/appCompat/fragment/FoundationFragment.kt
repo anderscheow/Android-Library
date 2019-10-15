@@ -132,7 +132,7 @@ abstract class FoundationFragment : Fragment() {
         super.onDetach()
     }
 
-    fun showProgressDialog(message: Int) {
+    fun showProgressDialog(message: Int = 0, isFullScreen: Boolean = false) {
         if (isNotThere()) return
 
         if (progressDialog == null) {
@@ -144,6 +144,7 @@ abstract class FoundationFragment : Fragment() {
                 }
             }
         }
+        progressDialog?.setFullscreen(isFullScreen)
 
         if (message != 0) {
             progressDialog?.setLabel(getString(message))
@@ -171,9 +172,9 @@ abstract class FoundationFragment : Fragment() {
         }
     }
 
-    fun checkLoadingIndicator(active: Boolean, message: Int) {
+    fun checkLoadingIndicator(active: Boolean, message: Int, isFullScreen: Boolean = false) {
         if (active) {
-            showProgressDialog(message)
+            showProgressDialog(message, isFullScreen)
         } else {
             dismissProgressDialog()
         }

@@ -35,7 +35,7 @@ ext {
     def anko_version = '0.10.6'
     def event_bus_version = '3.1.1'
     def junit_version = '4.12'
-    def kprogresshud_version = '1.2.0'
+    def kprogresshud_version = '1.0.6'
     def logger_version = '2.2.0'
     def reactive_rxandroid_version = '2.1.1'
     def reactive_rxjava_version = '2.2.12'
@@ -72,7 +72,7 @@ ext {
             /* others */
             eventBus                    :   "org.greenrobot:eventbus:$event_bus_version",
             logger                      :   "com.orhanobut:logger:$logger_version",
-            kprogresshud                :   "com.kaopiz:kprogresshud:$kprogresshud_version",
+            kprogresshud                :   "com.github.anderscheow:kprogresshud:$kprogresshud_version",
     ]
 
     def testLibs = [

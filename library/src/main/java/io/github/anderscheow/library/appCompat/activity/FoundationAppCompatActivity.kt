@@ -131,7 +131,7 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
     }
 
     //region Progress Dialog
-    fun showProgressDialog(message: Int = 0) {
+    fun showProgressDialog(message: Int = 0, isFullScreen: Boolean = false) {
         if (isFinishing) return
 
         if (progressDialog == null) {
@@ -141,6 +141,7 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
                 this.setDimAmount(0.3f)
             }
         }
+        progressDialog?.setFullscreen(isFullScreen)
 
         if (message != 0) {
             progressDialog?.setLabel(getString(message))
@@ -166,9 +167,9 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
         }
     }
 
-    fun checkLoadingIndicator(active: Boolean, message: Int) {
+    fun checkLoadingIndicator(active: Boolean, message: Int, isFullScreen: Boolean = false) {
         if (active) {
-            showProgressDialog(message)
+            showProgressDialog(message, isFullScreen)
         } else {
             dismissProgressDialog()
         }

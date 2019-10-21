@@ -26,6 +26,7 @@ abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : Founda
 
         val binding = DataBindingUtil.setContentView<ViewDataBinding>(this, getResLayout())
         binding.setVariable(BR.obj, viewModel)
+        binding.lifecycleOwner = this
 
         getToolbar()?.let {
             setSupportActionBar(getToolbar())

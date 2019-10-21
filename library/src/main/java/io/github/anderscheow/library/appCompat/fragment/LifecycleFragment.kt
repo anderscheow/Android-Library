@@ -36,6 +36,7 @@ abstract class LifecycleFragment<VM : BaseAndroidViewModel<*>> : FoundationFragm
         val view = binding.root
 
         binding.setVariable(BR.obj, viewModel)
+        binding.lifecycleOwner = this
 
         return view
     }

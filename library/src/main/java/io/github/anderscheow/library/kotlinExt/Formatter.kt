@@ -112,10 +112,12 @@ fun Double?.formatAmount(firstFormat: String? = null, secondFormat: String? = nu
     val twoZeroFormatted = this.formatAmount(firstFormat ?: "###,###,##0.00")
 
     if (twoZeroFormatted == "0.00") {
-        val fourZeroFormatted = this.formatAmount(firstFormat ?: "###,###,##0.0000")
+        val fourZeroFormatted = this.formatAmount(secondFormat ?: "###,###,##0.0000")
 
-        if (fourZeroFormatted == "0.0000") {
-            return fourZeroFormatted
+        return if (fourZeroFormatted == "0.0000") {
+            twoZeroFormatted
+        } else {
+            fourZeroFormatted
         }
     }
 

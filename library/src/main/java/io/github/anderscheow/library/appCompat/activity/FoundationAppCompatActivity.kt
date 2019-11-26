@@ -30,7 +30,7 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
     open fun initBeforeSuperOnCreate() {
     }
 
-    open fun init() {
+    open fun init(savedInstanceState: Bundle?) {
     }
 
     var progressDialog: KProgressHUD? = null

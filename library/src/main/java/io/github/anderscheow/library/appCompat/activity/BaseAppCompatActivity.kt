@@ -17,6 +17,6 @@ abstract class BaseAppCompatActivity : FoundationAppCompatActivity() {
             supportActionBar?.setDisplayHomeAsUpEnabled(requiredDisplayHomeAsUp())
         }
 
-        init()
+        init(savedInstanceState)
     }
 }

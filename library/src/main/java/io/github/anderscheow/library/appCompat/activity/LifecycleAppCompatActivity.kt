@@ -38,7 +38,7 @@ abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : Founda
         setupToast()
         setupViewModelObserver()
 
-        init()
+        init(savedInstanceState)
     }
 
     private fun setupProgressDialog() {

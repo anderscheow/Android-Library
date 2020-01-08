@@ -2,12 +2,12 @@ package io.github.anderscheow.library.recyclerView.util
 
 import androidx.recyclerview.widget.DiffUtil
 
-class SectionGroup {
+class SectionGroup<S, R> {
 
-    var section: Any? = null
+    var section: S? = null
         private set
 
-    var row: Any? = null
+    var row: R? = null
         private set
 
     var isRow: Boolean = false
@@ -17,7 +17,7 @@ class SectionGroup {
         private set
 
     override fun equals(other: Any?): Boolean {
-        (other as? SectionGroup)?.let {
+        (other as? SectionGroup<*, *>)?.let {
             return section == other.section &&
                     row == other.row &&
                     isRow == other.isRow &&
@@ -32,34 +32,36 @@ class SectionGroup {
 
     companion object {
 
-        var DIFF_CALLBACK: DiffUtil.ItemCallback<SectionGroup> = object : DiffUtil.ItemCallback<SectionGroup>() {
-            override fun areItemsTheSame(oldItem: SectionGroup, newItem: SectionGroup): Boolean {
-                return oldItem == newItem
-            }
+        fun<S, R> getDiffCallback(): DiffUtil.ItemCallback<SectionGroup<S, R>> {
+            return object : DiffUtil.ItemCallback<SectionGroup<S, R>>() {
+                override fun areItemsTheSame(oldItem: SectionGroup<S, R>, newItem: SectionGroup<S, R>): Boolean {
+                    return oldItem == newItem
+                }
 
-            override fun areContentsTheSame(oldItem: SectionGroup, newItem: SectionGroup): Boolean {
-                return oldItem == newItem
+                override fun areContentsTheSame(oldItem: SectionGroup<S, R>, newItem: SectionGroup<S, R>): Boolean {
+                    return oldItem == newItem
+                }
             }
         }
 
-        fun createSection(section: Any): SectionGroup {
-            return SectionGroup().apply {
+        fun<S, R> createSection(section: S): SectionGroup<S, R> {
+            return SectionGroup<S, R>().apply {
                 this.section = section
                 this.isRow = false
                 this.requiredFooter = false
             }
         }
 
-        fun createRow(row: Any): SectionGroup {
-            return SectionGroup().apply {
+        fun<S, R> createRow(row: R): SectionGroup<S, R> {
+            return SectionGroup<S, R>().apply {
                 this.row = row
                 this.isRow = true
                 this.requiredFooter = false
             }
         }
 
-        fun createFooter(): SectionGroup {
-            return SectionGroup().apply {
+        fun<S, R> createFooter(): SectionGroup<S, R> {
+            return SectionGroup<S, R>().apply {
                 this.isRow = true
                 this.requiredFooter = true
             }

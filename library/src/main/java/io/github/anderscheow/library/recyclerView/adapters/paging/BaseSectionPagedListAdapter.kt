@@ -6,14 +6,14 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import io.github.anderscheow.library.databinding.ViewNetworkStateBinding
 import io.github.anderscheow.library.recyclerView.util.SectionGroup
 import io.github.anderscheow.library.recyclerView.viewHolder.BaseViewHolder
 import io.github.anderscheow.library.recyclerView.viewHolder.NetworkStateViewHolder
-import io.github.anderscheow.library.databinding.ViewNetworkStateBinding
 
-abstract class BaseSectionPagedListAdapter<Key, Value>(
+abstract class BaseSectionPagedListAdapter<S, R>(
         private val callback: () -> Unit)
-    : FoundationPagedListAdapter<SectionGroup>(SectionGroup.DIFF_CALLBACK, callback) {
+    : FoundationPagedListAdapter<SectionGroup<S, R>>(SectionGroup.getDiffCallback(), callback) {
 
     @get:LayoutRes
     protected abstract val headerLayout: Int
@@ -46,23 +46,21 @@ abstract class BaseSectionPagedListAdapter<Key, Value>(
 
     @Suppress("UNCHECKED_CAST")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val itemViewType = getItemViewType(position)
-
-        when (itemViewType) {
+        when (getItemViewType(position)) {
             NETWORK_STATE_LAYOUT -> (holder as NetworkStateViewHolder).bind(networkState)
 
             headerLayout -> {
                 if (holder !is BaseViewHolder<*>) {
                     throw IllegalStateException("Must inherit BaseViewHolder for body view holder")
                 }
-                (holder as BaseViewHolder<Key>).bind(getItem(position)?.section as Key)
+                (holder as BaseViewHolder<S>).bind(getItem(position)?.section)
             }
 
             else -> {
                 if (holder !is BaseViewHolder<*>) {
                     throw IllegalStateException("Must inherit BaseViewHolder for body view holder")
                 }
-                (holder as BaseViewHolder<Value>).bind(getItem(position)?.row as Value)
+                (holder as BaseViewHolder<R>).bind(getItem(position)?.row)
             }
 
         }

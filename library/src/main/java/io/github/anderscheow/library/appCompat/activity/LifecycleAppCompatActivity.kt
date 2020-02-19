@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import io.github.anderscheow.library.BR
 import io.github.anderscheow.library.viewModel.BaseAndroidViewModel
+import io.github.anderscheow.library.viewModel.util.AlertDialogMessage
 import io.github.anderscheow.library.viewModel.util.ProgressDialogMessage
 import io.github.anderscheow.library.viewModel.util.ToastMessage
 import org.jetbrains.anko.toast
@@ -18,6 +19,9 @@ abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : Founda
     abstract fun setupViewModel(): VM
 
     abstract fun setupViewModelObserver()
+
+    open fun showAlertDialog(message: String) {
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         initBeforeSuperOnCreate()
@@ -36,6 +40,7 @@ abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : Founda
 
         setupProgressDialog()
         setupToast()
+        setupAlertDialog()
         setupViewModelObserver()
 
         init(savedInstanceState)
@@ -59,6 +64,14 @@ abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : Founda
                 message?.let {
                     toast(it)
                 }
+            }
+        })
+    }
+
+    private fun setupAlertDialog() {
+        viewModel.alertDialogMessage.observe(this, object : AlertDialogMessage.AlertDialogObserver {
+            override fun onNewMessage(message: String) {
+                showAlertDialog(message)
             }
         })
     }

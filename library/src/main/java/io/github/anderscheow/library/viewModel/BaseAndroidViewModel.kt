@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.AndroidViewModel
+import io.github.anderscheow.library.viewModel.util.AlertDialogMessage
 import io.github.anderscheow.library.viewModel.util.ProgressDialogMessage
 import io.github.anderscheow.library.viewModel.util.ToastMessage
 import io.reactivex.disposables.CompositeDisposable
@@ -18,6 +19,7 @@ abstract class BaseAndroidViewModel<in Args>(context: Application) : AndroidView
 
     val toastMessage = ToastMessage()
     val progressDialogMessage = ProgressDialogMessage()
+    val alertDialogMessage = AlertDialogMessage()
 
     protected val disposable = CompositeDisposable()
 
@@ -57,6 +59,10 @@ abstract class BaseAndroidViewModel<in Args>(context: Application) : AndroidView
 
     protected fun showToast(message: String) {
         toastMessage.postValue(message)
+    }
+
+    protected fun showAlertDialog(message: String) {
+        alertDialogMessage.postValue(message)
     }
 
     protected fun setIsLoading(value: Boolean) {

@@ -2,13 +2,18 @@ package io.github.anderscheow.library.kotlinExt
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.app.Activity
+import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.KeyEvent
-import android.view.View
+import android.view.*
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.widget.EditText
+import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.widget.TextViewCompat
@@ -210,5 +215,49 @@ fun disableViews(vararg views: View) {
 
 fun disableView(view: View) {
     view.disable()
+}
+
+// Popup Window
+fun PopupWindow.dimBehind() {
+    val container: View = if (this.background == null) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            this.contentView.parent as View
+        } else {
+            this.contentView
+        }
+    } else {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            this.contentView.parent.parent as View
+        } else {
+            this.contentView.parent as View
+        }
+    }
+    val context = this.contentView.context
+    val wm = context.getSystemService(Context.WINDOW_SERVICE) as? WindowManager
+    val p = container.layoutParams as? WindowManager.LayoutParams
+    p?.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND
+    p?.dimAmount = 0.3f
+    wm?.updateViewLayout(container, p)
+}
+
+fun generatePopupWindow(activity: Activity, layout: Int, block: (View) -> Unit): PopupWindow? {
+    val layoutInflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as? LayoutInflater
+    var popupView: View
+    layoutInflater?.let {
+        popupView = it.inflate(layout, null)
+
+        block(popupView)
+
+        return PopupWindow(
+                popupView,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT).apply {
+            isOutsideTouchable = true
+            isFocusable = true
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        }
+    }
+
+    return null
 }
 //endregion

@@ -45,10 +45,10 @@ fun <T> Fragment.withActivityAs(): T? {
     return (activity as? T)
 }
 
-fun Fragment.toast(textResource: Int) = requireActivity().toast(textResource)
+fun Fragment.toast(textResource: Int) = activity?.toast(textResource)
 
-fun Fragment.toast(text: CharSequence) = requireActivity().toast(text)
+fun Fragment.toast(text: CharSequence) = activity?.toast(text)
 
-fun Fragment.longToast(textResource: Int) = requireActivity().longToast(textResource)
+fun Fragment.longToast(textResource: Int) = activity?.longToast(textResource)
 
-fun Fragment.longToast(text: CharSequence) = requireActivity().longToast(text)
+fun Fragment.longToast(text: CharSequence) = activity?.longToast(text)

@@ -115,6 +115,33 @@ fun View.fadeOut(timeInMillis: Long = 300, gone: Boolean = true,
     }
 }
 
+@Suppress("UNCHECKED_CAST")
+fun <T : View> T.click(block: (T) -> Unit) = setOnClickListener { block(it as T) }
+
+@Suppress("UNCHECKED_CAST")
+fun <T : View> T.longClick(block: (T) -> Boolean) = setOnLongClickListener { block(it as T) }
+
+inline fun View.showIf(block: () -> Boolean) : View {
+    if (visibility != View.VISIBLE && block()) {
+        visibility = View.VISIBLE
+    }
+    return this
+}
+
+inline fun View.hideIf(block: () -> Boolean) : View {
+    if (visibility != View.INVISIBLE && block()) {
+        visibility = View.INVISIBLE
+    }
+    return this
+}
+
+inline fun View.removeIf(block: () -> Boolean) : View {
+    if (visibility != View.GONE && block()) {
+        visibility = View.GONE
+    }
+    return this
+}
+
 /** Extension for TextView */
 fun TextView.setTextToSpanned(value: String) {
     this.text = toSpanned(value)

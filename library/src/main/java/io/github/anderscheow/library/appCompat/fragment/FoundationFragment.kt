@@ -192,7 +192,7 @@ abstract class FoundationFragment : Fragment() {
 
     fun removeDialogFragmentThen(tag: String, callback: (FragmentManager) -> Unit) {
         childFragmentManager.apply {
-            (this.findFragmentByTag(tag) as? DialogFragment)?.dismiss()
+            (this.findFragmentByTag(tag) as? DialogFragment)?.dismissAllowingStateLoss()
             callback(this)
         }
     }

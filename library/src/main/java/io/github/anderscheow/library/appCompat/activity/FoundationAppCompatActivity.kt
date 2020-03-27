@@ -186,10 +186,10 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
         currentDisplayingAlertDialog?.show()
     }
 
-    fun removeDialogFragmentThen(tag: String, callback: (FragmentManager) -> Unit) {
+    fun removeDialogFragmentThen(tag: String, fragment: () -> DialogFragment) {
         supportFragmentManager.apply {
             (this.findFragmentByTag(tag) as? DialogFragment)?.dismissAllowingStateLoss()
-            callback(this)
+            fragment().show(this, tag)
         }
     }
     //endregion

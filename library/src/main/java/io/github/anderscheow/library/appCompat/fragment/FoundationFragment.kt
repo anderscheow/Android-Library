@@ -190,10 +190,10 @@ abstract class FoundationFragment : Fragment() {
         currentDisplayingAlertDialog?.show()
     }
 
-    fun removeDialogFragmentThen(tag: String, callback: (FragmentManager) -> Unit) {
+    fun removeDialogFragmentThen(tag: String, fragment: () -> DialogFragment) {
         childFragmentManager.apply {
             (this.findFragmentByTag(tag) as? DialogFragment)?.dismissAllowingStateLoss()
-            callback(this)
+            fragment().show(this, tag)
         }
     }
 

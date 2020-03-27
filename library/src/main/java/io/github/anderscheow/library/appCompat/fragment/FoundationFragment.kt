@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.orhanobut.logger.Logger
 import io.github.anderscheow.library.R
@@ -31,6 +33,8 @@ abstract class FoundationFragment : Fragment() {
 
     var progressDialog: KProgressHUD? = null
         private set
+
+    private var currentDisplayingAlertDialog: AlertDialog? = null
 
     override fun onAttach(context: Context) {
         Logger.v("Fragment ATTACHED")
@@ -180,6 +184,19 @@ abstract class FoundationFragment : Fragment() {
         }
     }
 
+    fun displayAlertDialog(callback: () -> AlertDialog) {
+        currentDisplayingAlertDialog?.dismiss()
+        currentDisplayingAlertDialog = callback()
+        currentDisplayingAlertDialog?.show()
+    }
+
+    fun removeDialogFragmentThen(tag: String, callback: (FragmentManager) -> Unit) {
+        childFragmentManager.apply {
+            (this.findFragmentByTag(tag) as? DialogFragment)?.dismiss()
+            callback(this)
+        }
+    }
+
     inline fun showYesAlertDialog(message: CharSequence,
                                   title: CharSequence? = null,
                                   buttonText: Int,
@@ -188,15 +205,17 @@ abstract class FoundationFragment : Fragment() {
         if (isNotThere()) return
 
         withContext {
-            AlertDialog.Builder(it)
-                    .setMessage(message)
-                    .setTitle(title)
-                    .setCancelable(cancellable)
-                    .setPositiveButton(buttonText) { dialog, _ ->
-                        dialog.dismiss()
-                        action()
-                    }
-                    .show()
+            displayAlertDialog {
+                AlertDialog.Builder(it)
+                        .setMessage(message)
+                        .setTitle(title)
+                        .setCancelable(cancellable)
+                        .setPositiveButton(buttonText) { dialog, _ ->
+                            dialog.dismiss()
+                            action()
+                        }
+                        .show()
+            }
         }
     }
 
@@ -208,15 +227,17 @@ abstract class FoundationFragment : Fragment() {
         if (isNotThere()) return
 
         withContext {
-            AlertDialog.Builder(it)
-                    .setMessage(message)
-                    .setTitle(title)
-                    .setCancelable(cancellable)
-                    .setNegativeButton(buttonText) { dialog, _ ->
-                        dialog.dismiss()
-                        action()
-                    }
-                    .show()
+            displayAlertDialog {
+                AlertDialog.Builder(it)
+                        .setMessage(message)
+                        .setTitle(title)
+                        .setCancelable(cancellable)
+                        .setNegativeButton(buttonText) { dialog, _ ->
+                            dialog.dismiss()
+                            action()
+                        }
+                        .show()
+            }
         }
     }
 
@@ -230,19 +251,21 @@ abstract class FoundationFragment : Fragment() {
         if (isNotThere()) return
 
         withContext {
-            AlertDialog.Builder(it)
-                    .setMessage(message)
-                    .setTitle(title)
-                    .setCancelable(cancellable)
-                    .setPositiveButton(yesButtonText) { dialog, _ ->
-                        dialog.dismiss()
-                        yesAction()
-                    }
-                    .setNeutralButton(noButtonText) { dialog, _ ->
-                        dialog.dismiss()
-                        noAction()
-                    }
-                    .show()
+            displayAlertDialog {
+                AlertDialog.Builder(it)
+                        .setMessage(message)
+                        .setTitle(title)
+                        .setCancelable(cancellable)
+                        .setPositiveButton(yesButtonText) { dialog, _ ->
+                            dialog.dismiss()
+                            yesAction()
+                        }
+                        .setNeutralButton(noButtonText) { dialog, _ ->
+                            dialog.dismiss()
+                            noAction()
+                        }
+                        .show()
+            }
         }
     }
 }

@@ -8,6 +8,8 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.orhanobut.logger.Logger
 import io.github.anderscheow.library.R
@@ -15,6 +17,7 @@ import io.github.anderscheow.library.constant.EventBusType
 import io.github.anderscheow.library.kotlinExt.isConnectedToInternet
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.toast
+import java.util.*
 
 abstract class FoundationAppCompatActivity : AppCompatActivity() {
 
@@ -35,6 +38,8 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
 
     var progressDialog: KProgressHUD? = null
         private set
+
+    private var currentDisplayingAlertDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Logger.v("Activity CREATED")
@@ -174,6 +179,19 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
             dismissProgressDialog()
         }
     }
+
+    fun displayAlertDialog(callback: () -> AlertDialog) {
+        currentDisplayingAlertDialog?.dismiss()
+        currentDisplayingAlertDialog = callback()
+        currentDisplayingAlertDialog?.show()
+    }
+
+    fun removeDialogFragmentThen(tag: String, callback: (FragmentManager) -> Unit) {
+        supportFragmentManager.apply {
+            (this.findFragmentByTag(tag) as? DialogFragment)?.dismiss()
+            callback(this)
+        }
+    }
     //endregion
 
     //region Alert Dialog
@@ -184,15 +202,17 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
                                   crossinline action: () -> Unit) {
         if (isFinishing) return
 
-        AlertDialog.Builder(this)
-                .setMessage(message)
-                .setTitle(title)
-                .setCancelable(cancellable)
-                .setPositiveButton(buttonText) { dialog, _ ->
-                    dialog.dismiss()
-                    action()
-                }
-                .show()
+        displayAlertDialog {
+            AlertDialog.Builder(this)
+                    .setMessage(message)
+                    .setTitle(title)
+                    .setCancelable(cancellable)
+                    .setPositiveButton(buttonText) { dialog, _ ->
+                        dialog.dismiss()
+                        action()
+                    }
+                    .create()
+        }
     }
 
     inline fun showNoAlertDialog(message: CharSequence,
@@ -202,15 +222,17 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
                                  crossinline action: () -> Unit) {
         if (isFinishing) return
 
-        AlertDialog.Builder(this)
-                .setMessage(message)
-                .setTitle(title)
-                .setCancelable(cancellable)
-                .setNegativeButton(buttonText) { dialog, _ ->
-                    dialog.dismiss()
-                    action()
-                }
-                .show()
+        displayAlertDialog {
+            AlertDialog.Builder(this)
+                    .setMessage(message)
+                    .setTitle(title)
+                    .setCancelable(cancellable)
+                    .setNegativeButton(buttonText) { dialog, _ ->
+                        dialog.dismiss()
+                        action()
+                    }
+                    .show()
+        }
     }
 
     inline fun showYesNoAlertDialog(message: CharSequence,
@@ -222,19 +244,21 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
                                     crossinline noAction: () -> Unit) {
         if (isFinishing) return
 
-        AlertDialog.Builder(this)
-                .setMessage(message)
-                .setTitle(title)
-                .setCancelable(cancellable)
-                .setPositiveButton(yesButtonText) { dialog, _ ->
-                    dialog.dismiss()
-                    yesAction()
-                }
-                .setNeutralButton(noButtonText) { dialog, _ ->
-                    dialog.dismiss()
-                    noAction()
-                }
-                .show()
+        displayAlertDialog {
+            AlertDialog.Builder(this)
+                    .setMessage(message)
+                    .setTitle(title)
+                    .setCancelable(cancellable)
+                    .setPositiveButton(yesButtonText) { dialog, _ ->
+                        dialog.dismiss()
+                        yesAction()
+                    }
+                    .setNeutralButton(noButtonText) { dialog, _ ->
+                        dialog.dismiss()
+                        noAction()
+                    }
+                    .show()
+        }
     }
     //endregion
 }

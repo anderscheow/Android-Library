@@ -188,7 +188,7 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
 
     fun removeDialogFragmentThen(tag: String, callback: (FragmentManager) -> Unit) {
         supportFragmentManager.apply {
-            (this.findFragmentByTag(tag) as? DialogFragment)?.dismiss()
+            (this.findFragmentByTag(tag) as? DialogFragment)?.dismissAllowingStateLoss()
             callback(this)
         }
     }

@@ -10,6 +10,7 @@ import androidx.lifecycle.LifecycleOwner
 import io.github.anderscheow.library.BR
 import io.github.anderscheow.library.kotlinExt.toast
 import io.github.anderscheow.library.viewModel.BaseAndroidViewModel
+import io.github.anderscheow.library.viewModel.util.AlertDialogData
 import io.github.anderscheow.library.viewModel.util.AlertDialogMessage
 import io.github.anderscheow.library.viewModel.util.ProgressDialogMessage
 import io.github.anderscheow.library.viewModel.util.ToastMessage
@@ -24,7 +25,7 @@ abstract class LifecycleFragment<VM : BaseAndroidViewModel<*>> : FoundationFragm
 
     abstract fun setupViewModelObserver(lifecycleOwner: LifecycleOwner)
 
-    open fun showAlertDialog(message: String) {
+    open fun showAlertDialog(data: AlertDialogData) {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,8 +76,8 @@ abstract class LifecycleFragment<VM : BaseAndroidViewModel<*>> : FoundationFragm
 
     private fun setupAlertDialog() {
         viewModel.alertDialogMessage.observe(this, object : AlertDialogMessage.AlertDialogObserver {
-            override fun onNewMessage(message: String) {
-                showAlertDialog(message)
+            override fun onNewMessage(data: AlertDialogData) {
+                showAlertDialog(data)
             }
         })
     }

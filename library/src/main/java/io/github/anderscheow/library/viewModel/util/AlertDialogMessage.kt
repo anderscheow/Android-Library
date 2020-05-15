@@ -1,10 +1,14 @@
 package io.github.anderscheow.library.viewModel.util
 
-import androidx.annotation.StringRes
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 
-class AlertDialogMessage : SingleLiveEvent<String>() {
+data class AlertDialogData(
+        val message: String,
+        val action: (() -> Unit)? = null
+)
+
+class AlertDialogMessage : SingleLiveEvent<AlertDialogData>() {
 
     fun observe(owner: LifecycleOwner, observer: AlertDialogObserver) {
         super.observe(owner, Observer { t ->
@@ -20,8 +24,8 @@ class AlertDialogMessage : SingleLiveEvent<String>() {
         /**
          * Called when there is a new message to be shown.
          *
-         * @param message The new message, non-null.
+         * @param data The new message, non-null.
          */
-        fun onNewMessage(message: String)
+        fun onNewMessage(data: AlertDialogData)
     }
 }

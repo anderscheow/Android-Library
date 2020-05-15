@@ -9,7 +9,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentManager
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.orhanobut.logger.Logger
 import io.github.anderscheow.library.R
@@ -17,7 +16,6 @@ import io.github.anderscheow.library.constant.EventBusType
 import io.github.anderscheow.library.kotlinExt.isConnectedToInternet
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.toast
-import java.util.*
 
 abstract class FoundationAppCompatActivity : AppCompatActivity() {
 

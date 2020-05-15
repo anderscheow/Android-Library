@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.AndroidViewModel
+import io.github.anderscheow.library.viewModel.util.AlertDialogData
 import io.github.anderscheow.library.viewModel.util.AlertDialogMessage
 import io.github.anderscheow.library.viewModel.util.ProgressDialogMessage
 import io.github.anderscheow.library.viewModel.util.ToastMessage
@@ -61,8 +62,8 @@ abstract class BaseAndroidViewModel<in Args>(context: Application) : AndroidView
         toastMessage.postValue(message)
     }
 
-    protected fun showAlertDialog(message: String) {
-        alertDialogMessage.postValue(message)
+    protected fun showAlertDialog(data: AlertDialogData) {
+        alertDialogMessage.postValue(data)
     }
 
     protected fun setIsLoading(value: Boolean) {

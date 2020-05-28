@@ -9,8 +9,8 @@ import io.github.anderscheow.library.viewModel.util.AlertDialogData
 import io.github.anderscheow.library.viewModel.util.AlertDialogMessage
 import io.github.anderscheow.library.viewModel.util.ProgressDialogMessage
 import io.github.anderscheow.library.viewModel.util.ToastMessage
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
 abstract class BaseAndroidViewModel<in Args>(context: Application) : AndroidViewModel(context) {
 

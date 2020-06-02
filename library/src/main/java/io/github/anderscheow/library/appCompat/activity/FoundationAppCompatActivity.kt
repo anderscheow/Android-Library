@@ -148,6 +148,8 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
 
         if (message != 0) {
             progressDialog?.setLabel(getString(message))
+        } else {
+            progressDialog?.setLabel(null)
         }
         progressDialog?.show()
     }

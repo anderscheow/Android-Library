@@ -6,7 +6,7 @@ import org.kodein.di.Kodein
 abstract class AbsRxCompletableUseCase<Params> protected constructor(kodein: Kodein)
     : BaseUseCase(kodein) {
 
-    internal abstract fun createCompletable(params: Params): Completable
+    abstract fun createCompletable(params: Params): Completable
 
     fun execute(observer: DefaultCompletableObserver, params: Params) {
         addDisposable(this.createCompletable(params)

@@ -7,7 +7,7 @@ import org.kodein.di.Kodein
 abstract class AbsRxObservableUseCase<T, Params> protected constructor(kodein: Kodein)
     : BaseUseCase(kodein) {
 
-    internal abstract fun createObservable(params: Params): Observable<T>
+    abstract fun createObservable(params: Params): Observable<T>
 
     fun execute(observer: DisposableObserver<T>, params: Params) {
         addDisposable(this.createObservable(params)

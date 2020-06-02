@@ -7,7 +7,7 @@ import org.kodein.di.Kodein
 abstract class AbsRxSingleUseCase<T, Params> protected constructor(kodein: Kodein)
     : BaseUseCase(kodein) {
 
-    internal abstract fun createSingle(params: Params): Single<T>
+    abstract fun createSingle(params: Params): Single<T>
 
     fun execute(observer: DisposableSingleObserver<T>, params: Params) {
         addDisposable(this.createSingle(params)

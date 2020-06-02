@@ -7,7 +7,7 @@ import org.kodein.di.Kodein
 abstract class AbsRxFlowableUseCase<T, Params> protected constructor(kodein: Kodein)
     : BaseUseCase(kodein) {
 
-    internal abstract fun createFlowable(params: Params): Flowable<T>
+    abstract fun createFlowable(params: Params): Flowable<T>
 
     fun execute(observer: DisposableSubscriber<T>, params: Params) {
         addDisposable(this.createFlowable(params)

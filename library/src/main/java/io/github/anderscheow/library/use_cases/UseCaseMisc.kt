@@ -1,4 +1,4 @@
-package com.easipos.template.use_cases
+package io.github.anderscheow.library.use_cases
 
 import io.reactivex.CompletableEmitter
 import io.reactivex.MaybeEmitter

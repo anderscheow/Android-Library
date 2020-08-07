@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.orhanobut.logger.Logger
 import io.github.anderscheow.library.R
@@ -203,7 +204,7 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
         if (isFinishing) return
 
         displayAlertDialog {
-            AlertDialog.Builder(this)
+            MaterialAlertDialogBuilder(this)
                     .setMessage(message)
                     .setTitle(title)
                     .setCancelable(cancellable)
@@ -223,7 +224,7 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
         if (isFinishing) return
 
         displayAlertDialog {
-            AlertDialog.Builder(this)
+            MaterialAlertDialogBuilder(this)
                     .setMessage(message)
                     .setTitle(title)
                     .setCancelable(cancellable)
@@ -245,7 +246,7 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
         if (isFinishing) return
 
         displayAlertDialog {
-            AlertDialog.Builder(this)
+            MaterialAlertDialogBuilder(this)
                     .setMessage(message)
                     .setTitle(title)
                     .setCancelable(cancellable)

@@ -7,6 +7,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.orhanobut.logger.Logger
 import io.github.anderscheow.library.R
@@ -207,7 +208,7 @@ abstract class FoundationFragment : Fragment() {
 
         withContext {
             displayAlertDialog {
-                AlertDialog.Builder(it)
+                MaterialAlertDialogBuilder(it)
                         .setMessage(message)
                         .setTitle(title)
                         .setCancelable(cancellable)
@@ -229,7 +230,7 @@ abstract class FoundationFragment : Fragment() {
 
         withContext {
             displayAlertDialog {
-                AlertDialog.Builder(it)
+                MaterialAlertDialogBuilder(it)
                         .setMessage(message)
                         .setTitle(title)
                         .setCancelable(cancellable)
@@ -253,7 +254,7 @@ abstract class FoundationFragment : Fragment() {
 
         withContext {
             displayAlertDialog {
-                AlertDialog.Builder(it)
+                MaterialAlertDialogBuilder(it)
                         .setMessage(message)
                         .setTitle(title)
                         .setCancelable(cancellable)

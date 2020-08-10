@@ -41,6 +41,7 @@ ext {
     def logger_version = '2.2.0'
     def reactive_rxandroid_version = '2.1.1'
     def reactive_rxjava_version = '2.2.16'
+    def splitties_version = '3.0.0-alpha06'
 
     def libs = [
             /* androidx */
@@ -75,6 +76,9 @@ ext {
             /* reactive */
             rxandroid                   :   "io.reactivex.rxjava2:rxandroid:$reactive_rxandroid_version",
             rxjava                      :   "io.reactivex.rxjava2:rxjava:$reactive_rxjava_version",
+
+            /* splitties */
+            splittiesMaterialColors     :   "com.louiscad.splitties:splitties-material-colors:$splitties_version",
 
             /* others */
             eventBus                    :   "org.greenrobot:eventbus:$event_bus_version",
@@ -125,6 +129,9 @@ ext {
             /* reactive */
             [configuration: "api", dependency: libs.rxandroid],
             [configuration: "api", dependency: libs.rxjava],
+
+            /* splitties */
+            [configuration: "api", dependency: libs.splittiesMaterialColors],
 
             /* others */
             [configuration: "api", dependency: libs.androidCoreKtx],

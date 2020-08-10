@@ -64,3 +64,7 @@ fun Context.hideKeyboard(view: View?) {
         (this.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)?.hideSoftInputFromWindow(it.windowToken, 0)
     }
 }
+
+fun Context.dip(value: Int): Int = (value * resources.displayMetrics.density).toInt()
+
+fun Context.dp(value: Int): Float = (value * resources.displayMetrics.density)

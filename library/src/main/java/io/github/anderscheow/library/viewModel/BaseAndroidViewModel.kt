@@ -12,7 +12,9 @@ import io.github.anderscheow.library.viewModel.util.ToastMessage
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
-abstract class BaseAndroidViewModel<in Args>(context: Application) : AndroidViewModel(context) {
+abstract class BaseAndroidViewModel<in Args>(
+        context: Application
+) : AndroidViewModel(context) {
 
     val isLoading = ObservableBoolean(false)
 

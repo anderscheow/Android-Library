@@ -3,16 +3,18 @@ package io.github.anderscheow.library.recyclerView.adapters
 import android.content.Context
 import java.util.*
 
-abstract class SortableRecyclerViewAdapter<T>(context: Context) : BaseRecyclerViewAdapter<T>(context) {
+abstract class SortableRecyclerViewAdapter<Value>(
+        context: Context
+) : BaseRecyclerViewAdapter<Value>(context) {
 
-    fun setItems(items: MutableList<T>?, comparator: Comparator<T>) {
+    fun setItems(items: MutableList<Value>?, comparator: Comparator<Value>) {
         items?.let {
             setItemsWithoutNotify(it)
             sort(comparator)
         }
     }
 
-    private fun sort(comparator: Comparator<T>) {
+    private fun sort(comparator: Comparator<Value>) {
         items.let {
             Collections.sort(it, comparator)
 

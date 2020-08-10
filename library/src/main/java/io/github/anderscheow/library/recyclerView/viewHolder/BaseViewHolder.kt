@@ -5,13 +5,15 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import io.github.anderscheow.library.BR
 
-abstract class BaseViewHolder<in T>(private val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
+abstract class BaseViewHolder<in Value>(
+    private val binding: ViewDataBinding
+) : RecyclerView.ViewHolder(binding.root) {
 
-    private var item: T? = null
+    private var item: Value? = null
 
-    protected abstract fun extraBinding(item: T)
+    protected abstract fun extraBinding(item: Value)
 
-    protected abstract fun onClick(view: View, item: T?)
+    protected abstract fun onClick(view: View, item: Value?)
 
     init {
         init()
@@ -23,7 +25,7 @@ abstract class BaseViewHolder<in T>(private val binding: ViewDataBinding) : Recy
         }
     }
 
-    fun bind(item: T?) {
+    fun bind(item: Value?) {
         item?.let {
             this.item = it
 

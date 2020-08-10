@@ -15,18 +15,6 @@
   -->
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <data>
-
-        <import type="android.view.View" />
-
-        <import type="io.github.anderscheow.library.constant.NetworkState" />
-
-        <variable
-            name="obj"
-            type="io.github.anderscheow.library.constant.NetworkState" />
-    </data>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,15 +27,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/prompt_please_try_again"
-            android:visibility="@{obj.message != null ? View.VISIBLE : View.GONE, default=gone}" />
+            android:visibility="gone"  />
 
         <ProgressBar
             android:id="@+id/progress_bar"
             style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="@{obj.status == NetworkState.Status.RUNNING ? View.VISIBLE : View.GONE, default=visible}" />
+            android:layout_gravity="center"/>
 
         <Button
             android:id="@+id/button_retry"
@@ -56,6 +43,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/action_retry"
-            android:visibility="@{obj.status == NetworkState.Status.FAILED ? View.VISIBLE : View.GONE, default=gone}" />
+            android:visibility="gone" />
     </LinearLayout>
 </layout>

@@ -1,16 +1,23 @@
-package io.github.anderscheow.library.recyclerView.adapters.paging
+package io.github.anderscheow.library.recyclerView.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import io.github.anderscheow.library.recyclerView.viewHolder.BaseViewHolder
 
-abstract class BasePagedListWithoutNetworkStateAdapter<T>(
-        diffCallback: DiffUtil.ItemCallback<T>)
-    : FoundationPagedListAdapter<T>(diffCallback, null) {
+abstract class BasePagingDataAdapter<Value : Any>(
+        diffCallback: DiffUtil.ItemCallback<Value>
+) : PagingDataAdapter<Value, RecyclerView.ViewHolder>(diffCallback) {
+
+    @LayoutRes
+    protected abstract fun getBodyLayout(position: Int): Int
+
+    protected abstract fun getBodyViewHolder(viewType: Int, binding: ViewDataBinding): RecyclerView.ViewHolder
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -29,7 +36,7 @@ abstract class BasePagedListWithoutNetworkStateAdapter<T>(
             if (holder !is BaseViewHolder<*>) {
                 throw IllegalStateException("Must inherit BaseViewHolder for body view holder")
             }
-            (holder as? BaseViewHolder<T>)?.bind(getItem(position))
+            (holder as? BaseViewHolder<Value>)?.bind(getItem(holder.bindingAdapterPosition))
         }
     }
 

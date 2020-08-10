@@ -20,7 +20,7 @@ abstract class BasePagingSource<Key : Any, Value : Any>
         }
     }
 
-    abstract fun getNextPageData(nextPageNumber: Int): LoadResult<Key, Value>
+    abstract suspend fun getNextPageData(nextPageNumber: Int): LoadResult<Key, Value>
 
     private fun incrementPageNumber() {
         currentPage += 1

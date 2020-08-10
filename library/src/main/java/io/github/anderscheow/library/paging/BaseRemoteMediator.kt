@@ -47,7 +47,7 @@ abstract class BaseRemoteMediator<Key : Any, Value : Any>
 
     abstract fun getLastItem(state: PagingState<Key, Value>): Value?
 
-    abstract fun getNextPageDataAndInsertToDb(loadType: LoadType, nextPageNumber: Int): MediatorResult
+    abstract suspend fun getNextPageDataAndInsertToDb(loadType: LoadType, nextPageNumber: Int): MediatorResult
 
     private fun incrementPageNumber() {
         currentPage += 1

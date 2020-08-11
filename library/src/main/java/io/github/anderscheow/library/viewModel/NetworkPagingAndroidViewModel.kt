@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import androidx.paging.PagingSource
 import androidx.paging.cachedIn
-import io.github.anderscheow.library.paging.BasePagingSource
 
 abstract class NetworkPagingAndroidViewModel<in Args, Key : Any, Value : Any>(
         context: Application
@@ -13,7 +13,7 @@ abstract class NetworkPagingAndroidViewModel<in Args, Key : Any, Value : Any>(
 
     protected abstract val loadPageSize: Int
 
-    protected abstract val pagingSource: BasePagingSource<Key, Value>
+    protected abstract val pagingSource: PagingSource<Key, Value>
 
     protected val pager by lazy {
         Pager(

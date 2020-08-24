@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import androidx.annotation.ColorRes
+import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import org.jetbrains.anko.browse
@@ -32,6 +33,12 @@ fun Context.findColor(@ColorRes resId: Int) = ContextCompat.getColor(this, resId
  * Extension method to find drawable based on drawable resource.
  */
 fun Context.findDrawable(@DrawableRes resId: Int): Drawable? = ContextCompat.getDrawable(this, resId)
+
+fun Context.findDimen(@DimenRes dimenId: Int): Float = this.resources.getDimension(dimenId)
+
+fun Context.findDimenPixelSize(@DimenRes dimenId: Int): Int = this.resources.getDimensionPixelSize(dimenId)
+
+fun Context.findDimenPixelOffset(@DimenRes dimenId: Int): Int = this.resources.getDimensionPixelOffset(dimenId)
 
 /**
  * Extension method to calculate number of columns

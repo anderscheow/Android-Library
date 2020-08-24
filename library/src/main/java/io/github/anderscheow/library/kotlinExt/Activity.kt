@@ -1,8 +1,11 @@
 package io.github.anderscheow.library.kotlinExt
 
 import android.app.Activity
+import android.content.Context
 import android.os.Build
 import android.util.DisplayMetrics
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 
 /**
  * Extension method to retrieve current activity's display metrics
@@ -29,4 +32,38 @@ fun Activity.getStatusBarHeight(): Int {
         }
     }
     return result
+}
+
+/**
+ * Extension method to show keyboard
+ */
+fun Activity.showKeyboard(view: View?) {
+    view?.let {
+        it.requestFocus()
+
+        (this.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)?.showSoftInput(it, InputMethodManager.SHOW_IMPLICIT)
+    }
+}
+
+/**
+ * Extension method to show keyboard
+ */
+fun Activity.showKeyboard() {
+    showKeyboard(currentFocus)
+}
+
+/**
+ * Extension method to hide keyboard
+ */
+fun Activity.hideKeyboard(view: View?) {
+    view?.let {
+        (this.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)?.hideSoftInputFromWindow(it.windowToken, 0)
+    }
+}
+
+/**
+ * Extension method to hide keyboard
+ */
+fun Activity.hideKeyboard() {
+    hideKeyboard(currentFocus)
 }

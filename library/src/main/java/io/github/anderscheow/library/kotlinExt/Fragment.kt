@@ -2,6 +2,7 @@ package io.github.anderscheow.library.kotlinExt
 
 import android.app.Activity
 import android.content.Context
+import android.view.View
 import androidx.fragment.app.Fragment
 import org.jetbrains.anko.longToast
 import org.jetbrains.anko.toast
@@ -52,3 +53,31 @@ fun Fragment.toast(text: CharSequence) = activity?.toast(text)
 fun Fragment.longToast(textResource: Int) = activity?.longToast(textResource)
 
 fun Fragment.longToast(text: CharSequence) = activity?.longToast(text)
+
+/**
+ * Extension method to show keyboard
+ */
+fun Fragment.showKeyboard(view: View?) {
+    activity?.showKeyboard(view)
+}
+
+/**
+ * Extension method to show keyboard
+ */
+fun Fragment.showKeyboard() {
+    activity?.showKeyboard()
+}
+
+/**
+ * Extension method to hide keyboard
+ */
+fun Fragment.hideKeyboard(view: View?) {
+    activity?.hideKeyboard(view)
+}
+
+/**
+ * Extension method to hide keyboard
+ */
+fun Fragment.hideKeyboard() {
+    activity?.hideKeyboard()
+}

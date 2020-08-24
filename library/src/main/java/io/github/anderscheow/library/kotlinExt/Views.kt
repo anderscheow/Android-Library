@@ -142,6 +142,10 @@ inline fun View.removeIf(block: () -> Boolean) : View {
     return this
 }
 
+fun View.dip(value: Int) = context.dip(value)
+
+fun View.dp(value: Int) = context.dp(value)
+
 /** Extension for TextView */
 fun TextView.setTextToSpanned(value: String) {
     this.text = toSpanned(value)

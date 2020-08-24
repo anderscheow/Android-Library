@@ -3,9 +3,8 @@ package io.github.anderscheow.library.kotlinExt
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.annotation.ColorRes
+import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import org.jetbrains.anko.browse
@@ -35,6 +34,12 @@ fun Context.findColor(@ColorRes resId: Int) = ContextCompat.getColor(this, resId
  */
 fun Context.findDrawable(@DrawableRes resId: Int): Drawable? = ContextCompat.getDrawable(this, resId)
 
+fun Context.findDimen(@DimenRes dimenId: Int): Float = this.resources.getDimension(dimenId)
+
+fun Context.findDimenPixelSize(@DimenRes dimenId: Int): Int = this.resources.getDimensionPixelSize(dimenId)
+
+fun Context.findDimenPixelOffset(@DimenRes dimenId: Int): Int = this.resources.getDimensionPixelOffset(dimenId)
+
 /**
  * Extension method to calculate number of columns
  */
@@ -45,22 +50,6 @@ fun Context.calculateNoOfColumns(): Int {
     return (dpWidth / 180).toInt()
 }
 
-/**
- * Extension method to show keyboard
- */
-fun Context.showKeyboard(view: View?) {
-    view?.let {
-        it.requestFocus()
+fun Context.dip(value: Int): Int = (value * resources.displayMetrics.density).toInt()
 
-        (this.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)?.showSoftInput(it, InputMethodManager.SHOW_IMPLICIT)
-    }
-}
-
-/**
- * Extension method to hide keyboard
- */
-fun Context.hideKeyboard(view: View?) {
-    view?.let {
-        (this.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)?.hideSoftInputFromWindow(it.windowToken, 0)
-    }
-}
+fun Context.dp(value: Int): Float = (value * resources.displayMetrics.density)

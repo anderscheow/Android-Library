@@ -2,6 +2,12 @@ package io.github.anderscheow.library.kotlinExt
 
 import java.util.*
 
+infix fun <T> Boolean.then(value: T?) = if (this) value else null
+
+inline fun <T> Boolean.then(function: () -> T, default: () -> T) = if (this) function() else default()
+
+inline infix fun <reified T> Boolean.then(function: () -> T) = if (this) function() else null
+
 fun compareTwoDates(startDate: Date, endDate: Date): Int {
     val sDate: Date = getZeroTimeDate(startDate)
     val eDate: Date = getZeroTimeDate(endDate)

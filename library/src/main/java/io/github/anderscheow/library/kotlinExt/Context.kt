@@ -3,8 +3,6 @@ package io.github.anderscheow.library.kotlinExt
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
@@ -43,26 +41,6 @@ fun Context.calculateNoOfColumns(): Int {
     val dpWidth = displayMetrics.widthPixels / displayMetrics.density
 
     return (dpWidth / 180).toInt()
-}
-
-/**
- * Extension method to show keyboard
- */
-fun Context.showKeyboard(view: View?) {
-    view?.let {
-        it.requestFocus()
-
-        (this.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)?.showSoftInput(it, InputMethodManager.SHOW_IMPLICIT)
-    }
-}
-
-/**
- * Extension method to hide keyboard
- */
-fun Context.hideKeyboard(view: View?) {
-    view?.let {
-        (this.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)?.hideSoftInputFromWindow(it.windowToken, 0)
-    }
 }
 
 fun Context.dip(value: Int): Int = (value * resources.displayMetrics.density).toInt()

@@ -10,9 +10,12 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.orhanobut.logger.Logger
-import io.github.anderscheow.library.R
+import io.github.anderscheow.library.appCompat.activity.FoundationAppCompatActivity
 import io.github.anderscheow.library.constant.EventBusType
-import io.github.anderscheow.library.kotlinExt.*
+import io.github.anderscheow.library.kotlinExt.isNotThere
+import io.github.anderscheow.library.kotlinExt.withActivity
+import io.github.anderscheow.library.kotlinExt.withActivityAs
+import io.github.anderscheow.library.kotlinExt.withContext
 import org.greenrobot.eventbus.EventBus
 
 abstract class FoundationFragment : Fragment() {
@@ -136,7 +139,8 @@ abstract class FoundationFragment : Fragment() {
         super.onDetach()
     }
 
-    fun showProgressDialog(message: Int = 0, isFullScreen: Boolean = false) {
+    fun showProgressDialog(message: Int = 0,
+                           isFullScreen: Boolean = withActivityAs<FoundationAppCompatActivity>()?.requiredFullscreen() ?: false) {
         if (isNotThere()) return
 
         if (progressDialog == null) {
@@ -164,21 +168,8 @@ abstract class FoundationFragment : Fragment() {
         progressDialog?.dismiss()
     }
 
-    open fun toastInternetRequired() {
-        toast(R.string.prompt_internet_required)
-    }
-
-    fun isConnectedToInternet(action: () -> Unit) {
-        context?.let {
-            if (it.isConnectedToInternet()) {
-                action.invoke()
-            } else {
-                toastInternetRequired()
-            }
-        }
-    }
-
-    fun checkLoadingIndicator(active: Boolean, message: Int, isFullScreen: Boolean = false) {
+    fun checkLoadingIndicator(active: Boolean, message: Int,
+                              isFullScreen: Boolean = withActivityAs<FoundationAppCompatActivity>()?.requiredFullscreen() ?: false) {
         if (active) {
             showProgressDialog(message, isFullScreen)
         } else {

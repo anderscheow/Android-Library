@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -12,11 +13,9 @@ import androidx.fragment.app.DialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.orhanobut.logger.Logger
-import io.github.anderscheow.library.R
 import io.github.anderscheow.library.constant.EventBusType
-import io.github.anderscheow.library.kotlinExt.isConnectedToInternet
+import io.github.anderscheow.library.kotlinExt.hideSystemUI
 import org.greenrobot.eventbus.EventBus
-import org.jetbrains.anko.toast
 
 abstract class FoundationAppCompatActivity : AppCompatActivity() {
 
@@ -29,10 +28,13 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
 
     open fun requiredDisplayHomeAsUp(): Boolean = false
 
+    open fun requiredFullscreen(): Boolean = false
+
     open fun initBeforeSuperOnCreate() {
     }
 
     open fun init(savedInstanceState: Bundle?) {
+        checkRequiredFullscreen()
     }
 
     var progressDialog: KProgressHUD? = null
@@ -58,6 +60,7 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
                 EventBus.getDefault().register(this)
             }
         }
+        if (requiredFullscreen()) hideSystemUI()
     }
 
     override fun onResume() {
@@ -100,6 +103,11 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (requiredFullscreen() && hasFocus) hideSystemUI()
+    }
+
     protected fun canAccessCamera(): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             PackageManager.PERMISSION_GRANTED == checkSelfPermission(Manifest.permission.CAMERA)
@@ -135,7 +143,8 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
     }
 
     //region Progress Dialog
-    fun showProgressDialog(message: Int = 0, isFullScreen: Boolean = false) {
+    fun showProgressDialog(message: Int = 0,
+                           isFullScreen: Boolean = requiredDisplayHomeAsUp()) {
         if (isFinishing) return
 
         if (progressDialog == null) {
@@ -161,19 +170,8 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
         progressDialog?.dismiss()
     }
 
-    open fun toastInternetRequired() {
-        toast(R.string.prompt_internet_required)
-    }
-
-    fun isConnectedToInternet(action: () -> Unit) {
-        if (isConnectedToInternet()) {
-            action.invoke()
-        } else {
-            toastInternetRequired()
-        }
-    }
-
-    fun checkLoadingIndicator(active: Boolean, message: Int, isFullScreen: Boolean = false) {
+    fun checkLoadingIndicator(active: Boolean, message: Int,
+                              isFullScreen: Boolean = requiredDisplayHomeAsUp()) {
         if (active) {
             showProgressDialog(message, isFullScreen)
         } else {
@@ -262,4 +260,27 @@ abstract class FoundationAppCompatActivity : AppCompatActivity() {
         }
     }
     //endregion
+
+    private fun checkRequiredFullscreen() {
+        if (requiredFullscreen()) {
+            window.decorView.setOnSystemUiVisibilityChangeListener { visibility ->
+                if (visibility and View.SYSTEM_UI_FLAG_FULLSCREEN == 0) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                                or View.SYSTEM_UI_FLAG_FULLSCREEN
+                                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+                    } else {
+                        window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                                or View.SYSTEM_UI_FLAG_FULLSCREEN)
+                    }
+                }
+            }
+        }
+    }
 }

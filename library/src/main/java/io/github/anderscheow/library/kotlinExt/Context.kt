@@ -7,7 +7,9 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
+import io.github.anderscheow.library.R
 import org.jetbrains.anko.browse
+import org.jetbrains.anko.toast
 
 /**
  * Extension method to rate app on PlayStore for Context.
@@ -53,3 +55,15 @@ fun Context.calculateNoOfColumns(): Int {
 fun Context.dip(value: Int): Int = (value * resources.displayMetrics.density).toInt()
 
 fun Context.dp(value: Int): Float = (value * resources.displayMetrics.density)
+
+fun Context.toastInternetRequired() {
+    toast(R.string.prompt_internet_required)
+}
+
+fun Context.isConnectedToInternet(action: () -> Unit) {
+    if (isConnectedToInternet()) {
+        action.invoke()
+    } else {
+        toastInternetRequired()
+    }
+}

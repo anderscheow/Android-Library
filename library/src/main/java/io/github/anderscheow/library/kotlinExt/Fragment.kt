@@ -81,3 +81,18 @@ fun Fragment.hideKeyboard(view: View?) {
 fun Fragment.hideKeyboard() {
     activity?.hideKeyboard()
 }
+
+
+/**
+ * Extension method to hide system UI
+ */
+fun Fragment.hideSystemUI() {
+    activity?.hideSystemUI()
+}
+
+/**
+ * Extension method to show system UI
+ */
+fun Fragment.showSystemUI() {
+    activity?.showSystemUI()
+}

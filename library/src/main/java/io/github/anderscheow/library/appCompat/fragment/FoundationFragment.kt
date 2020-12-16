@@ -10,15 +10,24 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.orhanobut.logger.Logger
-import io.github.anderscheow.library.appCompat.activity.FoundationAppCompatActivity
+import io.github.anderscheow.library.appCompat.activity.FoundationActivity
 import io.github.anderscheow.library.constant.EventBusType
 import io.github.anderscheow.library.kotlinExt.isNotThere
 import io.github.anderscheow.library.kotlinExt.withActivity
 import io.github.anderscheow.library.kotlinExt.withActivityAs
 import io.github.anderscheow.library.kotlinExt.withContext
 import org.greenrobot.eventbus.EventBus
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.android.x.closestDI
 
-abstract class FoundationFragment : Fragment() {
+abstract class FoundationFragment : Fragment(), DIAware {
+
+    private val _di: DI by closestDI()
+
+    override val di = DI.lazy {
+        extend(_di)
+    }
 
     @LayoutRes
     abstract fun getResLayout(): Int
@@ -140,7 +149,7 @@ abstract class FoundationFragment : Fragment() {
     }
 
     fun showProgressDialog(message: Int = 0,
-                           isFullScreen: Boolean = withActivityAs<FoundationAppCompatActivity>()?.requiredFullscreen() ?: false) {
+                           isFullScreen: Boolean = withActivityAs<FoundationActivity>()?.requiredFullscreen() ?: false) {
         if (isNotThere()) return
 
         if (progressDialog == null) {
@@ -169,7 +178,7 @@ abstract class FoundationFragment : Fragment() {
     }
 
     fun checkLoadingIndicator(active: Boolean, message: Int,
-                              isFullScreen: Boolean = withActivityAs<FoundationAppCompatActivity>()?.requiredFullscreen() ?: false) {
+                              isFullScreen: Boolean = withActivityAs<FoundationActivity>()?.requiredFullscreen() ?: false) {
         if (active) {
             showProgressDialog(message, isFullScreen)
         } else {

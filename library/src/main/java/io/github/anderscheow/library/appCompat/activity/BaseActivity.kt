@@ -2,7 +2,7 @@ package io.github.anderscheow.library.appCompat.activity
 
 import android.os.Bundle
 
-abstract class BaseAppCompatActivity : FoundationAppCompatActivity() {
+abstract class BaseActivity : FoundationActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         initBeforeSuperOnCreate()

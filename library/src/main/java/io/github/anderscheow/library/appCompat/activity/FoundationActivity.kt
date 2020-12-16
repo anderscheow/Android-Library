@@ -16,8 +16,17 @@ import com.orhanobut.logger.Logger
 import io.github.anderscheow.library.constant.EventBusType
 import io.github.anderscheow.library.kotlinExt.hideSystemUI
 import org.greenrobot.eventbus.EventBus
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.android.closestDI
 
-abstract class FoundationAppCompatActivity : AppCompatActivity() {
+abstract class FoundationActivity : AppCompatActivity(), DIAware {
+
+    private val _di: DI by closestDI()
+
+    override val di = DI.lazy {
+        extend(_di)
+    }
 
     @LayoutRes
     abstract fun getResLayout(): Int

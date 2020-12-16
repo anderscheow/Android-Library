@@ -1,21 +1,21 @@
 package io.github.anderscheow.library
 
 import androidx.multidex.MultiDexApplication
-import org.kodein.di.Kodein
-import org.kodein.di.KodeinAware
+import org.kodein.di.DI
+import org.kodein.di.DIAware
 import org.kodein.di.android.x.androidXModule
 
-abstract class CustomApplication : MultiDexApplication(), KodeinAware {
+abstract class CustomApplication : MultiDexApplication(), DIAware {
 
-    abstract fun getCommonModule(): Kodein.Module
+    abstract fun getCommonModule(): DI.Module
 
-    abstract fun getActivityModule(): Kodein.Module
+    abstract fun getActivityModule(): DI.Module
 
-    abstract fun getFragmentModule(): Kodein.Module
+    abstract fun getFragmentModule(): DI.Module
 
-    abstract fun importAdditionalModule(builder: Kodein.MainBuilder)
+    abstract fun importAdditionalModule(builder: DI.MainBuilder)
 
-    override val kodein = Kodein.lazy {
+    override val di = DI.lazy {
         import(androidXModule(this@CustomApplication))
         import(getCommonModule())
         import(getActivityModule())

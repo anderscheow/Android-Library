@@ -11,7 +11,7 @@ import io.github.anderscheow.library.viewModel.util.ProgressDialogMessage
 import io.github.anderscheow.library.viewModel.util.ToastMessage
 import org.jetbrains.anko.toast
 
-abstract class LifecycleAppCompatActivity<VM : BaseAndroidViewModel<*>> : FoundationAppCompatActivity() {
+abstract class LifecycleActivity<VM : BaseAndroidViewModel<*>> : FoundationActivity() {
 
     protected val viewModel by lazy {
         setupViewModel()

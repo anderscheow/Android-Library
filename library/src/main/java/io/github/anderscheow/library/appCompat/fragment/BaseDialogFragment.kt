@@ -11,8 +11,17 @@ import androidx.fragment.app.DialogFragment
 import com.orhanobut.logger.Logger
 import io.github.anderscheow.library.constant.EventBusType
 import org.greenrobot.eventbus.EventBus
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.android.x.closestDI
 
-abstract class BaseDialogFragment : DialogFragment() {
+abstract class BaseDialogFragment : DialogFragment(), DIAware {
+
+    private val _di: DI by closestDI()
+
+    override val di = DI.lazy {
+        extend(_di)
+    }
 
     @LayoutRes
     abstract fun getResLayout(): Int

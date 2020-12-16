@@ -16,22 +16,18 @@ import io.github.anderscheow.library.kotlinExt.isNotThere
 import io.github.anderscheow.library.kotlinExt.withActivity
 import io.github.anderscheow.library.kotlinExt.withActivityAs
 import io.github.anderscheow.library.kotlinExt.withContext
-import io.github.anderscheow.library.mvp.MvpPresenter
-import io.github.anderscheow.library.mvp.MvpView
 import org.greenrobot.eventbus.EventBus
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.android.x.closestDI
 
-abstract class FoundationFragment<V : MvpView> : Fragment(), DIAware {
+abstract class FoundationFragment : Fragment(), DIAware {
 
     private val _di: DI by closestDI()
 
     override val di = DI.lazy {
         extend(_di)
     }
-
-    abstract fun getPresenter(): MvpPresenter<V>
 
     @LayoutRes
     abstract fun getResLayout(): Int
@@ -41,11 +37,7 @@ abstract class FoundationFragment<V : MvpView> : Fragment(), DIAware {
     open fun initAfterOnAttach() {
     }
 
-    @Suppress("UNCHECKED_CAST")
     open fun init() {
-        (this as? V)?.let {
-            getPresenter().onAttachView(it)
-        }
     }
 
     var isDestroy = false
@@ -138,7 +130,6 @@ abstract class FoundationFragment<V : MvpView> : Fragment(), DIAware {
                 EventBus.getDefault().unregister(this)
             }
         }
-        getPresenter().onDetachView()
         super.onDestroy()
     }
 
@@ -158,7 +149,7 @@ abstract class FoundationFragment<V : MvpView> : Fragment(), DIAware {
     }
 
     fun showProgressDialog(message: Int = 0,
-                           isFullScreen: Boolean = withActivityAs<FoundationActivity<*>>()?.requiredFullscreen() ?: false) {
+                           isFullScreen: Boolean = withActivityAs<FoundationActivity>()?.requiredFullscreen() ?: false) {
         if (isNotThere()) return
 
         if (progressDialog == null) {
@@ -187,7 +178,7 @@ abstract class FoundationFragment<V : MvpView> : Fragment(), DIAware {
     }
 
     fun checkLoadingIndicator(active: Boolean, message: Int,
-                              isFullScreen: Boolean = withActivityAs<FoundationActivity<*>>()?.requiredFullscreen() ?: false) {
+                              isFullScreen: Boolean = withActivityAs<FoundationActivity>()?.requiredFullscreen() ?: false) {
         if (active) {
             showProgressDialog(message, isFullScreen)
         } else {

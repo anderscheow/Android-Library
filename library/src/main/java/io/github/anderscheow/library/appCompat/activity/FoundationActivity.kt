@@ -15,22 +15,18 @@ import com.kaopiz.kprogresshud.KProgressHUD
 import com.orhanobut.logger.Logger
 import io.github.anderscheow.library.constant.EventBusType
 import io.github.anderscheow.library.kotlinExt.hideSystemUI
-import io.github.anderscheow.library.mvp.MvpPresenter
-import io.github.anderscheow.library.mvp.MvpView
 import org.greenrobot.eventbus.EventBus
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.android.closestDI
 
-abstract class FoundationActivity<V : MvpView> : AppCompatActivity(), DIAware {
+abstract class FoundationActivity : AppCompatActivity(), DIAware {
 
     private val _di: DI by closestDI()
 
     override val di = DI.lazy {
         extend(_di)
     }
-
-    abstract fun getPresenter(): MvpPresenter<V>
 
     @LayoutRes
     abstract fun getResLayout(): Int
@@ -46,12 +42,7 @@ abstract class FoundationActivity<V : MvpView> : AppCompatActivity(), DIAware {
     open fun initBeforeSuperOnCreate() {
     }
 
-    @Suppress("UNCHECKED_CAST")
     open fun init(savedInstanceState: Bundle?) {
-        (this as? V)?.let {
-            getPresenter().onAttachView(it)
-        }
-
         checkRequiredFullscreen()
     }
 
@@ -118,7 +109,6 @@ abstract class FoundationActivity<V : MvpView> : AppCompatActivity(), DIAware {
                 EventBus.getDefault().unregister(this)
             }
         }
-        getPresenter().onDetachView()
         super.onDestroy()
     }
 

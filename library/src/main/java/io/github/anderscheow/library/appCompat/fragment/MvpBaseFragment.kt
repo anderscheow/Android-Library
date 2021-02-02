@@ -1,9 +1,9 @@
 package io.github.anderscheow.library.appCompat.fragment
 
-import io.github.anderscheow.library.mvp.AbstractBasePresenter
+import io.github.anderscheow.library.mvp.AbstractPresenter
 import io.github.anderscheow.library.mvp.BaseView
 
-abstract class MvpBaseFragment<V : BaseView, P : AbstractBasePresenter<V>> : BaseFragment() {
+abstract class MvpBaseFragment<V : BaseView, P : AbstractPresenter<V>> : BaseFragment() {
 
     abstract fun getMvpView(): V
 

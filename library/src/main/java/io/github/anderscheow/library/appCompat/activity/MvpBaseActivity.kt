@@ -1,10 +1,10 @@
 package io.github.anderscheow.library.appCompat.activity
 
 import android.os.Bundle
-import io.github.anderscheow.library.mvp.AbstractBasePresenter
+import io.github.anderscheow.library.mvp.AbstractPresenter
 import io.github.anderscheow.library.mvp.BaseView
 
-abstract class MvpBaseActivity<V : BaseView, P : AbstractBasePresenter<V>> : BaseActivity() {
+abstract class MvpBaseActivity<V : BaseView, P : AbstractPresenter<V>> : BaseActivity() {
 
     abstract fun getMvpView(): V
 

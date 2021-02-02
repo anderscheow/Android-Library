@@ -1,10 +1,10 @@
 package io.github.anderscheow.library.appCompat.fragment
 
-import io.github.anderscheow.library.mvp.AbstractBasePresenter
+import io.github.anderscheow.library.mvp.AbstractPresenter
 import io.github.anderscheow.library.mvp.BaseView
 import io.github.anderscheow.library.viewModel.BaseAndroidViewModel
 
-abstract class MvpLifecycleFragment<VM : BaseAndroidViewModel<*>, V : BaseView, P : AbstractBasePresenter<V>> :
+abstract class MvpLifecycleFragment<VM : BaseAndroidViewModel<*>, V : BaseView, P : AbstractPresenter<V>> :
     LifecycleFragment<VM>() {
 
     abstract fun getMvpView(): V

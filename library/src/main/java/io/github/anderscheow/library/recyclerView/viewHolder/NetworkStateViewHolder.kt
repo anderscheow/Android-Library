@@ -5,23 +5,22 @@ import androidx.annotation.StringRes
 import io.github.anderscheow.library.constant.NetworkState
 import io.github.anderscheow.library.databinding.ViewNetworkStateBinding
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.view_network_state.*
 
 class NetworkStateViewHolder(private val binding: ViewNetworkStateBinding,
                              private val callback: () -> Unit,
                              @StringRes
                              private val errorMessage: Int? = null) : BaseViewHolder<NetworkState>(binding), LayoutContainer {
 
-    override val containerView: View?
+    override val containerView: View
         get() = binding.root
 
     override fun extraBinding(item: NetworkState) {
-        button_retry.setOnClickListener {
+        binding.buttonRetry.setOnClickListener {
             callback.invoke()
         }
 
         errorMessage?.let {
-            text_view_error_msg.setText(errorMessage)
+            binding.textViewErrorMsg.setText(errorMessage)
         }
     }
 

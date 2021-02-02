@@ -10,15 +10,7 @@ import org.kodein.di.DIAware
 import java.lang.ref.WeakReference
 import kotlin.coroutines.CoroutineContext
 
-interface MvpPresenter<V : MvpView> {
-    @UiThread
-    fun onAttachView(view: V)
-
-    @UiThread
-    fun onDetachView()
-}
-
-open class AbstractPresenter<V : MvpView>(application: Application) : MvpPresenter<V>,
+abstract class AbstractPresenter<V : BaseView>(application: Application) : BasePresenter<V>,
     DIAware, CoroutineScope {
 
     private val job = Job()

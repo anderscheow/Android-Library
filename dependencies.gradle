@@ -7,10 +7,10 @@ ext {
 
     /* build plugins versions */
     build = [
-            gradle   : '4.1.1',
-            kotlin   : "1.4.21",
-            dcendents: "2.1",
-            dokka    : "0.9.17",
+            gradle      : '4.1.2',
+            kotlin      : '1.4.21',
+            dcendents   : '2.1',
+            dokka       : '0.9.17',
     ]
 
     buildPlugins = [
@@ -143,21 +143,21 @@ ext {
             android_application         : 'com.android.application',
             dokka                       : 'org.jetbrains.dokka-android',
             kotlin_android              : 'kotlin-android',
-            kotlin_android_extensions   : 'kotlin-android-extensions',
             kotlin_kapt                 : 'kotlin-kapt',
+            kotlin_parcelize            : 'kotlin-parcelize',
     ]
 
     libraryModulePlugins = [
             plugins.android_library,
             plugins.dokka,
             plugins.kotlin_android,
-            plugins.kotlin_android_extensions,
             plugins.kotlin_kapt,
+            plugins.kotlin_parcelize,
     ]
 
     sampleModulePlugins = [
             plugins.android_application,
             plugins.kotlin_android,
-            plugins.kotlin_android_extensions,
+            plugins.kotlin_parcelize,
     ]
 }

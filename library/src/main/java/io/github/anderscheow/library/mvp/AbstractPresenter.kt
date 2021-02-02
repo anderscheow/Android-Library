@@ -10,7 +10,7 @@ import org.kodein.di.DIAware
 import java.lang.ref.WeakReference
 import kotlin.coroutines.CoroutineContext
 
-abstract class AbstractPresenter<V : BaseView>(application: Application) : BasePresenter<V>,
+open class AbstractPresenter<V : BaseView>(application: Application) : BasePresenter<V>,
     DIAware, CoroutineScope {
 
     private val job = Job()
@@ -38,6 +38,22 @@ abstract class AbstractPresenter<V : BaseView>(application: Application) : BaseP
             viewRef = null
         }
         job.cancel()
+    }
+
+    @UiThread
+    override fun onStart() {
+    }
+
+    @UiThread
+    override fun onResume() {
+    }
+
+    @UiThread
+    override fun onPause() {
+    }
+
+    @UiThread
+    override fun onDestroy() {
     }
 
     @UiThread
